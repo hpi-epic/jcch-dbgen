@@ -80,6 +80,7 @@
 
 #include "config.h"
 #include "shared.h"
+#include "jcch_dbgen.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -152,19 +153,19 @@ static char lnoise[4] = {'|', '/', '-', '\\' };
 	
      
 
-typedef struct
-{
-   long      weight;
-   char     *text;
-}         set_member;
+// typedef struct
+// {
+//    long      weight;
+//    char     *text;
+// }         set_member;
 
-typedef struct
-{
-   int      count;
-   int      max;
-   set_member *list;
-   long *permute;
-}         distribution;
+// typedef struct
+// {
+//    int      count;
+//    int      max;
+//    set_member *list;
+//    long *permute;
+// }         distribution;
 /*
  * some handy access functions 
  */
@@ -241,31 +242,31 @@ void		dbg_text PROTO((char * t, int min, int max, int s));
 #endif            /* DECLARER */
 
 
-EXTERN distribution nations;
-EXTERN distribution nations2;
-EXTERN distribution regions;
-EXTERN distribution o_priority_set;
-EXTERN distribution l_instruct_set;
-EXTERN distribution l_smode_set;
-EXTERN distribution l_category_set;
-EXTERN distribution l_rflag_set;
-EXTERN distribution c_mseg_set;
-EXTERN distribution colors;
-EXTERN distribution p_types_set;
-EXTERN distribution p_cntr_set;
+// EXTERN distribution nations;
+// EXTERN distribution nations2;
+// EXTERN distribution regions;
+// EXTERN distribution o_priority_set;
+// EXTERN distribution l_instruct_set;
+// EXTERN distribution l_smode_set;
+// EXTERN distribution l_category_set;
+// EXTERN distribution l_rflag_set;
+// EXTERN distribution c_mseg_set;
+// EXTERN distribution colors;
+// EXTERN distribution p_types_set;
+// EXTERN distribution p_cntr_set;
 
 /* distributions that control text generation */
-EXTERN distribution articles;
-EXTERN distribution nouns;
-EXTERN distribution adjectives;
-EXTERN distribution adverbs;
-EXTERN distribution prepositions;
-EXTERN distribution verbs;
-EXTERN distribution terminators;
-EXTERN distribution auxillaries;
-EXTERN distribution np;
-EXTERN distribution vp;
-EXTERN distribution grammar;
+// EXTERN distribution articles;
+// EXTERN distribution nouns;
+// EXTERN distribution adjectives;
+// EXTERN distribution adverbs;
+// EXTERN distribution prepositions;
+// EXTERN distribution verbs;
+// EXTERN distribution terminators;
+// EXTERN distribution auxillaries;
+// EXTERN distribution np;
+// EXTERN distribution vp;
+// EXTERN distribution grammar;
 
 
 EXTERN long scale;

@@ -88,7 +88,8 @@
 #define int32_t	__int32
 #endif
 #include "dss.h"
-#include "rnd.h" 
+#include "rnd.h"
+#include "jcch_dbgen.h"
 
 char *env_config PROTO((char *tag, char *dflt));
 void NthElement(DSS_HUGE, DSS_HUGE *);

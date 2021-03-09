@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "phash.h"
+#include "jcch_dbgen.h"
 
 #define PRIME 1442968193
 

@@ -160,7 +160,7 @@ mk_sparse(DSS_HUGE i, DSS_HUGE * ok, long seq)
 }
 
 
-static char   **asc_date = NULL;
+char   **asc_date = NULL;
 
 #ifdef JCCH_SKEW
 DSS_HUGE blackfriday[10] = { 0 };
@@ -291,6 +291,7 @@ mk_order(DSS_HUGE index, order_t * o, long upd_num)
 	unsigned long orderkey_hash = phash(index, &phash_orders, 0);
 	int populous_order = orderkey_hash < 5, cust_region = orderkey_hash % 5;
 #endif
+  o->l = (line_t*) malloc(MAX_L_PER_O * sizeof(line_t));
 
 	if (!bInit)
 	{
@@ -468,6 +469,8 @@ mk_part(DSS_HUGE index, part_t * p)
 	p->suppcnt = suppcnt;
 	if (index <= (4*tdefs[PSUPP].base*scale - (20*tdefs[SUPP].base*scale + 3*(tdefs[PART].base*scale - 20)))) extra++;
 #endif
+
+ 	p->s = (partsupp_t*) malloc(SUPP_PER_PART * sizeof(partsupp_t));
 
 	if (!bInit)
 	{

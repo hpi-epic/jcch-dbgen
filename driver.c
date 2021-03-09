@@ -107,6 +107,7 @@ int JCCH_skew = 0;
 
 #include "dss.h"
 #include "dsstypes.h"
+#include "jcch_dbgen.h"
 
 /*
 * Function prototypes
@@ -693,7 +694,7 @@ void validate_options(void)
 * line handling
 */
 int
-main (int ac, char **av)
+jcch_dbgen_main (int ac, char **av)
 {
 	DSS_HUGE i;
 	
