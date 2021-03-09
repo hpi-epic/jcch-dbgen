@@ -130,7 +130,7 @@ Changes as of 12/31/97
    -- clarified comments in dists.dss
    -- corrected substitution problem in Q11
    -- standardized fopen() error messages with OPEN_CHECK()
-   -- introduced PATH_SEP in config.h to allow changes in path separators
+   -- introduced PATH_SEP in jcch_config.h to allow changes in path separators
 Changes as of 12/15/96
    -- version 1.2.0
    -- corrected typos in queries 8a, 8c, 8d, 11a, 12F and 14F, 17a
@@ -178,12 +178,12 @@ Changes as of 12/19/95
    -- forced delete files to truncate existing files
    -- removed fixed size tables from seed generation
    -- corrected overflow problem with large scale seed generation
-   -- allow date generation as MM-DD-YY based on config.h #define
+   -- allow date generation as MM-DD-YY based on jcch_config.h #define
    -- correct truncation problem with columnar output in PR_VSTR()
    -- added support for Windows NT
    -- added PLATFORM macro to makefile, removed platform defines from
-           config.h
-   -- removed MAX_CHILDREN define from config.h (set to 1000 in dss.h)
+           jcch_config.h
+   -- removed MAX_CHILDREN define from jcch_config.h (set to 1000 in jcch_dss.h)
    -- qgen version 1.1.0
    -- correct SET_OUTPUT macro to TDAT
    -- use %ld in output for q17; portability
@@ -240,12 +240,12 @@ Changes as of 05/08/95
    -- query template names only requre .sql suffix, rest is arbitrary
 Changes as of 03/13/95
    -- version 9.1
-   -- surround DBNAME with ifndef in config.h
+   -- surround DBNAME with ifndef in jcch_config.h
    -- remove -DDBNAME from makefile.suite
    -- sync varchar handling with 9.1 draft
 Changes as of 02/21/95
    -- version 9.0a
-   -- fixed bug in qgen that incorrectly included rnd.h
+   -- fixed bug in qgen that incorrectly included jcch_rnd.h
    -- included revised DDL with changes for char/varchar and l_quantity
    -- updated DBGEN help message to include new single table options for
            order/lineitem and part/partsupp
@@ -274,7 +274,7 @@ Changes as of 12/06/94
    -- fixed renaming of flat files for child tables
    -- various documentation fixes
    -- added naming convention section to Porting.Notes
-   -- added -DIBM flag to config.h
+   -- added -DIBM flag to jcch_config.h
    -- synced up QGEN with draft 8.1
 Changes as of 10/25/94
    -- version 8.5a
@@ -391,9 +391,9 @@ Changes as of 3/16/94
    -- prottyped julian day/month for query re-write work. Compile 
            with -DJULIAN_DAY to enable
    -- removed gen_times() from driver.c
-   -- added VMS ifdef to config.h to clean up fork/signal issues
-   -- added ICL ifdef to config.h to clean up getopt() issues
-   -- changed header file references to config.h from machine.h
+   -- added VMS ifdef to jcch_config.h to clean up fork/signal issues
+   -- added ICL ifdef to jcch_config.h to clean up getopt() issues
+   -- changed header file references to jcch_config.h from machine.h
 Changes as of 3/2/94
    -- version 1.31
    -- corrected format of C_NAME to match S_NAME and O_CLERK
@@ -410,12 +410,12 @@ Changes as of 2/16/94
    -- limited scale factors to integer values
    -- added command line option for seed file generation
    -- added all seed files to distribution for SFs 1 - 10
-   -- moved machine.h to config.h and added MAX_CHILDREN define
+   -- moved machine.h to jcch_config.h and added MAX_CHILDREN define
    -- added 'f' flag to options to allow renaming of output files
    -- added generation of SQL delete statements to match updates
            (Note: updates are still single-threaded; -C is cleared 
            by -U)
-   -- corrected field sizing in dsstypes.h typedefs to match v 6.4
+   -- corrected field sizing in jcch_dsstypes.h typedefs to match v 6.4
    -- update percentage default set to 1%
 Changes as of 12/3/93
    -- version 1.2
@@ -443,7 +443,7 @@ Changes as of 7/26/93
    -- adjusted scaling rules
    -- added help option to the command line
 Changes as of 2/26/93
-   -- combined all typedefs in one header: dsstypes.h
+   -- combined all typedefs in one header: jcch_dsstypes.h
    -- combined flat file generation in print.ec
    -- combined typedef population in build.ec
    -- added -P to control rowcnt scaling (P for percentage)
@@ -471,7 +471,7 @@ Changes as of 1/12/92
 Changes as of 11/18/92
    -- checked line length and tab for transmission
    -- another chapter in the portability wars. added #include 
-      "machine.h" to dss.h (which is included by everyone else). Any 
+      "machine.h" to jcch_dss.h (which is included by everyone else). Any 
       machine particular porting changes should go here.
    -- fixed fixed-field formats to prevent double printing
    -- expanded PR_FLT formats to %010.2
@@ -520,7 +520,7 @@ suppliers.c    -------            ""             ""      suppliers table
 time.c         -------            ""             ""      time table
 customer.h     ------- associate header files; contain structure 
                        definitions
-dss.h                  dss.h holds the large number of assumptions and
+jcch_dss.h                  jcch_dss.h holds the large number of assumptions and
 orders.h               values that have been used as IFDEFs.
 parts.h  
 suppliers.h

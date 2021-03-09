@@ -213,15 +213,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\config.h"
+				RelativePath=".\jcch_config.h"
 				>
 			</File>
 			<File
-				RelativePath=".\dss.h"
+				RelativePath=".\jcch_dss.h"
 				>
 			</File>
 			<File
-				RelativePath=".\dsstypes.h"
+				RelativePath=".\jcch_dsstypes.h"
 				>
 			</File>
 			<File
@@ -233,7 +233,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\rnd.h"
+				RelativePath=".\jcch_rnd.h"
 				>
 			</File>
 			<File
@@ -245,7 +245,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\shared.h"
+				RelativePath=".\jcch_shared.h"
 				>
 			</File>
 			<File

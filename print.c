@@ -43,8 +43,8 @@
 #endif
 #include <math.h>
 
-#include "dss.h"
-#include "dsstypes.h"
+#include "jcch_dss.h"
+#include "jcch_dsstypes.h"
 #include <string.h>
 
 /*

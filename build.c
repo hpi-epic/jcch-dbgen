@@ -43,8 +43,8 @@
 #include <math.h>
 #include <inttypes.h>
 
-#include "dss.h"
-#include "dsstypes.h"
+#include "jcch_dss.h"
+#include "jcch_dsstypes.h"
 #ifdef ADHOC
 #include "adhoc.h"
 extern adhoc_t  adhocs[];

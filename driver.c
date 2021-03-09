@@ -57,7 +57,7 @@
 #define NO_FUNC (int (*) ()) NULL	/* to clean up tdefs */
 #define NO_LFUNC (long (*) ()) NULL		/* to clean up tdefs */
 
-#include "config.h"
+#include "jcch_config.h"
 #include "release.h"
 #include <stdlib.h>
 #if (defined(_POSIX_)||!defined(WIN32))		/* Change for Windows NT */
@@ -105,8 +105,8 @@
 int JCCH_skew = 0;
 #endif
 
-#include "dss.h"
-#include "dsstypes.h"
+#include "jcch_dss.h"
+#include "jcch_dsstypes.h"
 #include "jcch_dbgen.h"
 
 /*
@@ -136,12 +136,12 @@ static int bTableSet = 0;
 
 
 /*
-* general table descriptions. See dss.h for details on structure
+* general table descriptions. See jcch_dss.h for details on structure
 * NOTE: tables with no scaling info are scaled according to
 * another table
 *
 *
-* the following is based on the tdef structure defined in dss.h as:
+* the following is based on the tdef structure defined in jcch_dss.h as:
 * typedef struct
 * {
 * char     *name;            -- name of the table; 

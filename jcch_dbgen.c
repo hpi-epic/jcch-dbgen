@@ -4,9 +4,9 @@
  */
 
 #include "jcch_dbgen.h"
-#include "dss.h"
-#include "rnd.h"
-#include "dsstypes.h"
+#include "jcch_dss.h"
+#include "jcch_rnd.h"
+#include "jcch_dsstypes.h"
 
 #include <math.h>
 #include <stdlib.h>

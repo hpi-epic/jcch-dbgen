@@ -1,9 +1,9 @@
 /*
-* $Id: dss.h,v 1.10 2008/03/21 18:07:13 jms Exp $
+* $Id: jcch_dss.h,v 1.10 2008/03/21 18:07:13 jms Exp $
 *
 * Revision History
 * ===================
-* $Log: dss.h,v $
+* $Log: jcch_dss.h,v $
 * Revision 1.10  2008/03/21 18:07:13  jms
 * update copyright date
 *
@@ -73,13 +73,13 @@
 #define NAME			"TPC-R"
 #endif
 #ifndef NAME
-#error Benchmark version must be defined in config.h
+#error Benchmark version must be defined in jcch_config.h
 #endif
 #define TPC             "Transaction Processing Performance Council"
 #define C_DATES         "1994 - 2010"
 
-#include "config.h"
-#include "shared.h"
+#include "jcch_config.h"
+#include "jcch_shared.h"
 #include "jcch_dbgen.h"
 
 #include <stdio.h>

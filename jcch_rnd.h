@@ -1,9 +1,9 @@
 /*
-* $Id: rnd.h,v 1.4 2006/08/01 04:13:17 jms Exp $
+* $Id: jcch_rnd.h,v 1.4 2006/08/01 04:13:17 jms Exp $
 *
 * Revision History
 * ===================
-* $Log: rnd.h,v $
+* $Log: jcch_rnd.h,v $
 * Revision 1.4  2006/08/01 04:13:17  jms
 * fix parallel generation
 *
@@ -31,7 +31,7 @@
 *
 */
 /*
- * rnd.h -- header file for use withthe portable random number generator
+ * jcch_rnd.h -- header file for use withthe portable random number generator
  * provided by Frank Stephens of Unisys
  */
 

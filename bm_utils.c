@@ -56,8 +56,8 @@
  * set_state() -- initialize the RNG
  */
 
-#include "config.h"
-#include "dss.h"
+#include "jcch_config.h"
+#include "jcch_dss.h"
 #include <stdio.h>
 #include <time.h>
 #include <errno.h>
@@ -102,7 +102,7 @@
 #endif
 #endif
 /* End of lines added by Chuck McDevitt for WIN32 support */
-#include "dsstypes.h"
+#include "jcch_dsstypes.h"
 
 
 static char alpha_num[65] =

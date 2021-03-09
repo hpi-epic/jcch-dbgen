@@ -7,10 +7,10 @@ add_library(
 
     STATIC
     build.c
-    config.h
+    jcch_config.h
     driver.c
-    dss.h
-    dsstypes.h
+    jcch_dss.h
+    jcch_dsstypes.h
     jcch_dbgen.c
     bm_utils.c
     release.h
@@ -23,7 +23,7 @@ add_library(
     permute.c
     print.c
     rng64.c
-    shared.h
+    jcch_shared.h
 )
 
 target_include_directories(

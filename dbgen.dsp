@@ -129,15 +129,15 @@ SOURCE=.\text.c
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\config.h
+SOURCE=.\jcch_config.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\dss.h
+SOURCE=.\jcch_dss.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\dsstypes.h
+SOURCE=.\jcch_dsstypes.h
 # End Source File
 # Begin Source File
 
@@ -145,7 +145,7 @@ SOURCE=.\permute.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\rnd.h
+SOURCE=.\jcch_rnd.h
 # End Source File
 # Begin Source File
 
@@ -153,7 +153,7 @@ SOURCE=.\rng64.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\shared.h
+SOURCE=.\jcch_shared.h
 # End Source File
 # Begin Source File
 

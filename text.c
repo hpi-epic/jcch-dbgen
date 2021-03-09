@@ -44,7 +44,7 @@
 #define DECLARER
 #endif /* TEST */
 
-#include "config.h"
+#include "jcch_config.h"
 #include <stdlib.h>
 #if (defined(_POSIX_)||!defined(WIN32))		/* Change for Windows NT */
 #include <unistd.h>
@@ -88,8 +88,8 @@
 
 #define TEXT_POOL_SIZE (300 * 1024 * 1024)  /* 300MiB */
 
-#include "dss.h"
-#include "dsstypes.h"
+#include "jcch_dss.h"
+#include "jcch_dsstypes.h"
 
 /* 
  * txt_vp() -- 

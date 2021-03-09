@@ -1,9 +1,9 @@
 /*
-* $Id: shared.h,v 1.2 2005/01/03 20:08:59 jms Exp $
+* $Id: jcch_shared.h,v 1.2 2005/01/03 20:08:59 jms Exp $
 *
 * Revision History
 * ===================
-* $Log: shared.h,v $
+* $Log: jcch_shared.h,v $
 * Revision 1.2  2005/01/03 20:08:59  jms
 * change line terminations
 *

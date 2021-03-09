@@ -52,8 +52,8 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 */
-#include "config.h"
-#include "dss.h"
+#include "jcch_config.h"
+#include "jcch_dss.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "rng64.h"

@@ -29,9 +29,9 @@
  */
 
 #include <stdio.h>
-#include "config.h"
-#include "dss.h"
-#include "dsstypes.h"
+#include "jcch_config.h"
+#include "jcch_dss.h"
+#include "jcch_dsstypes.h"
 
 int 
 close_direct(void)

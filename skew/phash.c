@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 	return printf("phash(key=%lld) = %d (inv = %lld)\n",  key, h, phash(h, &ph, 1));
 }
 #else 
-#include "../dss.h"
+#include "../jcch_dss.h"
 
 static uint16_t nations_map[25] = /* mapping between countries and their keys */
 {15, 0, 5, 14, 16,	/* AFRICA		(MOROCCO | ALGERIA, ETHIOPIA, KENYA, MOZAMBIQUE) */

@@ -32,8 +32,8 @@
 #ifdef TEST
 #define DECLARER
 #endif
-#include "config.h"
-#include "dss.h"
+#include "jcch_config.h"
+#include "jcch_dss.h"
 #ifdef TEST
 #include <stdlib.h>
 #if (defined(_POSIX_)||!defined(WIN32))		/* Change for Windows NT */

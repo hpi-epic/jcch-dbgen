@@ -1,9 +1,9 @@
 /*
-* $Id: dsstypes.h,v 1.3 2005/10/28 02:57:04 jms Exp $
+* $Id: jcch_dsstypes.h,v 1.3 2005/10/28 02:57:04 jms Exp $
 *
 * Revision History
 * ===================
-* $Log: dsstypes.h,v $
+* $Log: jcch_dsstypes.h,v $
 * Revision 1.3  2005/10/28 02:57:04  jms
 * allow for larger names in customer table
 *

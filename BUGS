@@ -459,7 +459,7 @@ Problem #31: closed
 Summary: Inconsistant handling of fopen() failures
 SEVERITY:     bug
 SPEC FIX:     N/A
-SOURCE FIX:   introduced OPEN_CHECK macro (defined in dss.h)
+SOURCE FIX:   introduced OPEN_CHECK macro (defined in jcch_dss.h)
 ANSWER SETS:  N/A
 WORKAROUND:   N/A
 HELP NEEDED:  none
@@ -473,7 +473,7 @@ Problem #32: closed
 Summary: Path separators were hard-coded
 SEVERITY:     bug
 SPEC FIX:     N/A
-SOURCE FIX:   introduced PATH_SEP in config.h
+SOURCE FIX:   introduced PATH_SEP in jcch_config.h
 ANSWER SETS:  N/A
 WORKAROUND:   N/A
 HELP NEEDED:  none

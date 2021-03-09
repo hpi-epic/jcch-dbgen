@@ -36,8 +36,8 @@
 #endif /* WIN32 */
 #include <ctype.h>
 #include <time.h>
-#include "config.h"
-#include "dss.h"
+#include "jcch_config.h"
+#include "jcch_dss.h"
 #include "tpcd.h"
 #include "permute.h"
 #include "release.h"

@@ -32,7 +32,7 @@ PROG1 = dbgen$(EXE)
 PROG2 = qgen$(EXE)
 PROGS = $(PROG1) $(PROG2)
 #
-HDR1 = dss.h rnd.h config.h dsstypes.h shared.h bcd2.h rng64.h release.h skew/phash.h
+HDR1 = jcch_dss.h jcch_rnd.h jcch_config.h jcch_dsstypes.h jcch_shared.h bcd2.h rng64.h release.h skew/phash.h
 HDR2 = tpcd.h permute.h
 HDR  = $(HDR1) $(HDR2)
 #
@@ -95,6 +95,6 @@ release:
 	make -f makefile.suite tar
 	make -f makefile.suite zip
 	( cd tests; sh test_list.sh `date '+%Y%m%d'` )
-rnd$(OBJ): rnd.h
+rnd$(OBJ): jcch_rnd.h
 $(OBJ1): $(HDR1)
-$(OBJ2): dss.h tpcd.h config.h rng64.h release.h
+$(OBJ2): jcch_dss.h tpcd.h jcch_config.h rng64.h release.h
