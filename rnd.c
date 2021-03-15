@@ -50,7 +50,7 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -91,14 +91,14 @@
 #include "jcch_rnd.h"
 #include "jcch_dbgen.h"
 
-char *env_config PROTO((char *tag, char *dflt));
+char *jcch_env_config PROTO((char *tag, char *dflt));
 void NthElement(DSS_HUGE, DSS_HUGE *);
 
 void
 dss_random(DSS_HUGE *tgt, DSS_HUGE lower, DSS_HUGE upper, long stream)
 {
 	*tgt = UnifInt(lower, upper, stream);
-	Seed[stream].usage += 1;
+	jcch_Seed[stream].jcch_usage += 1;
 
 	return;
 }
@@ -108,7 +108,7 @@ row_start(int t)	\
 {
 	int i;
 	for (i=0; i <= MAX_STREAM; i++) 
-		Seed[i].usage = 0 ; 
+		jcch_Seed[i].jcch_usage = 0 ; 
 	
 	return;
 }
@@ -125,19 +125,19 @@ row_stop(int t)	\
 		t = PART;
 	
 	for (i=0; i <= MAX_STREAM; i++)
-		if ((Seed[i].table == t) || (Seed[i].table == tdefs[t].child))
+		if ((jcch_Seed[i].jcch_table == t) || (jcch_Seed[i].jcch_table == jcch_tdefs[t].child))
 			{ 
-			if (set_seeds && (Seed[i].usage > Seed[i].boundary))
+			if (jcch_set_seeds && (jcch_Seed[i].jcch_usage > jcch_Seed[i].boundary))
 				{
-				fprintf(stderr, "\nSEED CHANGE: seed[%d].usage = %d\n", 
-					i, Seed[i].usage); 
-				Seed[i].boundary = Seed[i].usage;
+				fprintf(stderr, "\nSEED CHANGE: seed[%d].jcch_usage = %d\n", 
+					i, jcch_Seed[i].jcch_usage); 
+				jcch_Seed[i].boundary = jcch_Seed[i].jcch_usage;
 				} 
 			else 
 				{
-				NthElement((Seed[i].boundary - Seed[i].usage), &Seed[i].value);
+				NthElement((jcch_Seed[i].boundary - jcch_Seed[i].jcch_usage), &jcch_Seed[i].value);
 #ifdef RNG_TEST
-				Seed[i].nCalls += Seed[i].boundary - Seed[i].usage;
+				jcch_Seed[i].nCalls += jcch_Seed[i].boundary - jcch_Seed[i].jcch_usage;
 #endif
 				}
 			} 
@@ -150,11 +150,11 @@ dump_seeds(int tbl)
 	int i;
 
 	for (i=0; i <= MAX_STREAM; i++)
-		if (Seed[i].table == tbl)
+		if (jcch_Seed[i].jcch_table == tbl)
 #ifdef RNG_TEST
-			printf("%d(%ld):\t%ld\n", i, Seed[i].nCalls, Seed[i].value);
+			printf("%d(%ld):\t%ld\n", i, jcch_Seed[i].nCalls, jcch_Seed[i].value);
 #else
-			printf("%d:\t%ld\n", i, Seed[i].value);
+			printf("%d:\t%ld\n", i, jcch_Seed[i].value);
 #endif
 	return;
 }
@@ -221,11 +221,11 @@ UnifInt(DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
 		nRange = nHigh - nLow + 1;
 	}
 
-    Seed[nStream].value = NextRand(Seed[nStream].value);
+    jcch_Seed[nStream].value = NextRand(jcch_Seed[nStream].value);
 #ifdef RNG_TEST
-	Seed[nStream].nCalls += 1;
+	jcch_Seed[nStream].nCalls += 1;
 #endif
-	nTemp = (DSS_HUGE) (((double) Seed[nStream].value / dM) * (dRange));
+	nTemp = (DSS_HUGE) (((double) jcch_Seed[nStream].value / jcch_dM) * (dRange));
     return (nLow + nTemp);
 }
 

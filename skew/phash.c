@@ -73,10 +73,10 @@ phash_t phash_customer = { 0 };
 phash_t phash_orders = { 0 };
 
 void init_skew() {
-	init_phash(&phash_part, scale * tdefs[PART].base);
-	init_phash(&phash_supplier, scale * tdefs[SUPP].base);
-	init_phash(&phash_customer, scale * tdefs[CUST].base);
-	init_phash(&phash_orders, scale * tdefs[ORDER].base);
+	init_phash(&phash_part, jcch_scale * jcch_tdefs[PART].base);
+	init_phash(&phash_supplier, jcch_scale * jcch_tdefs[SUPP].base);
+	init_phash(&phash_customer, jcch_scale * jcch_tdefs[CUST].base);
+	init_phash(&phash_orders, jcch_scale * jcch_tdefs[ORDER].base);
 }
 
 uint16_t bin_nationkey(uint64_t key, uint64_t tbl_size) {

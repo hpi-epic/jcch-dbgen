@@ -12,7 +12,7 @@
 
 /* a cheap randomized invertable permutation */
 typedef struct {
-	unsigned long maxval; /* here: the max table size, assuming key=1,..maxval */ 
+	unsigned long maxval; /* here: the max jcch_table size, assuming key=1,..maxval */ 
 	unsigned long xorval; /* cheapo bit-randomizes (does not touch the MSB) */
 	unsigned long invval; /* for the ring Z/pZ, i.e. (PRIME*invval)%maxval == 1 */
 } phash_t;

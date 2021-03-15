@@ -26,7 +26,7 @@
 * recreation after CVS crash
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -50,52 +50,52 @@
 /*
  * Function Prototypes
  */
-FILE *print_prep PROTO((int table, int update));
+FILE *print_prep PROTO((int jcch_table, int update));
 int pr_drange PROTO((int tbl, DSS_HUGE min, DSS_HUGE cnt, long num));
 
 FILE *
-print_prep(int table, int update)
+print_prep(int jcch_table, int update)
 {
 	char upath[128];
 	FILE *res;
 
-	if (updates)
+	if (jcch_updates)
 		{
-		if (update > 0) /* updates */
-			if ( insert_segments )
+		if (update > 0) /* jcch_ */
+			if ( jcch_insert_segments )
 				{
 				int this_segment;
-				if(strcmp(tdefs[table].name,"orders.tbl"))
-					this_segment=++insert_orders_segment;
+				if(strcmp(jcch_tdefs[jcch_table].name,"orders.tbl"))
+					this_segment=++jcch_insert_orders_segment;
 				else 
-					this_segment=++insert_lineitem_segment;
+					this_segment=++jcch_insert_lineitem_segment;
 				sprintf(upath, "%s%c%s.u%d.%d", 
-					env_config(PATH_TAG, PATH_DFLT),
-					PATH_SEP, tdefs[table].name, update%10000,this_segment);
+					jcch_env_config(PATH_TAG, PATH_DFLT),
+					PATH_SEP, jcch_tdefs[jcch_table].name, update%10000,this_segment);
 				}
 			else
 				{
 				sprintf(upath, "%s%c%s.u%d",
-				env_config(PATH_TAG, PATH_DFLT),
-				PATH_SEP, tdefs[table].name, update);
+				jcch_env_config(PATH_TAG, PATH_DFLT),
+				PATH_SEP, jcch_tdefs[jcch_table].name, update);
 				}
 		else /* deletes */
-			if ( delete_segments )
+			if ( jcch_delete_segments )
 				{
-				++delete_segment;
+				++jcch_delete_segment;
 				sprintf(upath, "%s%cdelete.u%d.%d",
-					env_config(PATH_TAG, PATH_DFLT), PATH_SEP, -update%10000,
-					delete_segment);
+					jcch_env_config(PATH_TAG, PATH_DFLT), PATH_SEP, -update%10000,
+					jcch_delete_segment);
 				}
 			else
 				{
 				sprintf(upath, "%s%cdelete.%d",
-				env_config(PATH_TAG, PATH_DFLT), PATH_SEP, -update);
+				jcch_env_config(PATH_TAG, PATH_DFLT), PATH_SEP, -update);
 				}
 		return(fopen(upath, "w"));
         }
-    res = tbl_open(table, "w");
-    OPEN_CHECK(res, tdefs[table].name);
+    res = jcch_tbl_open(jcch_table, "w");
+    OPEN_CHECK(res, jcch_tdefs[jcch_table].name);
     return(res);
 }
 
@@ -160,7 +160,7 @@ static FILE *fp = NULL;
 
    PR_STRT(fp);
    PR_HUGE(fp, &c->custkey);
-   if (scale <= 3000)
+   if (jcch_scale <= 3000)
    PR_VSTR(fp, c->name, C_NAME_LEN);
    else
    PR_VSTR(fp, c->name, C_NAME_LEN + 3);
@@ -179,7 +179,7 @@ static FILE *fp = NULL;
  * print the numbered order 
  */
 int
-pr_order(order_t *o, int mode)
+pr_order(jcch_order_t *o, int mode)
 {
     static FILE *fp_o = NULL;
     static int last_mode = 0;
@@ -210,7 +210,7 @@ pr_order(order_t *o, int mode)
  * print an order's lineitems
  */
 int
-pr_line(order_t *o, int mode)
+pr_line(jcch_order_t *o, int mode)
 {
     static FILE *fp_l = NULL;
     static int last_mode = 0;
@@ -253,9 +253,9 @@ pr_line(order_t *o, int mode)
  * print the numbered order *and* its associated lineitems
  */
 int
-pr_order_line(order_t *o, int mode)
+pr_order_line(jcch_order_t *o, int mode)
 {
-    tdefs[ORDER].name = tdefs[ORDER_LINE].name;
+    jcch_tdefs[ORDER].name = jcch_tdefs[ORDER_LINE].name;
     pr_order(o, mode);
     pr_line(o, mode);
 
@@ -323,7 +323,7 @@ pr_psupp(part_t *part, int mode)
 int
 pr_part_psupp(part_t *part, int mode)
 {
-    tdefs[PART].name = tdefs[PART_PSUPP].name;
+    jcch_tdefs[PART].name = jcch_tdefs[PART_PSUPP].name;
     pr_part(part, mode);
     pr_psupp(part, mode);
 
@@ -419,11 +419,11 @@ pr_drange(int tbl, DSS_HUGE min, DSS_HUGE cnt, long num)
     for (child=min; cnt > 0; child++, cnt--)
 	{
 		new = MK_SPARSE(child, num/ (10000 / UPD_PCT));
-		if (delete_segments)
+		if (jcch_delete_segments)
 		{
 
 			if(rows_per_segment==0) 
-				rows_per_segment = (cnt / delete_segments) + 1;
+				rows_per_segment = (cnt / jcch_delete_segments) + 1;
 			if((++rows_this_segment) > rows_per_segment)
 			{
 				fclose(dfp);

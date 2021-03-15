@@ -29,7 +29,7 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -40,20 +40,20 @@
  *
  * Various routines that handle distributions, value selections and
  * seed value management for the DSS benchmark. Current functions:
- * env_config -- set config vars with optional environment override
- * yes_no -- ask simple yes/no question and return boolean result
- * a_rnd(min, max) -- random alphanumeric within length range
- * pick_str(size, set) -- select a string from the set of size
- * read_dist(file, name, distribution *) -- read named dist from file
- * tbl_open(path, mode) -- std fopen with lifenoise
- * julian(date) -- julian date correction
- * rowcnt(tbl) -- proper scaling of given table
- * e_str(set, min, max) -- build an embedded str
- * agg_str() -- build a string from the named set
- * dsscasecmp() -- version of strcasecmp()
- * dssncasecmp() -- version of strncasecmp()
+ * jcch_env_config -- set config vars with optional environment override
+ * jcch_yes_no -- ask simple yes/no question and return boolean result
+ * jcch_a_rnd(min, max) -- random alphanumeric within length range
+ * jcch_pick_str(size, set) -- select a string from the set of size
+ * jcch_read_dist(file, name, distribution *) -- read named dist from file
+ * jcch_tbl_open(path, mode) -- std fopen with lifenoise
+ * jcch_julian(date) -- jcch_julian date correction
+ * jcch_rowcnt(tbl) -- proper scaling of given jcch_table
+ * jcch_e_str(set, min, max) -- build an embedded str
+ * jcch_agg_str() -- build a string from the named set
+ * jcch_dsscasecmp() -- version of strcasecmp()
+ * jcch_dssncasecmp() -- version of strncasecmp()
  * getopt()
- * set_state() -- initialize the RNG
+ * jcch_set_state() -- initialize the RNG
  */
 
 #include "jcch_config.h"
@@ -117,16 +117,16 @@ static char alpha_num[65] =
 #ifndef WIN32
 char     *getenv PROTO((const char *name));
 #endif
-void usage();
+void jcch_usage();
 long *permute_dist(distribution *d, long stream);
-extern seed_t Seed[];
+extern seed_t jcch_Seed[];
 
 /*
- * env_config: look for a environmental variable setting and return its
+ * jcch_env_config: look for a environmental variable setting and return its
  * value; otherwise return the default supplied
  */
 char     *
-env_config(char *var, char *dflt)
+jcch_env_config(char *var, char *dflt)
 {
    static char *evar;
 
@@ -140,7 +140,7 @@ env_config(char *var, char *dflt)
  * return the answer to a yes/no question as a boolean
  */
 long
-yes_no(char *prompt)
+jcch_yes_no(char *prompt)
 {
     char      reply[128];
 
@@ -176,7 +176,7 @@ yes_no(char *prompt)
  * and comma)
  */
 void
-a_rnd(int min, int max, int column, char *dest)
+jcch_a_rnd(int min, int max, int column, char *dest)
 {
    DSS_HUGE      i,
              len,
@@ -200,14 +200,14 @@ a_rnd(int min, int max, int column, char *dest)
  * position
  */
 void
-e_str(distribution *d, int min, int max, int stream, char *dest)
+jcch_e_str(distribution *d, int min, int max, int stream, char *dest)
 {
     char strtmp[MAXAGG_LEN + 1];
     DSS_HUGE loc;
     int len;
 
-    a_rnd(min, max, stream, dest);
-    pick_str(d, stream, strtmp);
+    jcch_a_rnd(min, max, stream, dest);
+    jcch_pick_str(d, stream, strtmp);
     len = (int)strlen(strtmp);
     RANDOM(loc, 0, ((int)strlen(dest) - 1 - len), stream);
     strncpy(dest + loc, strtmp, len);
@@ -222,7 +222,7 @@ e_str(distribution *d, int min, int max, int stream, char *dest)
  * being queried
  */
 int
-pick_str(distribution *s, int c, char *target)
+jcch_pick_str(distribution *s, int c, char *target)
 {
     long      i = 0;
     DSS_HUGE      j;
@@ -235,10 +235,10 @@ pick_str(distribution *s, int c, char *target)
 }
 
 /*
- * unjulian (long date) -- return(date - STARTDATE)
+ * jcch_unjulian (long date) -- return(date - STARTDATE)
  */
 long
-unjulian(long date)
+jcch_unjulian(long date)
 {
     int i;
     long res = 0;
@@ -251,7 +251,7 @@ unjulian(long date)
 }
 
 long
-julian(long date)
+jcch_julian(long date)
 {
     long       offset;
     long      result;
@@ -290,7 +290,7 @@ julian(long date)
 * should be rewritten to allow multiple dists in a file
 */
 void
-read_dist(char *path, char *name, distribution *target)
+jcch_read_dist(char *path, char *name, distribution *target)
 {
 FILE     *fp;
 char      line[256],
@@ -300,17 +300,17 @@ long      weight,
          count = 0,
          name_set = 0;
 
-    if (d_path == NULL)
+    if (jcch_d_path == NULL)
 		{
 		sprintf(line, "%s%c%s", 
-			env_config(CONFIG_TAG, CONFIG_DFLT), PATH_SEP, path);
+			jcch_env_config(CONFIG_TAG, CONFIG_DFLT), PATH_SEP, path);
 		fp = fopen(line, "r");
 		OPEN_CHECK(fp, line);
 		}
 	else
 		{
-		fp = fopen(d_path, "r");
-		OPEN_CHECK(fp, d_path);
+		fp = fopen(jcch_d_path, "r");
+		OPEN_CHECK(fp, jcch_d_path);
 		}
     while (fgets(line, sizeof(line), fp) != NULL)
         {
@@ -323,16 +323,16 @@ long      weight,
 
         if (!name_set)
             {
-            if (dsscasecmp(strtok(line, "\n\t "), "BEGIN"))
+            if (jcch_dsscasecmp(strtok(line, "\n\t "), "BEGIN"))
                 continue;
-            if (dsscasecmp(strtok(NULL, "\n\t "), name))
+            if (jcch_dsscasecmp(strtok(NULL, "\n\t "), name))
                 continue;
             name_set = 1;
             continue;
             }
         else
             {
-            if (!dssncasecmp(line, "END", 3))
+            if (!jcch_dssncasecmp(line, "END", 3))
                 {
                 fclose(fp);
                 return;
@@ -342,7 +342,7 @@ long      weight,
         if (sscanf(line, "%[^|]|%ld", token, &weight) != 2)
             continue;
 
-        if (!dsscasecmp(token, "count"))
+        if (!jcch_dsscasecmp(token, "count"))
             {
             target->count = weight;
             target->list =
@@ -378,7 +378,7 @@ long      weight,
  */
 
 FILE     *
-tbl_open(int tbl, char *mode)
+jcch_tbl_open(int tbl, char *mode)
 {
     char      prompt[256];
     char      fullpath[256];
@@ -387,11 +387,11 @@ tbl_open(int tbl, char *mode)
     int      retcode;
 
 
-    if (*tdefs[tbl].name == PATH_SEP)
-        strcpy(fullpath, tdefs[tbl].name);
+    if (*jcch_tdefs[tbl].name == PATH_SEP)
+        strcpy(fullpath, jcch_tdefs[tbl].name);
     else
         sprintf(fullpath, "%s%c%s",
-            env_config(PATH_TAG, PATH_DFLT), PATH_SEP, tdefs[tbl].name);
+            jcch_env_config(PATH_TAG, PATH_DFLT), PATH_SEP, jcch_tdefs[tbl].name);
 
     retcode = stat(fullpath, &fstats);
     if (retcode) {
@@ -402,9 +402,9 @@ tbl_open(int tbl, char *mode)
 			f = fopen(fullpath, mode);  // create and open the file
 	} else {
 		/* note this code asumes we are writing but tests if mode == r -jrg */
-		if (S_ISREG(fstats.st_mode) && !force && *mode != 'r' ) {
+		if (S_ISREG(fstats.st_mode) && !jcch_force && *mode != 'r' ) {
 			sprintf(prompt, "Do you want to overwrite %s ?", fullpath);
-			if (!yes_no(prompt))
+			if (!jcch_yes_no(prompt))
 				exit(0);
 			f = fopen(fullpath, mode);
 		} else if (S_ISFIFO(fstats.st_mode))
@@ -423,11 +423,11 @@ tbl_open(int tbl, char *mode)
 
 
 /*
- * agg_str(set, count) build an aggregated string from count unique
+ * jcch_agg_str(set, count) build an aggregated string from count unique
  * selections taken from set
  */
 void
-agg_str(distribution *set, long count, long col, char *dest)
+jcch_agg_str(distribution *set, long count, long col, char *dest)
 {
 	distribution *d;
 	int i;
@@ -448,7 +448,7 @@ agg_str(distribution *set, long count, long col, char *dest)
 
 
 long
-dssncasecmp(char *s1, char *s2, int n)
+jcch_dssncasecmp(char *s1, char *s2, int n)
 {
     for (; n > 0; ++s1, ++s2, --n)
         if (tolower(*s1) != tolower(*s2))
@@ -459,7 +459,7 @@ dssncasecmp(char *s1, char *s2, int n)
 }
 
 long
-dsscasecmp(char *s1, char *s2)
+jcch_dsscasecmp(char *s1, char *s2)
 {
     for (; tolower(*s1) == tolower(*s2); ++s1, ++s2)
         if (*s1 == '\0')
@@ -532,7 +532,7 @@ getopt(int ac, char **av, char *opt)
 #endif /* STDLIB_HAS_GETOPT */
 
 char **
-mk_ascdate(void)
+jcch_mk_ascdate(void)
 {
     char **m;
     dss_time_t t;
@@ -542,7 +542,7 @@ mk_ascdate(void)
     MALLOC_CHECK(m);
     for (i = 0; i < TOTDATE; i++)
         {
-        mk_time(i + 1, &t);
+        jcch_mk_time(i + 1, &t);
         m[i] = strdup(t.alpha);
         }
 
@@ -550,39 +550,39 @@ mk_ascdate(void)
 }
 
 /*
- * set_state() -- initialize the RNG so that
+ * jcch_set_state() -- initialize the RNG so that
  * appropriate data sets can be generated.
- * For each table that is to be generated, calculate the number of rows/child, and send that to the
+ * For each jcch_table that is to be generated, calculate the number of rows/child, and send that to the
  * seed generation routine in speed_seed.c. Note: assumes that tables are completely independent.
- * Returns the number of rows to be generated by the named step.
+ * Returns the number of rows to be generated by the named jcch_step.
  */
 DSS_HUGE
-set_state(int table, long sf, long procs, long step, DSS_HUGE *extra_rows)
+jcch_set_state(int jcch_table, long sf, long procs, long jcch_step, DSS_HUGE *extra_rows)
 {
     int i;
 	DSS_HUGE rowcount, remainder, result;
 	
-    if (sf == 0 || step == 0)
+    if (sf == 0 || jcch_step == 0)
         return(0);
 
-	rowcount = tdefs[table].base;
+	rowcount = jcch_tdefs[jcch_table].base;
 	rowcount *= sf;
 	*extra_rows = rowcount % procs;
 	rowcount /= procs;
 	result = rowcount;
-	for (i=0; i < step - 1; i++)
+	for (i=0; i < jcch_step - 1; i++)
 		{
-		if (table == LINE)	/* special case for shared seeds */
-			tdefs[table].gen_seed(1, rowcount);
+		if (jcch_table == LINE)	/* special case for shared seeds */
+			jcch_tdefs[jcch_table].gen_seed(1, rowcount);
 		else
-			tdefs[table].gen_seed(0, rowcount);
+			jcch_tdefs[jcch_table].gen_seed(0, rowcount);
 		/* need to set seeds of child in case there's a dependency */
 		/* NOTE: this assumes that the parent and child have the same base row count */
-			if (tdefs[table].child != NONE) 
-			tdefs[tdefs[table].child].gen_seed(0,rowcount);
+			if (jcch_tdefs[jcch_table].child != NONE) 
+			jcch_tdefs[jcch_tdefs[jcch_table].child].gen_seed(0,rowcount);
 		}
-	if (step > procs)	/* moving to the end to generate updates */
-		tdefs[table].gen_seed(0, *extra_rows);
+	if (jcch_step > procs)	/* moving to the end to generate updates */
+		jcch_tdefs[jcch_table].gen_seed(0, *extra_rows);
 
 	return(result);
 }

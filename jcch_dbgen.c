@@ -11,9 +11,9 @@
 #include <math.h>
 #include <stdlib.h>
 
-extern double flt_scale;
+extern double jcch_flt_scale;
 
-set_member p_cntr_set_list[] = {
+set_member jcch_p_cntr_set_list[] = {
   {1, "SM CASE"},
   {2, "SM BOX"},
   {3, "SM BAG"},
@@ -55,13 +55,13 @@ set_member p_cntr_set_list[] = {
   {39, "WRAP CAN"},
   {40, "WRAP DRUM"},
 };
-distribution p_cntr_set = {
+distribution jcch_p_cntr_set = {
   40,
   40,
-  p_cntr_set_list,
+  jcch_p_cntr_set_list,
   NULL
 };
-set_member colors_list[] = {
+set_member jcch_colors_list[] = {
   {1, "almond"},
   {2, "antique"},
   {3, "aquamarine"},
@@ -155,13 +155,13 @@ set_member colors_list[] = {
   {91, "white"},
   {92, "yellow"},
 };
-distribution colors = {
+distribution jcch_colors = {
   92,
   92,
-  colors_list,
+  jcch_colors_list,
   NULL
 };
-set_member p_types_set_list[] = {
+set_member jcch_p_types_set_list[] = {
   {1, "STANDARD ANODIZED TIN"},
   {2, "STANDARD ANODIZED NICKEL"},
   {3, "STANDARD ANODIZED BRASS"},
@@ -313,13 +313,13 @@ set_member p_types_set_list[] = {
   {149, "PROMO BRUSHED STEEL"},
   {150, "PROMO BRUSHED COPPER"},
 };
-distribution p_types_set = {
+distribution jcch_p_types_set = {
   150,
   150,
-  p_types_set_list,
+  jcch_p_types_set_list,
   NULL
 };
-set_member nations_list[NATIONS_COUNT] = {
+set_member jcch_nations_list[NATIONS_COUNT] = {
   {0, "ALGERIA"},
   {1, "ARGENTINA"},
   {1, "BRAZIL"},
@@ -346,51 +346,51 @@ set_member nations_list[NATIONS_COUNT] = {
   {3, "UNITED KINGDOM"},
   {1, "UNITED STATES"},
 };
-distribution nations = {
+distribution jcch_nations = {
   NATIONS_COUNT,
   1,
-  nations_list,
+  jcch_nations_list,
   NULL
 };
-set_member regions_list[REGIONS_COUNT] = {
+set_member jcch_regions_list[REGIONS_COUNT] = {
   {1, "AFRICA"},
   {2, "AMERICA"},
   {3, "ASIA"},
   {4, "EUROPE"},
   {5, "MIDDLE EAST"},
 };
-distribution regions = {
+distribution jcch_regions = {
   REGIONS_COUNT,
   5,
-  regions_list,
+  jcch_regions_list,
   NULL
 };
-set_member o_priority_set_list[] = {
+set_member jcch_o_priority_set_list[] = {
   {1, "1-URGENT"},
   {2, "2-HIGH"},
   {3, "3-MEDIUM"},
   {4, "4-NOT SPECIFIED"},
   {5, "5-LOW"},
 };
-distribution o_priority_set = {
+distribution jcch_o_priority_set = {
   5,
   5,
-  o_priority_set_list,
+  jcch_o_priority_set_list,
   NULL
 };
-set_member l_instruct_set_list[] = {
+set_member jcch_l_instruct_set_list[] = {
   {1, "DELIVER IN PERSON"},
   {2, "COLLECT COD"},
   {3, "TAKE BACK RETURN"},
   {4, "NONE"},
 };
-distribution l_instruct_set = {
+distribution jcch_l_instruct_set = {
   4,
   4,
-  l_instruct_set_list,
+  jcch_l_instruct_set_list,
   NULL
 };
-set_member l_smode_set_list[] = {
+set_member jcch_l_smode_set_list[] = {
   {1, "REG AIR"},
   {2, "AIR"},
   {3, "RAIL"},
@@ -399,49 +399,49 @@ set_member l_smode_set_list[] = {
   {6, "FOB"},
   {7, "SHIP"},
 };
-distribution l_smode_set = {
+distribution jcch_l_smode_set = {
   7,
   7,
-  l_smode_set_list,
+  jcch_l_smode_set_list,
   NULL
 };
-set_member l_category_set_list[] = {
+set_member jcch_l_category_set_list[] = {
   {1, "FURNITURE"},
   {2, "STORAGE EQUIP"},
   {3, "TOOLS"},
   {4, "MACHINE TOOLS"},
   {5, "OTHER"},
 };
-distribution l_category_set = {
+distribution jcch_l_category_set = {
   5,
   5,
-  l_category_set_list,
+  jcch_l_category_set_list,
   NULL
 };
-set_member l_rflag_set_list[] = {
+set_member jcch_l_rflag_set_list[] = {
   {1, "R"},
   {2, "A"},
 };
-distribution l_rflag_set = {
+distribution jcch_l_rflag_set = {
   2,
   2,
-  l_rflag_set_list,
+  jcch_l_rflag_set_list,
   NULL
 };
-set_member c_mseg_set_list[] = {
+set_member jcch_c_mseg_set_list[] = {
   {1, "AUTOMOBILE"},
   {2, "BUILDING"},
   {3, "FURNITURE"},
   {4, "HOUSEHOLD"},
   {5, "MACHINERY"},
 };
-distribution c_mseg_set = {
+distribution jcch_c_mseg_set = {
   5,
   5,
-  c_mseg_set_list,
+  jcch_c_mseg_set_list,
   NULL
 };
-set_member nouns_list[] = {
+set_member jcch_nouns_list[] = {
   {40, "packages"},
   {80, "requests"},
   {120, "accounts"},
@@ -488,13 +488,13 @@ set_member nouns_list[] = {
   {339, "escapades"},
   {340, "hockey players"},
 };
-distribution nouns = {
+distribution jcch_nouns = {
   45,
   340,
-  nouns_list,
+  jcch_nouns_list,
   NULL
 };
-set_member verbs_list[] = {
+set_member jcch_verbs_list[] = {
   {20, "sleep"},
   {40, "wake"},
   {60, "are"},
@@ -536,13 +536,13 @@ set_member verbs_list[] = {
   {173, "believe"},
   {174, "doubt"},
 };
-distribution verbs = {
+distribution jcch_verbs = {
   40,
   174,
-  verbs_list,
+  jcch_verbs_list,
   NULL
 };
-set_member adjectives_list[] = {
+set_member jcch_adjectives_list[] = {
   {20, "special"},
   {40, "pending"},
   {60, "unusual"},
@@ -573,13 +573,13 @@ set_member adjectives_list[] = {
   {279, "bold"},
   {289, "silent"},
 };
-distribution adjectives = {
+distribution jcch_adjectives = {
   29,
   289,
-  adjectives_list,
+  jcch_adjectives_list,
   NULL
 };
-set_member adverbs_list[] = {
+set_member jcch_adverbs_list[] = {
   {1, "sometimes"},
   {2, "always"},
   {3, "never"},
@@ -609,13 +609,13 @@ set_member adverbs_list[] = {
   {261, "boldly"},
   {262, "silently"},
 };
-distribution adverbs = {
+distribution jcch_adverbs = {
   28,
   262,
-  adverbs_list,
+  jcch_adverbs_list,
   NULL
 };
-set_member auxillaries_list[] = {
+set_member jcch_auxillaries_list[] = {
   {1, "do"},
   {2, "may"},
   {3, "might"},
@@ -635,13 +635,13 @@ set_member auxillaries_list[] = {
   {17, "need to"},
   {18, "try to"},
 };
-distribution auxillaries = {
+distribution jcch_auxillaries = {
   18,
   18,
-  auxillaries_list,
+  jcch_auxillaries_list,
   NULL
 };
-set_member terminators_list[] = {
+set_member jcch_terminators_list[] = {
   {50, "."},
   {51, ";"},
   {52, ":"},
@@ -649,24 +649,24 @@ set_member terminators_list[] = {
   {54, "!"},
   {55, "--"},
 };
-distribution terminators = {
+distribution jcch_terminators = {
   6,
   55,
-  terminators_list,
+  jcch_terminators_list,
   NULL
 };
-set_member articles_list[] = {
+set_member jcch_articles_list[] = {
   {50, "the"},
   {70, "a"},
   {75, "an"},
 };
-distribution articles = {
+distribution jcch_articles = {
   3,
   75,
-  articles_list,
+  jcch_articles_list,
   NULL
 };
-set_member prepositions_list[] = {
+set_member jcch_prepositions_list[] = {
   {50, "about"},
   {100, "above"},
   {150, "according to"},
@@ -715,56 +715,56 @@ set_member prepositions_list[] = {
   {455, "with"},
   {456, "within"},
 };
-distribution prepositions = {
+distribution jcch_prepositions = {
   47,
   456,
-  prepositions_list,
+  jcch_prepositions_list,
   NULL
 };
-set_member grammar_list[] = {
+set_member jcch_grammar_list[] = {
   {3, "N V T"},
   {6, "N V P T"},
   {9, "N V N T"},
   {10, "N P V N T"},
   {11, "N P V P T"},
 };
-distribution grammar = {
+distribution jcch_grammar = {
   5,
   11,
-  grammar_list,
+  jcch_grammar_list,
   NULL
 };
-set_member np_list[] = {
+set_member jcch_np_list[] = {
   {10, "N"},
   {30, "J N"},
   {40, "J, J N"},
   {90, "D J N"},
 };
-distribution np = {
+distribution jcch_np = {
   4,
   90,
-  np_list,
+  jcch_np_list,
   NULL
 };
-set_member vp_list[] = {
+set_member jcch_vp_list[] = {
   {30, "V"},
   {31, "X V"},
   {71, "V D"},
   {72, "X V D"},
 };
-distribution vp = {
+distribution jcch_vp = {
   4,
   72,
-  vp_list,
+  jcch_vp_list,
   NULL
 };
 
-order_t order;
+jcch_order_t order;
 part_t part;
 
-double   dM = 2147483647.0;
+double   jcch_dM = 2147483647.0;
 
-seed_t     Seed[MAX_STREAM + 1] =
+seed_t     jcch_Seed[MAX_STREAM + 1] =
 {
     {PART,   1,          0,	1},					/* P_MFG_SD     0 */
     {PART,   46831694,   0, 1},					/* P_BRND_SD    1 */
@@ -816,96 +816,96 @@ seed_t     Seed[MAX_STREAM + 1] =
     {SUPP,   715851524,  0, 1}       /* BBB junk     47 */
 };
 
-static seed_t mk_seed(long table, DSS_HUGE value, DSS_HUGE usage, DSS_HUGE boundary) {
-  seed_t seed = {.table=table, .value=value, .usage=usage, .boundary=boundary};
+static seed_t mk_seed(long jcch_table, DSS_HUGE value, DSS_HUGE jcch_usage, DSS_HUGE boundary) {
+  seed_t seed = {.jcch_table=jcch_table, .value=value, .jcch_usage=jcch_usage, .boundary=boundary};
   return seed;
 }
 
-void dbgen_reset_seeds() {
-  Seed[0] = mk_seed(PART,   1,          0,	1);					/* P_MFG_SD     0 */
-  Seed[1] = mk_seed(PART,   46831694,   0, 1);					/* P_BRND_SD    1 */
-  Seed[2] = mk_seed(PART,   1841581359, 0, 1);					/* P_TYPE_SD    2 */
-  Seed[3] = mk_seed(PART,   1193163244, 0, 1);					/* P_SIZE_SD    3 */
-  Seed[4] = mk_seed(PART,   727633698,  0, 1);					/* P_CNTR_SD    4 */
-  Seed[5] = mk_seed(NONE,   933588178,  0, 1);					/* text pregeneration  5 */
-  Seed[6] = mk_seed(PART,   804159733,  0, 2);	/* P_CMNT_SD    6 */
-  Seed[7] = mk_seed(PSUPP,  1671059989, 0, SUPP_PER_PART);     /* PS_QTY_SD    7 */
-  Seed[8] = mk_seed(PSUPP,  1051288424, 0, SUPP_PER_PART);     /* PS_SCST_SD   8 */
-  Seed[9] = mk_seed(PSUPP,  1961692154, 0, SUPP_PER_PART * 2);     /* PS_CMNT_SD   9 */
-  Seed[10] = mk_seed(ORDER,  1227283347, 0, 1);				    /* O_SUPP_SD    10 */
-  Seed[11] = mk_seed(ORDER,  1171034773, 0, 1);					/* O_CLRK_SD    11 */
-  Seed[12] = mk_seed(ORDER,  276090261,  0, 2);  /* O_CMNT_SD    12 */
-  Seed[13] = mk_seed(ORDER,  1066728069, 0, 1);					/* O_ODATE_SD   13 */
-  Seed[14] = mk_seed(LINE,   209208115,  0, O_LCNT_MAX);        /* L_QTY_SD     14 */
-  Seed[15] = mk_seed(LINE,   554590007,  0, O_LCNT_MAX);        /* L_DCNT_SD    15 */
-  Seed[16] = mk_seed(LINE,   721958466,  0, O_LCNT_MAX);        /* L_TAX_SD     16 */
-  Seed[17] = mk_seed(LINE,   1371272478, 0, O_LCNT_MAX);        /* L_SHIP_SD    17 */
-  Seed[18] = mk_seed(LINE,   675466456,  0, O_LCNT_MAX);        /* L_SMODE_SD   18 */
-  Seed[19] = mk_seed(LINE,   1808217256, 0, O_LCNT_MAX);      /* L_PKEY_SD    19 */
-  Seed[20] = mk_seed(LINE,   2095021727, 0, O_LCNT_MAX);      /* L_SKEY_SD    20 */
-  Seed[21] = mk_seed(LINE,   1769349045, 0, O_LCNT_MAX);      /* L_SDTE_SD    21 */
-  Seed[22] = mk_seed(LINE,   904914315,  0, O_LCNT_MAX);      /* L_CDTE_SD    22 */
-  Seed[23] = mk_seed(LINE,   373135028,  0, O_LCNT_MAX);      /* L_RDTE_SD    23 */
-  Seed[24] = mk_seed(LINE,   717419739,  0, O_LCNT_MAX);      /* L_RFLG_SD    24 */
-  Seed[25] = mk_seed(LINE,   1095462486, 0, O_LCNT_MAX * 2);   /* L_CMNT_SD    25 */
-  Seed[26] = mk_seed(CUST,   881155353,  0, 9);      /* C_ADDR_SD    26 */
-  Seed[27] = mk_seed(CUST,   1489529863, 0, 1);      /* C_NTRG_SD    27 */
-  Seed[28] = mk_seed(CUST,   1521138112, 0, 3);      /* C_PHNE_SD    28 */
-  Seed[29] = mk_seed(CUST,   298370230,  0, 1);      /* C_ABAL_SD    29 */
-  Seed[30] = mk_seed(CUST,   1140279430, 0, 1);      /* C_MSEG_SD    30 */
-  Seed[31] = mk_seed(CUST,   1335826707, 0, 2);     /* C_CMNT_SD    31 */
-  Seed[32] = mk_seed(SUPP,   706178559,  0, 9);      /* S_ADDR_SD    32 */
-  Seed[33] = mk_seed(SUPP,   110356601,  0, 1);      /* S_NTRG_SD    33 */
-  Seed[34] = mk_seed(SUPP,   884434366,  0, 3);      /* S_PHNE_SD    34 */
-  Seed[35] = mk_seed(SUPP,   962338209,  0, 1);      /* S_ABAL_SD    35 */
-  Seed[36] = mk_seed(SUPP,   1341315363, 0, 2);     /* S_CMNT_SD    36 */
-  Seed[37] = mk_seed(PART,   709314158,  0, 92);      /* P_NAME_SD    37 */
-  Seed[38] = mk_seed(ORDER,  591449447,  0, 1);      /* O_PRIO_SD    38 */
-  Seed[39] = mk_seed(LINE,   431918286,  0, 1);      /* HVAR_SD      39 */
-  Seed[40] = mk_seed(ORDER,  851767375,  0, 1);      /* O_CKEY_SD    40 */
-  Seed[41] = mk_seed(NATION, 606179079,  0, 2);      /* N_CMNT_SD    41 */
-  Seed[42] = mk_seed(REGION, 1500869201, 0, 2);      /* R_CMNT_SD    42 */
-  Seed[43] = mk_seed(ORDER,  1434868289, 0, 1);      /* O_LCNT_SD    43 */
-  Seed[44] = mk_seed(SUPP,   263032577,  0, 1);      /* BBB offset   44 */
-  Seed[45] = mk_seed(SUPP,   753643799,  0, 1);      /* BBB type     45 */
-  Seed[46] = mk_seed(SUPP,   202794285,  0, 1);      /* BBB comment  46 */
-  Seed[47] = mk_seed(SUPP,   715851524,  0, 1);       /* BBB junk     47 */
+void jcch_dbgen_reset_seeds() {
+  jcch_Seed[0] = mk_seed(PART,   1,          0,	1);					/* P_MFG_SD     0 */
+  jcch_Seed[1] = mk_seed(PART,   46831694,   0, 1);					/* P_BRND_SD    1 */
+  jcch_Seed[2] = mk_seed(PART,   1841581359, 0, 1);					/* P_TYPE_SD    2 */
+  jcch_Seed[3] = mk_seed(PART,   1193163244, 0, 1);					/* P_SIZE_SD    3 */
+  jcch_Seed[4] = mk_seed(PART,   727633698,  0, 1);					/* P_CNTR_SD    4 */
+  jcch_Seed[5] = mk_seed(NONE,   933588178,  0, 1);					/* text pregeneration  5 */
+  jcch_Seed[6] = mk_seed(PART,   804159733,  0, 2);	/* P_CMNT_SD    6 */
+  jcch_Seed[7] = mk_seed(PSUPP,  1671059989, 0, SUPP_PER_PART);     /* PS_QTY_SD    7 */
+  jcch_Seed[8] = mk_seed(PSUPP,  1051288424, 0, SUPP_PER_PART);     /* PS_SCST_SD   8 */
+  jcch_Seed[9] = mk_seed(PSUPP,  1961692154, 0, SUPP_PER_PART * 2);     /* PS_CMNT_SD   9 */
+  jcch_Seed[10] = mk_seed(ORDER,  1227283347, 0, 1);				    /* O_SUPP_SD    10 */
+  jcch_Seed[11] = mk_seed(ORDER,  1171034773, 0, 1);					/* O_CLRK_SD    11 */
+  jcch_Seed[12] = mk_seed(ORDER,  276090261,  0, 2);  /* O_CMNT_SD    12 */
+  jcch_Seed[13] = mk_seed(ORDER,  1066728069, 0, 1);					/* O_ODATE_SD   13 */
+  jcch_Seed[14] = mk_seed(LINE,   209208115,  0, O_LCNT_MAX);        /* L_QTY_SD     14 */
+  jcch_Seed[15] = mk_seed(LINE,   554590007,  0, O_LCNT_MAX);        /* L_DCNT_SD    15 */
+  jcch_Seed[16] = mk_seed(LINE,   721958466,  0, O_LCNT_MAX);        /* L_TAX_SD     16 */
+  jcch_Seed[17] = mk_seed(LINE,   1371272478, 0, O_LCNT_MAX);        /* L_SHIP_SD    17 */
+  jcch_Seed[18] = mk_seed(LINE,   675466456,  0, O_LCNT_MAX);        /* L_SMODE_SD   18 */
+  jcch_Seed[19] = mk_seed(LINE,   1808217256, 0, O_LCNT_MAX);      /* L_PKEY_SD    19 */
+  jcch_Seed[20] = mk_seed(LINE,   2095021727, 0, O_LCNT_MAX);      /* L_SKEY_SD    20 */
+  jcch_Seed[21] = mk_seed(LINE,   1769349045, 0, O_LCNT_MAX);      /* L_SDTE_SD    21 */
+  jcch_Seed[22] = mk_seed(LINE,   904914315,  0, O_LCNT_MAX);      /* L_CDTE_SD    22 */
+  jcch_Seed[23] = mk_seed(LINE,   373135028,  0, O_LCNT_MAX);      /* L_RDTE_SD    23 */
+  jcch_Seed[24] = mk_seed(LINE,   717419739,  0, O_LCNT_MAX);      /* L_RFLG_SD    24 */
+  jcch_Seed[25] = mk_seed(LINE,   1095462486, 0, O_LCNT_MAX * 2);   /* L_CMNT_SD    25 */
+  jcch_Seed[26] = mk_seed(CUST,   881155353,  0, 9);      /* C_ADDR_SD    26 */
+  jcch_Seed[27] = mk_seed(CUST,   1489529863, 0, 1);      /* C_NTRG_SD    27 */
+  jcch_Seed[28] = mk_seed(CUST,   1521138112, 0, 3);      /* C_PHNE_SD    28 */
+  jcch_Seed[29] = mk_seed(CUST,   298370230,  0, 1);      /* C_ABAL_SD    29 */
+  jcch_Seed[30] = mk_seed(CUST,   1140279430, 0, 1);      /* C_MSEG_SD    30 */
+  jcch_Seed[31] = mk_seed(CUST,   1335826707, 0, 2);     /* C_CMNT_SD    31 */
+  jcch_Seed[32] = mk_seed(SUPP,   706178559,  0, 9);      /* S_ADDR_SD    32 */
+  jcch_Seed[33] = mk_seed(SUPP,   110356601,  0, 1);      /* S_NTRG_SD    33 */
+  jcch_Seed[34] = mk_seed(SUPP,   884434366,  0, 3);      /* S_PHNE_SD    34 */
+  jcch_Seed[35] = mk_seed(SUPP,   962338209,  0, 1);      /* S_ABAL_SD    35 */
+  jcch_Seed[36] = mk_seed(SUPP,   1341315363, 0, 2);     /* S_CMNT_SD    36 */
+  jcch_Seed[37] = mk_seed(PART,   709314158,  0, 92);      /* P_NAME_SD    37 */
+  jcch_Seed[38] = mk_seed(ORDER,  591449447,  0, 1);      /* O_PRIO_SD    38 */
+  jcch_Seed[39] = mk_seed(LINE,   431918286,  0, 1);      /* HVAR_SD      39 */
+  jcch_Seed[40] = mk_seed(ORDER,  851767375,  0, 1);      /* O_CKEY_SD    40 */
+  jcch_Seed[41] = mk_seed(NATION, 606179079,  0, 2);      /* N_CMNT_SD    41 */
+  jcch_Seed[42] = mk_seed(REGION, 1500869201, 0, 2);      /* R_CMNT_SD    42 */
+  jcch_Seed[43] = mk_seed(ORDER,  1434868289, 0, 1);      /* O_LCNT_SD    43 */
+  jcch_Seed[44] = mk_seed(SUPP,   263032577,  0, 1);      /* BBB offset   44 */
+  jcch_Seed[45] = mk_seed(SUPP,   753643799,  0, 1);      /* BBB type     45 */
+  jcch_Seed[46] = mk_seed(SUPP,   202794285,  0, 1);      /* BBB comment  46 */
+  jcch_Seed[47] = mk_seed(SUPP,   715851524,  0, 1);       /* BBB junk     47 */
 }
 
 // Copied from driver.c:process_options()
-void dbgen_init_scale_factor(float scale_factor) {
-  tdefs[PART].base = 200000;
-  tdefs[PSUPP].base = 200000;
-  tdefs[SUPP].base = 10000;
-  tdefs[CUST].base = 150000;
-  tdefs[ORDER].base = 150000;
-  tdefs[LINE].base = 150000;
-  tdefs[ORDER_LINE].base = 150000;
-  tdefs[PART_PSUPP].base = 200000;
-  tdefs[NATION].base = NATIONS_COUNT;
-  tdefs[REGION].base = REGIONS_COUNT;
+void jcch_dbgen_init_scale_factor(float scale_factor) {
+  jcch_tdefs[PART].base = 200000;
+  jcch_tdefs[PSUPP].base = 200000;
+  jcch_tdefs[SUPP].base = 10000;
+  jcch_tdefs[CUST].base = 150000;
+  jcch_tdefs[ORDER].base = 150000;
+  jcch_tdefs[LINE].base = 150000;
+  jcch_tdefs[ORDER_LINE].base = 150000;
+  jcch_tdefs[PART_PSUPP].base = 200000;
+  jcch_tdefs[NATION].base = NATIONS_COUNT;
+  jcch_tdefs[REGION].base = REGIONS_COUNT;
 
-  flt_scale = scale_factor;
-  if (flt_scale < MIN_SCALE)
+  jcch_flt_scale = scale_factor;
+  if (jcch_flt_scale < MIN_SCALE)
   {
     int i;
     int int_scale;
 
-    scale = 1;
-    int_scale = (int)(round(10000 * flt_scale));
+    jcch_scale = 1;
+    int_scale = (int)(round(10000 * jcch_flt_scale));
     for (i = PART; i < REGION; i++)
     {
-      tdefs[i].base = (DSS_HUGE)(int_scale * tdefs[i].base)/10000;
-      if (tdefs[i].base < 1)
-        tdefs[i].base = 1;
+      jcch_tdefs[i].base = (DSS_HUGE)(int_scale * jcch_tdefs[i].base)/10000;
+      if (jcch_tdefs[i].base < 1)
+        jcch_tdefs[i].base = 1;
     }
   }
   else
-    scale = (long) flt_scale;
-  if (scale > MAX_SCALE)
+    jcch_scale = (long) jcch_flt_scale;
+  if (jcch_scale > MAX_SCALE)
   {
     fprintf (stderr, "%s %5.0f %s\n\t%s\n\n",
-             "NOTE: Data generation for scale factors >",
+             "NOTE: Data generation for jcch_scale factors >",
              MAX_SCALE,
              "GB is still in development,",
              "and is not yet supported.\n");
@@ -914,91 +914,91 @@ void dbgen_init_scale_factor(float scale_factor) {
   }
 
   // tpch_dbgen does the same in main() - weird thing to do, should be sufficient to omit scaling down
-  // `tdefs[NATION].base` above... Anyway, let's do what they do.
-  tdefs[NATION].base = nations.count;
-  tdefs[REGION].base = regions.count;
+  // `jcch_tdefs[NATION].base` above... Anyway, let's do what they do.
+  jcch_tdefs[NATION].base = jcch_nations.count;
+  jcch_tdefs[REGION].base = jcch_regions.count;
 
   // Copied from tpch_dbgen as well.
-  tdefs[ORDER].base *= ORDERS_PER_CUST;
-  tdefs[LINE].base *= ORDERS_PER_CUST;
-  tdefs[ORDER_LINE].base *= ORDERS_PER_CUST;
+  jcch_tdefs[ORDER].base *= ORDERS_PER_CUST;
+  jcch_tdefs[LINE].base *= ORDERS_PER_CUST;
+  jcch_tdefs[ORDER_LINE].base *= ORDERS_PER_CUST;
 }
 
 /**
  * Call this after using dbgen to avoid memory leaks
  */
-void dbgen_cleanup() {
-  free(nations.permute);
-  nations.permute = NULL;
+void jcch_dbgen_cleanup() {
+  free(jcch_nations.permute);
+  jcch_nations.permute = NULL;
 
-  free(regions.permute);
-  regions.permute = NULL;
+  free(jcch_regions.permute);
+  jcch_regions.permute = NULL;
 
-  free(o_priority_set.permute);
-  o_priority_set.permute = NULL;
+  free(jcch_o_priority_set.permute);
+  jcch_o_priority_set.permute = NULL;
 
-  free(l_instruct_set.permute);
-  l_instruct_set.permute = NULL;
+  free(jcch_l_instruct_set.permute);
+  jcch_l_instruct_set.permute = NULL;
 
-  free(l_smode_set.permute);
-  l_smode_set.permute = NULL;
+  free(jcch_l_smode_set.permute);
+  jcch_l_smode_set.permute = NULL;
 
-  free(l_category_set.permute);
-  l_category_set.permute = NULL;
+  free(jcch_l_category_set.permute);
+  jcch_l_category_set.permute = NULL;
 
-  free(l_rflag_set.permute);
-  l_rflag_set.permute = NULL;
+  free(jcch_l_rflag_set.permute);
+  jcch_l_rflag_set.permute = NULL;
 
-  free(c_mseg_set.permute);
-  c_mseg_set.permute = NULL;
+  free(jcch_c_mseg_set.permute);
+  jcch_c_mseg_set.permute = NULL;
 
-  free(colors.permute);
-  colors.permute = NULL;
+  free(jcch_colors.permute);
+  jcch_colors.permute = NULL;
 
-  free(p_types_set.permute);
-  p_types_set.permute = NULL;
+  free(jcch_p_types_set.permute);
+  jcch_p_types_set.permute = NULL;
 
-  free(p_cntr_set.permute);
-  p_cntr_set.permute = NULL;
+  free(jcch_p_cntr_set.permute);
+  jcch_p_cntr_set.permute = NULL;
 
-  free(articles.permute);
-  articles.permute = NULL;
+  free(jcch_articles.permute);
+  jcch_articles.permute = NULL;
 
-  free(nouns.permute);
-  nouns.permute = NULL;
+  free(jcch_nouns.permute);
+  jcch_nouns.permute = NULL;
 
-  free(adjectives.permute);
-  adjectives.permute = NULL;
+  free(jcch_adjectives.permute);
+  jcch_adjectives.permute = NULL;
 
-  free(adverbs.permute);
-  adverbs.permute = NULL;
+  free(jcch_adverbs.permute);
+  jcch_adverbs.permute = NULL;
 
-  free(prepositions.permute);
-  prepositions.permute = NULL;
+  free(jcch_prepositions.permute);
+  jcch_prepositions.permute = NULL;
 
-  free(verbs.permute);
-  verbs.permute = NULL;
+  free(jcch_verbs.permute);
+  jcch_verbs.permute = NULL;
 
-  free(terminators.permute);
-  terminators.permute = NULL;
+  free(jcch_terminators.permute);
+  jcch_terminators.permute = NULL;
 
-  free(auxillaries.permute);
-  auxillaries.permute = NULL;
+  free(jcch_auxillaries.permute);
+  jcch_auxillaries.permute = NULL;
 
-  free(np.permute);
-  np.permute = NULL;
+  free(jcch_np.permute);
+  jcch_np.permute = NULL;
 
-  free(vp.permute);
-  vp.permute = NULL;
+  free(jcch_vp.permute);
+  jcch_vp.permute = NULL;
 
-  free(grammar.permute);
-  grammar.permute = NULL;
+  free(jcch_grammar.permute);
+  jcch_grammar.permute = NULL;
 
-  if (asc_date) {
+  if (jcch_asc_date) {
     for (long long idx = 0; idx < TOTDATE; ++idx) {
-      free(asc_date[idx]);
+      free(jcch_asc_date[idx]);
     }
-    free(asc_date);
+    free(jcch_asc_date);
   }
-  asc_date = NULL;
+  jcch_asc_date = NULL;
 }

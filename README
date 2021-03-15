@@ -5,8 +5,8 @@ JCC-H is a version of TPC-H rife with Join Crossing Correlations (JCC).
 
 You get into situations where 5 keys join with 20% of the fact tables, 
 which is skew that MPP systems tend not to like. This skew, only appears 
-when certain selections are made on the dimension table (often 
-indirectly, the selection may also be on another dimension table a few 
+when certain selections are made on the dimension jcch_table (often 
+indirectly, the selection may also be on another dimension jcch_table a few 
 joins away). This means current optimizers will typically not be able 
 to tell that this will happen.
 
@@ -17,7 +17,7 @@ Paper here: https://ir.cwi.nl/pub/27429/27429.pdf
 This software is a 100% compatible TPC-H benchmark. It generates very 
 intricate correlations and skew in the datagen when you add the flag. 
 
-usage: dbgen -k [any other options, see below]
+jcch_usage: dbgen -k [any other options, see below]
        generates the correlated+skewed TPC-H dataset
 
 For the query generation (qgen), it supports two modes of operation: 
@@ -25,7 +25,7 @@ get "normal" parameters where JCC-H behaves without skew, very similar
 to normal TPC-H. And a "skewed" parameter set: identical 22 TPC-H queries, 
 just different constants, but now the join and scan skew is everywhere.
 
-usage: qgen -k [any other options, see below]
+jcch_usage: qgen -k [any other options, see below]
        generates the 'skewed' TPC-H parameter bindings
        omitting generates the 'normal' TPC-H parameter bindings
 
@@ -43,7 +43,7 @@ Table of Contents
  3. How is DBGEN built?
  4. Command Line Options for DBGEN
  5. Building Large Data Sets with DBGEN
- 6. DBGEN limitations and compliant usage
+ 6. DBGEN limitations and compliant jcch_usage
  7. Sample DBGEN executions
  8. What is QGEN?
  9. What will QGEN create?
@@ -78,17 +78,17 @@ process of building a compliant database population as simple as possible.
 Without any command line options, DBGEN will generate 8 separate ascii
 files. Each file will contain pipe-delimited load data for one of the
 tables defined in the TPC-H database schema. The default tables 
-will contain the load data required for a scale factor 1 database. By 
+will contain the load data required for a jcch_scale factor 1 database. By 
 default the file will be created in the current directory and be 
-named <table>.tbl. As an example, customer.tbl will contain the 
-load data for the customer table.
+named <jcch_table>.tbl. As an example, customer.tbl will contain the 
+load data for the customer jcch_table.
 
 When invoked with the '-U' flag, DBGEN will create the data sets to be 
 used in the update functions and the SQL syntax required to delete the 
 data sets. The update files will be created in the same directory as 
-the load data files and will be named "u_<table>.set". The delete 
+the load data files and will be named "u_<jcch_table>.set". The delete 
 syntax will be written to "delete.set". For instance, the data set to 
-be used in the third query set to update the lineitem table will be 
+be used in the third query set to update the lineitem jcch_table will be 
 named "u_lineitem.tbl.3", and the SQL to remove those rows will be 
 found in "delete.3". The size of the update files can be controlled 
 with the '-r' flag.
@@ -110,7 +110,7 @@ option  argument    default     action
 ------  --------    -------     ------
 -k                              generate correlated and skewed data
 
--h                              Display a usage summary
+-h                              Display a jcch_usage summary
 
 -f      none                    Force. Existing data files will be
                                 overwritten.
@@ -120,10 +120,10 @@ option  argument    default     action
 -D      none                    Direct database load. ld_XXXX() routines
                                 must be defined in load_stub.c
 
--s      <scale>     1           Scale of the database population. Scale
+-s      <jcch_scale>     1           Scale of the database population. Scale
                                 1.0 represents ~1 GB of data
 
--T      <table>                 Generate the data for a particular table
+-T      <jcch_table>                 Generate the data for a particular jcch_table
                                 ONLY. Arguments: p -- part/partuspp, 
                                 c -- customer, s -- supplier, 
                                 o -- orders/lineitem, n -- nation, r -- region,
@@ -157,7 +157,7 @@ option  argument    default     action
 
 -n      <name>                  Use database <name> for in-line load
 
--C      <children>              Use <children> separate processes to 
+-C      <jcch_children>              Use <jcch_children> separate processes to 
                                 generate data
 
 -S      <n>                     Generate the <n>th part of a multi-part load
@@ -173,7 +173,7 @@ option  argument    default     action
 -d      <n>                     Split the deleted rows in an refresh pair
 								between <n> files
 
-5. DBGEN limitations and compliant usage
+5. DBGEN limitations and compliant jcch_usage
 
 DBGEN is meant to be a robust population generator for use with the 
 TPC-H benchmark. It is hoped that DBGEN will make it easier 
@@ -184,7 +184,7 @@ data set for a TPC-D run. In addition, some command line options will accept
 arguments which result in the generation of NON-COMPLIANT data sets. Options 
 which should be used with care include:
 
--s -- scale factor. TPC-H runs are only compliant when run against SF's 
+-s -- jcch_scale factor. TPC-H runs are only compliant when run against SF's 
       of 1, 10, 100, 300, 1000, 3000, 10000, 30000, 100000
 -r -- refresh percentage. TPC-H runs are only compliant when run with 
       -r 10, the default.
@@ -199,7 +199,7 @@ some sample uses of DBGEN.
 
   1. To generate the database population for the qualification database
 	dbgen -s 1
-  2. To generate the lineitem table only, for a scale factor 10 database,
+  2. To generate the lineitem jcch_table only, for a jcch_scale factor 10 database,
      and over-write any existing flat files:
 	dbgen -s 10 -f -T L
   4. To geterate a 100GB data set in 1GB pieces, generate only the part and 
@@ -316,7 +316,7 @@ option  argument    default     action
 -d      none                    Default. Use the parameter substitutions
                                 required for query validation
 
--h                              Display a usage summary
+-h                              Display a jcch_usage summary
 
 -i      <file>                  Use contents of <file> to init a query stream
 
@@ -334,15 +334,15 @@ option  argument    default     action
                                 omited, EQT will be generated for the
                                 queries named on the command line.
 
--r      <n>                     Seed the rnadom number generator with <n>
+-r      <n>                     jcch_Seed the rnadom number generator with <n>
 
--s      <n>                     Set scale to <n> for parameter 
+-s      <n>                     Set jcch_scale to <n> for parameter 
                                 substitutions.
 
 -t      <file>                  Use contents of <file> to complete a query 
                                 stream
 
--T      none                    Use time table format for date substitution
+-T      none                    Use time jcch_table format for date substitution
 
 -v      none                    Verbose. Progress messages are 
                                 displayed as data is generated.
@@ -390,7 +390,7 @@ Notes:
 QGEN translates generic query templates into valid SQL. In addition, it 
 allows conditional inclusion of the commands necessary to connect to a 
 database, produce diagnostic output, etc. Here are some sample of QGEN
-usage, and the way that command line parameters and the query templates 
+jcch_usage, and the way that command line parameters and the query templates 
 interact to produce valid SQL.
 
   Template, in $DSS_QUERY/1.sql:
@@ -441,7 +441,7 @@ DSS_QUERY   .           Directory in which to find query templates
 14. Version Numbering in DBGEN and QGEN
 
 DBGEN and QGEN use a common version numbering algorithm. Each executable
-is stamped with a version number which is displayed in the usage messages
+is stamped with a version number which is displayed in the jcch_usage messages
 available with the '-h' option. A version number is of the form:
 
    V.R.P.M
@@ -458,7 +458,7 @@ available with the '-h' option. A version number is of the form:
                            specification
 
 An implementation of TPC-H is valid only if it conforms to the 
-following version usage rules:
+following version jcch_usage rules:
 
   -- The Version of DBGEN and QGEN must match the integer portion of the 
      current specification revision

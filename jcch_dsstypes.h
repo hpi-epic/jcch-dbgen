@@ -5,7 +5,7 @@
 * ===================
 * $Log: jcch_dsstypes.h,v $
 * Revision 1.3  2005/10/28 02:57:04  jms
-* allow for larger names in customer table
+* allow for larger names in customer jcch_table
 *
 * Revision 1.2  2005/01/03 20:08:58  jms
 * change line terminations
@@ -23,7 +23,7 @@
 * recreation after CVS crash
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -52,7 +52,7 @@ typedef struct
     int             clen;
 }               customer_t;
 /* customers.c */
-long mk_cust   PROTO((DSS_HUGE n_cust, customer_t * c));
+long jcch_mk_cust   PROTO((DSS_HUGE n_cust, customer_t * c));
 int pr_cust    PROTO((customer_t * c, int mode));
 int ld_cust    PROTO((customer_t * c, int mode));
 
@@ -91,13 +91,13 @@ typedef struct
     char            comment[O_CMNT_MAX + 1];
     int            clen;
     line_t          *l;
-}               order_t;
+}               jcch_order_t;
 
 /* order.c */
-long	mk_order	PROTO((DSS_HUGE index, order_t * o, long upd_num));
-int		pr_order	PROTO((order_t * o, int mode));
-int		ld_order	PROTO((order_t * o, int mode));
-void	mk_sparse	PROTO((DSS_HUGE index, DSS_HUGE *ok, long seq));
+long	jcch_mk_order	PROTO((DSS_HUGE index, jcch_order_t * o, long upd_num));
+int		pr_order	PROTO((jcch_order_t * o, int mode));
+int		ld_order	PROTO((jcch_order_t * o, int mode));
+void	jcch_mk_sparse	PROTO((DSS_HUGE index, DSS_HUGE *ok, long seq));
 
 typedef struct
 {
@@ -130,7 +130,7 @@ typedef struct
 }               part_t;
 
 /* parts.c */
-long mk_part   PROTO((DSS_HUGE index, part_t * p));
+long jcch_mk_part   PROTO((DSS_HUGE index, part_t * p));
 int pr_part    PROTO((part_t * part, int mode));
 int ld_part    PROTO((part_t * part, int mode));
 
@@ -147,7 +147,7 @@ typedef struct
     int             clen;
 }               supplier_t;
 /* supplier.c */
-long mk_supp   PROTO((DSS_HUGE index, supplier_t * s));
+long jcch_mk_supp   PROTO((DSS_HUGE index, supplier_t * s));
 int pr_supp    PROTO((supplier_t * supp, int mode));
 int ld_supp    PROTO((supplier_t * supp, int mode));
 
@@ -162,7 +162,7 @@ typedef struct
 } dss_time_t;               
 
 /* time.c */
-long mk_time   PROTO((DSS_HUGE h, dss_time_t * t));
+long jcch_mk_time   PROTO((DSS_HUGE h, dss_time_t * t));
 
 /*
  * this assumes that N_CMNT_LEN >= R_CMNT_LEN 
@@ -176,11 +176,11 @@ typedef struct
     int             clen;
 }               code_t;
 
-/* code table */
-int mk_nation   PROTO((DSS_HUGE i, code_t * c));
+/* code jcch_table */
+int jcch_mk_nation   PROTO((DSS_HUGE i, code_t * c));
 int pr_nation    PROTO((code_t * c, int mode));
 int ld_nation    PROTO((code_t * c, int mode));
-int mk_region   PROTO((DSS_HUGE i, code_t * c));
+int jcch_mk_region   PROTO((DSS_HUGE i, code_t * c));
 int pr_region    PROTO((code_t * c, int mode));
 int ld_region    PROTO((code_t * c, int mode));
 

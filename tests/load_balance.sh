@@ -16,7 +16,7 @@ unlock()
 {
 	rm -f $LOCK
 }
-usage()
+jcch_usage()
 {
 	echo "USAGE: `basename $0` <task list> [<DOP=4>]"
 	echo "	work through commands in <task list>, keeping <DOP> tasks active"
@@ -27,12 +27,12 @@ usage()
 # MAIN
 ###
 case $# in 
-0)	# no args, summarize usage and exit
-	usage
+0)	# no args, summarize jcch_usage and exit
+	jcch_usage
 	;;
 1)	# default DOP
-	[ $1 = "-h" ] && usage
-	[ $1 = "--help" ] && usage
+	[ $1 = "-h" ] && jcch_usage
+	[ $1 = "--help" ] && jcch_usage
 	TASKS=$1
 	;;
 2) 	# set DOP and tasks
@@ -51,7 +51,7 @@ then
 	echo "ERROR: no list of tasks found"
 	exit
 fi
-# launch children or execute next command
+# launch jcch_children or execute next command
 if [ -z "$JOBID" ]
 then
 	JOBID=$$

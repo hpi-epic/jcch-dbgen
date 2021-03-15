@@ -19,18 +19,18 @@ is written in ANSI-C, and is meant to be easily portable to a broad variety
 of platforms. The program is composed of five source files and some 
 support and header files.  The main modules are:
 
-        build.c: each table in the database schema is represented by a 
+        build.c: each jcch_table in the database schema is represented by a 
                  routine mk_XXXX, which populates a structure 
-                 representing one row in table XXXX.
+                 representing one row in jcch_table XXXX.
                  See Also: dss_types.h, bm_utils.c, rnd.*
-        print.c: each table in the database schema is represented by a 
+        print.c: each jcch_table in the database schema is represented by a 
                  routine pr_XXXX, which prints the contents of a 
-                 structure representing one row in table XXX.
+                 structure representing one row in jcch_table XXX.
                  See Also: dss_types.h, jcch_dss.h
         driver.c: this module contains the main control functions for 
                  DBGEN, including command line parsing, distribution 
                  management, database scaling and the calls to mk_XXXX 
-                 and pr_XXXX for each table generated.
+                 and pr_XXXX for each jcch_table generated.
         qgen.c:  this module contains the main control functions for 
                  QGEN, including query template parsing.
         varsub.c: each query template includes one or more parameter
@@ -49,12 +49,12 @@ generation and include:
         jcch_dss.h:
         jcch_shared.h: a set of '#defines' for limits, formats and fixed 
                 values 
-        jcch_dsstypes.h: structure definitions for each table definition
+        jcch_dsstypes.h: structure definitions for each jcch_table definition
 
 2. Naming Conventions and Variable Usage
 
 Since DBGEN will be maintained by a large number of people, it is 
-particularly important to observe the coding, variable naming and usage
+particularly important to observe the coding, variable naming and jcch_usage
 conventions detailed here.
 
   #define
@@ -68,7 +68,7 @@ conventions detailed here.
 	    jcch_dsstypes.h. Isolated to ease automatic processing needed by many
 	    direct load routines (see below).
 	jcch_dsstypes.h -- structure definitons and typedef directives to
-	    detail the contents of each table's tuples.
+	    detail the contents of each jcch_table's tuples.
 	jcch_config.h -- any porting and configuration related defines should
 	    go here, to localize the changes necessary to move the suite
 	    from one machine to another.
@@ -89,17 +89,17 @@ conventions detailed here.
     ------------------
     defines
 	o All defines use upper case
-	o All defines use a table prefix, if appropriate:
-		O_*	relates to orders table
-		L_*	realtes to lineitem table
-		P_*	realtes to part table
-		PS_*	relates to partsupplier table
-		C_*	realtes to customer table
-		S_*	relates to supplier table
-		N_*	relates to nation table
-		R_*	realtes to region table
-		T_*	relates to time table
-	o All defines have a usage prefix, if appropriate:
+	o All defines use a jcch_table prefix, if appropriate:
+		O_*	relates to orders jcch_table
+		L_*	realtes to lineitem jcch_table
+		P_*	realtes to part jcch_table
+		PS_*	relates to partsupplier jcch_table
+		C_*	realtes to customer jcch_table
+		S_*	relates to supplier jcch_table
+		N_*	relates to nation jcch_table
+		R_*	realtes to region jcch_table
+		T_*	relates to time jcch_table
+	o All defines have a jcch_usage prefix, if appropriate:
 		*_TAG	environment variable name
 		*_DFLT	environment variable default
 		*_MAX	upper bound
@@ -185,7 +185,7 @@ creation of the flat files. This should allow system which require
 formatting information in database load files to use DBGEN with only
 a small amount of custom code.
 
-qgen.c defines the translation table for query templates in the
+qgen.c defines the translation jcch_table for query templates in the
 routine qsub().
 
 varsub.c defines the parameter substitutions in the routine varsub().

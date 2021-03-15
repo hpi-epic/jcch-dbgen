@@ -34,7 +34,7 @@
 * check in integration between microsoft changes and baseline code
 *
 * Revision 1.3  2005/03/04 19:48:39  jms
-* Changes from Doug Johnson to address very large scale factors
+* Changes from Doug Johnson to address very large jcch_scale factors
 *
 * Revision 1.2  2005/01/03 20:08:59  jms
 * change line terminations
@@ -57,9 +57,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "rng64.h"
-extern double dM;
+extern double jcch_dM;
 
-extern seed_t Seed[];
+extern seed_t jcch_Seed[];
 
 void
 dss_random64(DSS_HUGE *tgt, DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
@@ -76,15 +76,15 @@ dss_random64(DSS_HUGE *tgt, DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
         nHigh = nTemp;
     }
 
-    Seed[nStream].value = NextRand64(Seed[nStream].value);
-    nTemp = Seed[nStream].value;
+    jcch_Seed[nStream].value = NextRand64(jcch_Seed[nStream].value);
+    nTemp = jcch_Seed[nStream].value;
     if (nTemp < 0) 
 	nTemp = -nTemp;
     nTemp %= (nHigh - nLow + 1);
     *tgt = nLow + nTemp;
-    Seed[nStream].usage += 1;
+    jcch_Seed[nStream].jcch_usage += 1;
 #ifdef RNG_TEST
-   Seed[nStream].nCalls += 1;
+   jcch_Seed[nStream].nCalls += 1;
 #endif
 
 	return;

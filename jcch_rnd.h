@@ -23,7 +23,7 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -44,7 +44,7 @@ static long     nM = 2147483647;/* the modulus == 2^31 - 1 */
 static long     nQ = 127773;    /* the quotient nM / nA */
 static long     nR = 2836;      /* the remainder nM % nA */
 
-extern double   dM;
+extern double   jcch_dM;
 
 /*
  * macros to control RNG and assure reproducible multi-stream
@@ -55,4 +55,4 @@ extern double   dM;
  * preferred solution, but not initializing correctly
  */
 #define VSTR_MAX(len)	(long)(len / 5 + (len % 5 == 0)?0:1 + 1)
-extern seed_t     Seed[MAX_STREAM + 1];
+extern seed_t     jcch_Seed[MAX_STREAM + 1];

@@ -128,9 +128,9 @@ EXTERN char *tfile;
 #ifdef DECLARER
 int rowcnt_dflt[QUERIES_PER_SET + 1] = 
     {-1,-1,100,10,-1,-1,-1,-1,-1,-1,20,-1,-1,-1,-1,-1,-1,-1,100,-1,-1,100,-1};
-int rowcnt;
+int jcch_rowcnt;
 #define SEQUENCE(stream, query) permutation[stream % MAX_PERMUTE][query - 1]
 #else
 extern int rowcnt_dflt[];
-extern int rowcnt;
+extern int jcch_rowcnt;
 #endif

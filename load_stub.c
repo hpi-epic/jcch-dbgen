@@ -53,7 +53,7 @@ hd_cust (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the customer table\n");
+        printf("No header has been defined for the customer jcch_table\n");
 
     return(0);
 }
@@ -66,7 +66,7 @@ ld_cust (customer_t *cp, int mode)
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined",
-            "for the customer table");
+            "for the customer jcch_table");
 
     return(0);
 }
@@ -77,7 +77,7 @@ hd_part (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the part table\n");
+        printf("No header has been defined for the part jcch_table\n");
 
     return(0);
 }
@@ -88,7 +88,7 @@ ld_part (part_t *pp, int mode)
     static int count = 0;
 
     if (! count++)
-        printf("No load routine has been defined for the part table\n");
+        printf("No load routine has been defined for the part jcch_table\n");
 
     return(0);
 }
@@ -101,7 +101,7 @@ ld_psupp (part_t *pp, int mode)
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined for the",
-            "psupp table\n");
+            "psupp jcch_table\n");
 
     return(0);
 
@@ -114,7 +114,7 @@ hd_supp (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the supplier table\n");
+        printf("No header has been defined for the supplier jcch_table\n");
 
     return(0);
 }
@@ -127,7 +127,7 @@ ld_supp (supplier_t *sp, int mode)
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined",
-            "for the supplier table\n");
+            "for the supplier jcch_table\n");
 
     return(0);
 }
@@ -139,32 +139,32 @@ hd_order (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the order table\n");
+        printf("No header has been defined for the order jcch_table\n");
 
     return(0);
 }
 
 int 
-ld_order (order_t *p, int mode)
+ld_order (jcch_order_t *p, int mode)
 {
     static int count = 0;
 
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined",
-            "for the order table");
+            "for the order jcch_table");
 
     return(0);
 }
 
-int ld_line (order_t *p, int mode)
+int ld_line (jcch_order_t *p, int mode)
 {
     static int count = 0;
 
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined",
-            "for the line table");
+            "for the line jcch_table");
 
     return(0);
 }
@@ -179,7 +179,7 @@ hd_psupp (FILE *f)
     if (! count++)
         printf("%s %s\n",
             "No header has been defined for the",
-            "part supplier table");
+            "part supplier jcch_table");
 
     return(0);
 }
@@ -191,7 +191,7 @@ hd_line (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the lineitem table\n");
+        printf("No header has been defined for the lineitem jcch_table\n");
 
     return(0);
 }
@@ -202,7 +202,7 @@ hd_nation (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the nation table\n");
+        printf("No header has been defined for the nation jcch_table\n");
 
     return(0);
 }
@@ -215,7 +215,7 @@ ld_nation (code_t *cp, int mode)
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined",
-            "for the nation table");
+            "for the nation jcch_table");
 
     return(0);
 }
@@ -226,7 +226,7 @@ hd_region (FILE *f)
     static int count = 0;
 
     if (! count++)
-        printf("No header has been defined for the region table\n");
+        printf("No header has been defined for the region jcch_table\n");
 
     return(0);
 }
@@ -239,13 +239,13 @@ ld_region (code_t *cp, int mode)
     if (! count++)
         printf("%s %s\n",
             "No load routine has been defined",
-            "for the region table");
+            "for the region jcch_table");
 
     return(0);
 }
 
 int 
-ld_order_line (order_t *p, int mode)
+ld_order_line (jcch_order_t *p, int mode)
 {
     ld_order(p, mode);
     ld_line (p, mode);

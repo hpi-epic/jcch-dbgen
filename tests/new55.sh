@@ -2,11 +2,11 @@
 ##
 # verify data set at different DOP levels
 ##
-usage()
+jcch_usage()
 {
 	[ $# -gt 1 ] && echo "ERROR: $2"
 	echo "USAGE: `basename $1` <SF> <DOP> [<PROCS=4>]"
-	echo "     collect last rows for each table at a set of SF and DOP values"
+	echo "     collect last rows for each jcch_table at a set of SF and DOP values"
 	echo "     and try to keep <PROCS> tasks running at all times"
 	echo "     NOTE: multiple values for SF/DOP must be enclosed in quotation marks and separated by spaces"
 	exit
@@ -29,7 +29,7 @@ case $# in
 		DOP=$2
 		SF=$1
 		;;
-	*)	usage $0;;
+	*)	jcch_usage $0;;
 esac
 
 # generate a task list
@@ -51,7 +51,7 @@ fi
 ./load_balance.sh $CMDS $PROCS
 echo "done"
 
-# gather the results by table
+# gather the results by jcch_table
 for f in *.last_row.*
 do
 	t=`echo $f | cut -f1 -d\.`

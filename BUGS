@@ -53,14 +53,14 @@ CLOSED IN:      1.0.1 (dbgen and qgen)
 Problem #2: closed
 Summary: parallelism in load to gen differing data sets
 the parallel load code was based on extensible data sets; since
-	 each "extension" made an assumption of scale factor, the data
+	 each "extension" made an assumption of jcch_scale factor, the data
 	 could end up clustered. Further, since the RNG is
 	 self-modifying, different numbers of extension led to different
 	 final data sets.
 SEVERITY:
 SPEC FIX: none.
 DBGEN FIX: remove -E(xtensible) option and implement pure parallel
-load with a known scale factor; rebuild seed files
+load with a known jcch_scale factor; rebuild seed files
 ANSWER SETS: not effected. (parallelism not implemented for SF <= 1)
 WORKAROUND: don't use the parallel load (-C) option to DBGEN
 HELP NEEDED: testers needed.
@@ -74,7 +74,7 @@ retailprice tends to SF/10 as SF increases. this can lead to
 	 data corruption in extendedprice and aggregate calculations
 SEVERITY:
 SPEC FIX: will need rework of 1.3 wrt retailprice calculation
-DBGEN FIX: modification to second term of rpb_routine() calcuation
+DBGEN FIX: modification to second term of jcch_rpb_routine() calcuation
 to limit contibution of second term to the maximum seen at 
 	       SF=.1
 ANSWER SETS: not effected
@@ -128,7 +128,7 @@ Problem #7: closed
 Summary: '-O f' asking for new file names twice
 SEVERITY:
 SPEC FIX:  none
-DBGEN FIX: rework of set_files() in driver.c
+DBGEN FIX: rework of jcch_set_files() in driver.c
 ANSWER SETS: not effected
 WORKAROUND: none
 HELP NEEDED: none
@@ -137,7 +137,7 @@ OPENED AGAINST: 1.0
 CLOSED IN: 1.0.1
 
 Problem #8: closed
-Summary: Seed generation taking too long
+Summary: jcch_Seed generation taking too long
 SEVERITY:
 SPEC FIX: N/A
 DBGEN FIX: implement "skip and trudge" as discussed
@@ -189,7 +189,7 @@ Problem #12: closed
 Summary: Bad default rowcount generated for query 17
 SEVERITY: Error
 SPEC FIX: None
-DBGEN FIX: corrected rowcnt[] entries to be 1-based
+DBGEN FIX: corrected jcch_rowcnt[] entries to be 1-based
 ANSWER SETS: N/A
 WORKAROUND: hand edit query or add explicit row count to template
 HELP NEEDED:
@@ -237,7 +237,7 @@ OPENED AGAINST: 1.0.1
 CLOSED IN: 1.1.0
 
 Problem #16: closed
-Summary: update generation at large scale factors produced the wrong number
+Summary: update generation at large jcch_scale factors produced the wrong number
 of rows due to overflow of 32-bit integer
 SEVERITY: BUG
 SPEC FIX: N/A
@@ -315,7 +315,7 @@ the substitution list
 SEVERITY:     bug
 SPEC FIX:     N/A
 DBGEN FIX:    assure null termination of param list and bound the output
-loop that logs parameter usage
+loop that logs parameter jcch_usage
 ANSWER SETS:  N/A
 WORKAROUND:   none
 HELP NEEDED:  none
@@ -412,7 +412,7 @@ CLOSED IN:       1.1.0C
 CLOSED BY:       jms@informix.com
 
 Problem #28: closed
-Summary: Seed generation fails with SF > 1000 due to 32 bit integer
+Summary: jcch_Seed generation fails with SF > 1000 due to 32 bit integer
 arithmetic used to verify "divisible-ness" of data set
 SEVERITY:     bug
 SPEC FIX:     N/A
@@ -489,7 +489,7 @@ SEVERITY:     bug
 SPEC FIX:     N/A
 SOURCE FIX:   
 ANSWER SETS:  N/A
-WORKAROUND:   use -S option to build each step independently
+WORKAROUND:   use -S option to build each jcch_step independently
 HELP NEEDED:  none
 AUDITORS NOTIFIED:	N/A
 OPENED AGAINST:  1.1.0
@@ -501,7 +501,7 @@ Problem #34: closed
 Summary: P_NAME not properly populated
 SEVERITY:     bug
 SPEC FIX:     N/A
-SOURCE FIX:   Corrected color selection logic in agg_str()
+SOURCE FIX:   Corrected color selection logic in jcch_agg_str()
 ANSWER SETS:  NFI for 1.x since it effect answer sets
 WORKAROUND:   N/A
 HELP NEEDED:  None
@@ -512,10 +512,10 @@ CLOSED IN:       2.0.0
 CLOSED BY:       jms@gradientsystems.com
 
 Problem #35: closed
-Summary: mk_sparse() returning bad orderkeys
+Summary: jcch_mk_sparse() returning bad orderkeys
 SEVERITY:     bug
 SPEC FIX:     N/A
-SOURCE FIX:   corrected logic in mk_sparse() and bcd2_bin()
+SOURCE FIX:   corrected logic in jcch_mk_sparse() and bcd2_bin()
 ANSWER SETS:  N/A
 WORKAROUND:   N/A
 HELP NEEDED:  None
@@ -526,10 +526,10 @@ CLOSED IN:       1.3.1
 CLOSED BY:       jms@gradientsystems.com
 
 Problem #36: closed
-Summary: a_rnd() doesn't mask properly, uses small 'alphabet'
+Summary: jcch_a_rnd() doesn't mask properly, uses small 'alphabet'
 SEVERITY:     bug
 SPEC FIX:     Corrected 4.2.2.6 to reflect 64 character set
-SOURCE FIX:   changed mask in a_rnd() from 067 to 077
+SOURCE FIX:   changed mask in jcch_a_rnd() from 067 to 077
 ANSWER SETS:  NFI for 1.x since answers would be effected
 WORKAROUND:   N/A
 HELP NEEDED:  None
@@ -610,7 +610,7 @@ CLOSED IN:       2.01a
 CLOSED BY:       jms@gradientsystems.com
 
 Problem #42: closed
-Summary: Dual declaration of articles causes C++ compilation error
+Summary: Dual declaration of jcch_articles causes C++ compilation error
 SEVERITY:     Bug
 SPEC FIX:     N/A
 SOURCE FIX:   Duplicate declaration removed
@@ -683,7 +683,7 @@ Problem #47: closed
 Summary: QGEN parameter substitution not random
 SEVERITY:     BUG
 SPEC FIX:     N/A
-SOURCE FIX:   corrected varsub RANDOM usage to reflect seed file removal
+SOURCE FIX:   corrected varsub RANDOM jcch_usage to reflect seed file removal
 ANSWER SETS:  N/A
 WORKAROUND:   N/A
 HELP NEEDED:  None
@@ -839,7 +839,7 @@ Problem #57: closed
 Summary: Need way to remove all DBGEN output unless there is an error 
 SEVERITY:     FEATURE
 SPEC FIX:     N/A
-SOURCE FIX:   added -q switch to driver.c and changed verbose if's
+SOURCE FIX:   added -q switch to driver.c and changed jcch_verbose if's
 ANSWER SETS:  N/A
 WORKAROUND:   N/A
 HELP NEEDED:  None
@@ -914,7 +914,7 @@ CHECKED BY:   N/A
 
 Problem #00062: closed
 Summary:      bad update rollover after 1000 refreshes
-    This test uses tpcH scale 0.01. We've encountered
+    This test uses tpcH jcch_scale 0.01. We've encountered
 	an situation in which dbgen doesn't generate
 	the correct data for delete files delete.1000 and
 	above. In particular, file delete.1000 contains

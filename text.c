@@ -26,7 +26,7 @@
 * recreation after CVS crash
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -101,7 +101,7 @@
  *
  *	Returns: length of generated phrase
  *	Called By: txt_sentence()
- *	Calls: pick_str() 
+ *	Calls: jcch_pick_str() 
  */
 static int
 txt_vp(char *dest, int sd) 
@@ -114,7 +114,7 @@ txt_vp(char *dest, int sd)
 		res = 0;
 
 	
-	pick_str(&vp, sd, &syntax[0]);
+	jcch_pick_str(&jcch_vp, sd, &syntax[0]);
 	parse_target = syntax;
 	while ((cptr = strtok(parse_target, " ")) != NULL)
 	{
@@ -122,16 +122,16 @@ txt_vp(char *dest, int sd)
 		switch(*cptr)
 		{
 		case 'D':
-			src = &adverbs;
+			src = &jcch_adverbs;
 			break;
 		case 'V':
-			src = &verbs;
+			src = &jcch_verbs;
 			break;
 		case 'X': 
-			src = &auxillaries;
+			src = &jcch_auxillaries;
 			break;
 		}	/* end of POS switch statement */
-		i = pick_str(src, sd, dest);
+		i = jcch_pick_str(src, sd, dest);
 		i = (int)strlen(DIST_MEMBER(src, i));
 		dest += i;
 		res += i;
@@ -160,7 +160,7 @@ txt_vp(char *dest, int sd)
  *
  *	Returns: length of generated phrase
  *	Called By: txt_sentence()
- *	Calls: pick_str(), 
+ *	Calls: jcch_pick_str(), 
  */
 static int
 txt_np(char *dest, int sd) 
@@ -173,7 +173,7 @@ txt_np(char *dest, int sd)
 		res = 0;
 
 	
-	pick_str(&np, sd, &syntax[0]);
+	jcch_pick_str(&jcch_np, sd, &syntax[0]);
 	parse_target = syntax;
 	while ((cptr = strtok(parse_target, " ")) != NULL)
 	{
@@ -181,19 +181,19 @@ txt_np(char *dest, int sd)
 		switch(*cptr)
 		{
 		case 'A':
-			src = &articles;
+			src = &jcch_articles;
 			break;
 		case 'J':
-			src = &adjectives;
+			src = &jcch_adjectives;
 			break;
 		case 'D':
-			src = &adverbs;
+			src = &jcch_adverbs;
 			break;
 		case 'N': 
-			src = &nouns;
+			src = &jcch_nouns;
 			break;
 		}	/* end of POS switch statement */
-		i = pick_str(src, sd, dest);
+		i = jcch_pick_str(src, sd, dest);
 		i = (int)strlen(DIST_MEMBER(src, i));
 		dest += i;
 		res += i;
@@ -222,7 +222,7 @@ txt_np(char *dest, int sd)
  *
  *	Returns: length of generated sentence
  *	Called By: dbg_text()
- *	Calls: pick_str(), txt_np(), txt_vp() 
+ *	Calls: jcch_pick_str(), txt_np(), txt_vp() 
  */
 static int
 txt_sentence(char *dest, int sd) 
@@ -234,7 +234,7 @@ txt_sentence(char *dest, int sd)
 		len = 0;
 
 	
-	pick_str(&grammar, sd, syntax);
+	jcch_pick_str(&jcch_grammar, sd, syntax);
 	cptr = syntax;
 
 next_token:	/* I hate goto's, but can't seem to have parent and child use strtok() */
@@ -251,15 +251,15 @@ next_token:	/* I hate goto's, but can't seem to have parent and child use strtok
 			len = txt_np(dest, sd);
 			break;
 		case 'P':
-			i = pick_str(&prepositions, sd, dest);
-			len = (int)strlen(DIST_MEMBER(&prepositions, i));
+			i = jcch_pick_str(&jcch_prepositions, sd, dest);
+			len = (int)strlen(DIST_MEMBER(&jcch_prepositions, i));
 			strcpy((dest + len), " the ");
 			len += 5;
 			len += txt_np(dest + len, sd);
 			break;
 		case 'T':
-			i = pick_str(&terminators, sd, --dest); /*terminators should abut previous word */
-			len = (int)strlen(DIST_MEMBER(&terminators, i));
+			i = jcch_pick_str(&jcch_terminators, sd, --dest); /*jcch_terminators should abut previous word */
+			len = (int)strlen(DIST_MEMBER(&jcch_terminators, i));
 			break;
 		}	/* end of POS switch statement */
 		dest += len;
@@ -299,12 +299,12 @@ dbg_text(char *tgt, int min, int max, int sd)
    if (!bInit)
    {
       cp = &szTextPool[0];
-      if (verbose > 0)
+      if (jcch_verbose > 0)
          fprintf(stderr, "\nPreloading text ... ");
       
       while (wordlen < TEXT_POOL_SIZE)
       {
-         if ((verbose > 0) && (wordlen > nLifeNoise))
+         if ((jcch_verbose > 0) && (wordlen > nLifeNoise))
          {
             nLifeNoise += 200000;
             fprintf(stderr, "%3.0f%%\b\b\b\b", (100.0 * wordlen)/TEXT_POOL_SIZE);
@@ -331,7 +331,7 @@ dbg_text(char *tgt, int min, int max, int sd)
       }
       *cp = '\0';
       bInit = 1;
-      if (verbose > 0)
+      if (jcch_verbose > 0)
          fprintf(stderr, "\n");
    }
 
@@ -344,36 +344,36 @@ dbg_text(char *tgt, int min, int max, int sd)
 }
 
 #ifdef TEXT_TEST
-tdef tdefs[1] = { NULL };
-distribution nouns,
-      verbs,
-      adjectives,
-      adverbs,
-      auxillaries,
-      terminators,
-      articles,
-      prepositions,
-      grammar,
-      np,
-      vp;
+tdef jcch_tdefs[1] = { NULL };
+distribution jcch_nouns,
+      jcch_verbs,
+      jcch_adjectives,
+      jcch_adverbs,
+      jcch_auxillaries,
+      jcch_terminators,
+      jcch_articles,
+      jcch_prepositions,
+      jcch_grammar,
+      jcch_np,
+      jcch_vp;
 
 main()
 {
 	char prattle[401];
 	
-	verbose = 1;
+	jcch_verbose = 1;
    
-   read_dist (env_config (DIST_TAG, DIST_DFLT), "nouns", &nouns);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "verbs", &verbs);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "adjectives", &adjectives);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "adverbs", &adverbs);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "auxillaries", &auxillaries);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "terminators", &terminators);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "articles", &articles);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "prepositions", &prepositions);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "grammar", &grammar);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "np", &np);
-	read_dist (env_config (DIST_TAG, DIST_DFLT), "vp", &vp);
+   jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_nouns", &jcch_nouns);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_verbs", &jcch_verbs);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_adjectives", &jcch_adjectives);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_adverbs", &jcch_adverbs);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_auxillaries", &jcch_auxillaries);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_terminators", &jcch_terminators);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_articles", &jcch_articles);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_prepositions", &jcch_prepositions);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_grammar", &jcch_grammar);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_np", &jcch_np);
+	jcch_read_dist (jcch_env_config (DIST_TAG, DIST_DFLT), "jcch_vp", &jcch_vp);
 
 	while (1)
 	{

@@ -50,7 +50,7 @@
  */
 void varsub PROTO((int qnum, int vnum, int flags));
 int strip_comments PROTO((char *line));
-void usage PROTO((void));
+void jcch_usage PROTO((void));
 int process_options PROTO((int cnt, char **args));
 int setup PROTO((void));
 void qsub PROTO((char *qtag, int flags));
@@ -60,14 +60,14 @@ void qsub PROTO((char *qtag, int flags));
 extern char *optarg;
 extern int optind;
 char **mk_ascdate(void);
-extern seed_t Seed[];
+extern seed_t jcch_Seed[];
 
-char **asc_date;
+char **jcch_asc_date;
 int snum = -1;
 char *prog;
-tdef tdefs = { NULL };
+tdef jcch_tdefs = { NULL };
 long rndm;
-double flt_scale;
+double jcch_flt_scale;
 distribution q13a, q13b;
 int qnum;
 char *db_name = NULL;
@@ -163,16 +163,16 @@ char *cptr,
         MALLOC_CHECK(qpath);
         }
 
-    qroot = env_config(QDIR_TAG, QDIR_DFLT);
+    qroot = jcch_env_config(QDIR_TAG, QDIR_DFLT);
     sprintf(qpath, "%s%c%s.sql", 
 		qroot, PATH_SEP, qtag);
     qfp = fopen(qpath, "r");
     OPEN_CHECK(qfp, qpath);
 
-    rowcnt = rowcnt_dflt[qnum];
+    jcch_rowcnt = rowcnt_dflt[qnum];
     varsub(qnum, 0, flags); /* set the variables */
     if (flags & DFLT_NUM)
-        fprintf(ofp, SET_ROWCOUNT, rowcnt);
+        fprintf(ofp, SET_ROWCOUNT, jcch_rowcnt);
     while (fgets(line, BUFSIZ, qfp) != NULL)
         {
         if (!(flags & COMMENT))
@@ -207,9 +207,9 @@ char *cptr,
                 case 'N':
                     if (!(flags & DFLT_NUM))
                         {
-                        rowcnt=atoi(++cptr);
+                        jcch_rowcnt=atoi(++cptr);
                         while (isdigit(*cptr) || *cptr == ' ') cptr++;
-                        fprintf(ofp, SET_ROWCOUNT, rowcnt);
+                        fprintf(ofp, SET_ROWCOUNT, jcch_rowcnt);
                         }
                     continue;
                 case 'o':
@@ -263,7 +263,7 @@ char *cptr,
 }
 
 void
-usage(void)
+jcch_usage(void)
 {
 printf("%s Parameter Substitution (v. %d.%d.%d build %d)\n", 
           NAME, VERSION,RELEASE,
@@ -275,7 +275,7 @@ printf("\t-a\t\t-- use ANSI semantics.\n");
 printf("\t-b <str>\t-- load distributions from <str>\n");
 printf("\t-c\t\t-- retain comments found in template.\n");
 printf("\t-d\t\t-- use default substitution values.\n");
-printf("\t-h\t\t-- print this usage summary.\n");
+printf("\t-h\t\t-- print this jcch_usage summary.\n");
 printf("\t-i <str>\t-- use the contents of file <str> to begin a query.\n");
 printf("\t-l <str>\t-- log parameters to <str>.\n");
 printf("\t-n <str>\t-- connect to database <str>.\n");
@@ -284,7 +284,7 @@ printf("\t-o <str>\t-- set the output file base path to <str>.\n");
 printf("\t-p <n>\t\t-- use the query permutation for stream <n>\n");
 printf("\t-r <n>\t\t-- seed the random number generator with <n>\n");
 printf("\t-s <n>\t\t-- base substitutions on an SF of <n>\n");
-printf("\t-v\t\t-- verbose.\n");
+printf("\t-v\t\t-- jcch_verbose.\n");
 printf("\t-t <str>\t-- use the contents of file <str> to complete a query\n");
 printf("\t-x\t\t-- enable SET EXPLAIN in each query.\n");
 #ifdef JCCH_SKEW
@@ -334,8 +334,8 @@ process_options(int cnt, char **args)
             case 'd':   /* use default substitution values */
                 flags |= DFLT;
                 break;
-            case 'h':   /* just generate the usage summary */
-                usage();
+            case 'h':   /* just generate the jcch_usage summary */
+                jcch_usage();
                 exit(0);
                 break;
             case 'i':   /* set stream initialization file name */
@@ -372,11 +372,11 @@ process_options(int cnt, char **args)
                 flags |= SEED;
                 rndm = atol(optarg);
                 break;
-            case 's':   /* scale of data set to run against */
-                flt_scale = atof(optarg);
-				if (scale > MAX_SCALE)
+            case 's':   /* jcch_scale of data set to run against */
+                jcch_flt_scale = atof(optarg);
+				if (jcch_scale > MAX_SCALE)
 					fprintf(stderr, "%s %5.0f %s\n%s\n",
-						"WARNING: Support for scale factors >",
+						"WARNING: Support for jcch_scale factors >",
 						MAX_SCALE,
 						"GB is still in development.",
 						"Data set integrity is not guaranteed.\n");
@@ -387,7 +387,7 @@ process_options(int cnt, char **args)
                 strcpy(tfile, optarg);
                 flags |= TERMINATE;
                 break;
-            case 'v':   /* verbose */
+            case 'v':   /* jcch_verbose */
                 flags |= VERBOSE;
                 break;
             case 'x':   /* set explain in the queries */
@@ -395,7 +395,7 @@ process_options(int cnt, char **args)
                 break;
             default:
                 printf("unknown option '%s' ignored\n", args[optind]);
-                usage();
+                jcch_usage();
                 exit(1);
                 break;
             }
@@ -405,24 +405,24 @@ process_options(int cnt, char **args)
 int
 setup(void)
 {
-    asc_date = mk_ascdate();
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "p_cntr", &p_cntr_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "colors", &colors);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "p_types", &p_types_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "nations", &nations);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "nations2", &nations2);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "regions", &regions);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "o_oprio", 
-        &o_priority_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "instruct", 
-        &l_instruct_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "smode", &l_smode_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "category", 
-        &l_category_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "rflag", &l_rflag_set);
-    read_dist(env_config(DIST_TAG, DIST_DFLT), "msegmnt", &c_mseg_set);
-	read_dist(env_config(DIST_TAG, DIST_DFLT), "Q13a", &q13a);
-	read_dist(env_config(DIST_TAG, DIST_DFLT), "Q13b", &q13b);
+    jcch_asc_date = mk_ascdate();
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "p_cntr", &jcch_p_cntr_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "jcch_colors", &jcch_colors);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "p_types", &jcch_p_types_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "jcch_nations", &jcch_nations);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "nations2", &nations2);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "jcch_regions", &jcch_regions);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "o_oprio", 
+        &jcch_o_priority_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "instruct", 
+        &jcch_l_instruct_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "smode", &jcch_l_smode_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "category", 
+        &jcch_l_category_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "rflag", &jcch_l_rflag_set);
+    jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "msegmnt", &jcch_c_mseg_set);
+	jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "Q13a", &q13a);
+	jcch_read_dist(jcch_env_config(DIST_TAG, DIST_DFLT), "Q13b", &q13b);
 
     return(0);
 }
@@ -435,7 +435,7 @@ int main(int ac, char **av)
     char line[LINE_SIZE];
 
     prog = av[0];
-    flt_scale = (double)1.0;
+    jcch_flt_scale = (double)1.0;
     flags = 0;
 	d_path = NULL;
     process_options(ac, av);
@@ -452,11 +452,11 @@ int main(int ac, char **av)
                 rndm = (long)((unsigned)time(NULL));
 		if (rndm < 0)
 			rndm += 2147483647;
-		Seed[0].value = rndm;
+		jcch_Seed[0].value = rndm;
 		for (i=1; i <= QUERIES_PER_SET; i++)
 			{
-			Seed[0].value = NextRand(Seed[0].value);
-			Seed[i].value = Seed[0].value;
+			jcch_Seed[0].value = NextRand(jcch_Seed[0].value);
+			jcch_Seed[i].value = jcch_Seed[0].value;
 			}
 		printf("-- using %ld as a seed to the RNG\n", rndm);
 		}

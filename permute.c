@@ -17,7 +17,7 @@
 * recreation after CVS crash
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -82,9 +82,9 @@ void	permute(long *set, int cnt, long stream);
 void	permute_dist(distribution *d, long stream);
 long seed;
 char *eol[2] = {" ", "},"};
-extern seed_t Seed[];
+extern seed_t jcch_Seed[];
 #ifdef TEST
-tdef tdefs = { NULL };
+tdef jcch_tdefs = { NULL };
 #endif
 
 
@@ -147,17 +147,17 @@ main(int ac, char *av[])
 	char sep;
 	int index = 0;
 	
-	set_seeds = 0;
+	jcch_set_seeds = 0;
 	sequence = (long *)malloc(MAX_QUERY * sizeof(long));
 	a = sequence;
 	for (i=0; i < MAX_QUERY; i++)
 		*(sequence + i) = i;
 	if (ac < 3) 
-		goto usage;
-	Seed[0].value = (long)atoi(av[1]);
+		goto jcch_usage;
+	jcch_Seed[0].value = (long)atoi(av[1]);
 	streams = atoi(av[2]);
-	if (Seed[0].value == UNSET || streams == UNSET) 
-		goto usage;
+	if (jcch_Seed[0].value == UNSET || streams == UNSET) 
+		goto jcch_usage;
 	
 	index = 0;
 	printf("long permutation[%d][%d] = {\n", streams, MAX_QUERY);
@@ -177,7 +177,7 @@ main(int ac, char *av[])
 	printf("}\n};\n");
 	return(0);
 	
-usage:
+jcch_usage:
 	printf("Usage: %s <seed> <streams>\n",av[0]);
 	printf("  uses <seed> to start the generation of <streams> permutations of [1..%d]\n", MAX_QUERY);
 	return(-1);

@@ -14,19 +14,19 @@
 * remove vestigial cvs merge marker
 *
 * Revision 1.7  2005/10/28 03:05:05  jms
-* up maximum scale to 100TB
+* up maximum jcch_scale to 100TB
 *
 * Revision 1.6  2005/10/28 02:55:26  jms
 * add release.h changes
 *
 * Revision 1.5  2005/10/27 18:13:03  jms
-* a_rnd() prototype correction
+* jcch_a_rnd() prototype correction
 *
 * Revision 1.4  2005/10/25 17:58:59  jms
 * update version stamp
 *
 * Revision 1.3  2005/03/04 19:48:39  jms
-* Changes from Doug Johnson to address very large scale factors
+* Changes from Doug Johnson to address very large jcch_scale factors
 *
 * Revision 1.2  2005/01/03 20:08:58  jms
 * change line terminations
@@ -53,7 +53,7 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -114,7 +114,7 @@
 #define LN_CNT  4
 static char lnoise[4] = {'|', '/', '-', '\\' };
 #define LIFENOISE(n, var)	\
-	if (verbose > 0) fprintf(stderr, "%c\b", lnoise[(var%LN_CNT)])
+	if (jcch_verbose > 0) fprintf(stderr, "%c\b", lnoise[(var%LN_CNT)])
 
 #define MALLOC_CHECK(var) \
     if ((var) == NULL) \
@@ -185,9 +185,9 @@ typedef struct
 }         tdef;
 
 typedef struct SEED_T {
-	long table;
+	long jcch_table;
 	DSS_HUGE value;
-	DSS_HUGE usage;
+	DSS_HUGE jcch_usage;
 	DSS_HUGE boundary;
 #ifdef RNG_TEST
 	DSS_HUGE nCalls;
@@ -202,23 +202,23 @@ typedef struct SEED_T {
 #endif
 
 /* bm_utils.c */
-char	*env_config PROTO((char *var, char *dflt));
-long	yes_no PROTO((char *prompt));
-void     a_rnd PROTO((int min, int max, int column, char *dest));
+char	*jcch_env_config PROTO((char *var, char *dflt));
+long	jcch_yes_no PROTO((char *prompt));
+void     jcch_a_rnd PROTO((int min, int max, int column, char *dest));
 int     tx_rnd PROTO((long min, long max, long column, char *tgt));
-long	julian PROTO((long date));
-long	unjulian PROTO((long date));
-FILE	*tbl_open PROTO((int tbl, char *mode));
-long	dssncasecmp PROTO((char *s1, char *s2, int n));
-long	dsscasecmp PROTO((char *s1, char *s2));
-int		pick_str PROTO((distribution * s, int c, char *target));
-void	agg_str PROTO((distribution *set, long count, long col, char *dest));
-void	read_dist PROTO((char *path, char *name, distribution * target));
+long	jcch_julian PROTO((long date));
+long	jcch_unjulian PROTO((long date));
+FILE	*jcch_tbl_open PROTO((int tbl, char *mode));
+long	jcch_dssncasecmp PROTO((char *s1, char *s2, int n));
+long	jcch_dsscasecmp PROTO((char *s1, char *s2));
+int		jcch_pick_str PROTO((distribution * s, int c, char *target));
+void	jcch_agg_str PROTO((distribution *set, long count, long col, char *dest));
+void	jcch_read_dist PROTO((char *path, char *name, distribution * target));
 void	embed_str PROTO((distribution *d, int min, int max, int stream, char *dest));
 #ifndef STDLIB_HAS_GETOPT
 int		getopt PROTO((int arg_cnt, char **arg_vect, char *oprions));
 #endif /* STDLIB_HAS_GETOPT */
-DSS_HUGE	set_state PROTO((int t, long scale, long procs, long step, DSS_HUGE *e));
+DSS_HUGE	jcch_set_state PROTO((int t, long jcch_scale, long procs, long jcch_step, DSS_HUGE *e));
 
 /* rnd.c */
 DSS_HUGE	NextRand PROTO((DSS_HUGE nSeed));
@@ -229,7 +229,7 @@ void	row_stop(int t);
 void	dump_seeds(int t);
 
 /* text.c */
-#define MAX_GRAMMAR_LEN	12	/* max length of grammar component */
+#define MAX_GRAMMAR_LEN	12	/* max length of jcch_grammar component */
 #define MAX_SENT_LEN	256 /* max length of populated sentence */
 #define RNG_PER_SENT	27	/* max number of RNG calls per sentence */
 
@@ -242,69 +242,69 @@ void		dbg_text PROTO((char * t, int min, int max, int s));
 #endif            /* DECLARER */
 
 
-// EXTERN distribution nations;
+// EXTERN distribution jcch_nations;
 // EXTERN distribution nations2;
-// EXTERN distribution regions;
-// EXTERN distribution o_priority_set;
-// EXTERN distribution l_instruct_set;
-// EXTERN distribution l_smode_set;
-// EXTERN distribution l_category_set;
-// EXTERN distribution l_rflag_set;
-// EXTERN distribution c_mseg_set;
-// EXTERN distribution colors;
-// EXTERN distribution p_types_set;
-// EXTERN distribution p_cntr_set;
+// EXTERN distribution jcch_regions;
+// EXTERN distribution jcch_o_priority_set;
+// EXTERN distribution jcch_l_instruct_set;
+// EXTERN distribution jcch_l_smode_set;
+// EXTERN distribution jcch_l_category_set;
+// EXTERN distribution jcch_l_rflag_set;
+// EXTERN distribution jcch_c_mseg_set;
+// EXTERN distribution jcch_colors;
+// EXTERN distribution jcch_p_types_set;
+// EXTERN distribution jcch_p_cntr_set;
 
 /* distributions that control text generation */
-// EXTERN distribution articles;
-// EXTERN distribution nouns;
-// EXTERN distribution adjectives;
-// EXTERN distribution adverbs;
-// EXTERN distribution prepositions;
-// EXTERN distribution verbs;
-// EXTERN distribution terminators;
-// EXTERN distribution auxillaries;
-// EXTERN distribution np;
-// EXTERN distribution vp;
-// EXTERN distribution grammar;
+// EXTERN distribution jcch_articles;
+// EXTERN distribution jcch_nouns;
+// EXTERN distribution jcch_adjectives;
+// EXTERN distribution jcch_adverbs;
+// EXTERN distribution jcch_prepositions;
+// EXTERN distribution jcch_verbs;
+// EXTERN distribution jcch_terminators;
+// EXTERN distribution jcch_auxillaries;
+// EXTERN distribution jcch_np;
+// EXTERN distribution jcch_vp;
+// EXTERN distribution jcch_grammar;
 
 
-EXTERN long scale;
-EXTERN int refresh;
-EXTERN int resume;
-EXTERN long verbose;
-EXTERN long force;
-EXTERN long updates;
-EXTERN long table;
-EXTERN long children;
-EXTERN int  step;
-EXTERN int	set_seeds;
-EXTERN char *d_path;
+EXTERN long jcch_scale;
+EXTERN int jcch_refresh;
+EXTERN int jcch_resume;
+EXTERN long jcch_verbose;
+EXTERN long jcch_force;
+EXTERN long jcch_updates;
+EXTERN long jcch_table;
+EXTERN long jcch_children;
+EXTERN int  jcch_step;
+EXTERN int	jcch_set_seeds;
+EXTERN char *jcch_d_path;
 
 /* added for segmented updates */
-EXTERN int insert_segments;
-EXTERN int delete_segments;
-EXTERN int insert_orders_segment;
-EXTERN int insert_lineitem_segment;
-EXTERN int delete_segment;
+EXTERN int jcch_insert_segments;
+EXTERN int jcch_delete_segments;
+EXTERN int jcch_insert_orders_segment;
+EXTERN int jcch_insert_lineitem_segment;
+EXTERN int jcch_delete_segment;
  
 
 #ifndef DECLARER
-extern tdef tdefs[];
+extern tdef jcch_tdefs[];
 
 #endif            /* DECLARER */
 
 
 /*****************************************************************
- ** table level defines use the following naming convention: t_ccc_xxx
- ** with: t, a table identifier
+ ** jcch_table level defines use the following naming convention: t_ccc_xxx
+ ** with: t, a jcch_table identifier
  **       ccc, a column identifier
  **       xxx, a limit type
  ****************************************************************
  */
 
 /*
- * defines which control the parts table
+ * defines which control the parts jcch_table
  */
 #define  P_SIZE       126
 #define  P_NAME_SCL   5
@@ -325,7 +325,7 @@ extern tdef tdefs[];
 #define  P_RCST_MAX    200000
 #define  P_RCST_SCL    100.0
 /*
- * defines which control the suppliers table
+ * defines which control the suppliers jcch_table
  */
 #define  S_SIZE     145
 #define  S_NAME_TAG "Supplier#"
@@ -343,17 +343,17 @@ extern tdef tdefs[];
 #define  BBB_TYPE_LEN  10
 
 /*
- * defines which control the partsupp table
+ * defines which control the partsupp jcch_table
  */
 #define  PS_SIZE      145
 #define  PS_SKEY_MIN  0
-#define  PS_SKEY_MAX  ((tdefs[SUPP].base - 1) * scale)
+#define  PS_SKEY_MAX  ((jcch_tdefs[SUPP].base - 1) * jcch_scale)
 #define  PS_SCST_MIN  100
 #define  PS_SCST_MAX  100000
 #define  PS_QTY_MIN   1
 #define  PS_QTY_MAX   9999
 /*
- * defines which control the customers table
+ * defines which control the customers jcch_table
  */
 #define  C_SIZE       165
 #define  C_NAME_TAG   "Customer#"
@@ -362,11 +362,11 @@ extern tdef tdefs[];
 #define  C_ABAL_MIN   -99999
 #define  C_ABAL_MAX    999999
 /*
- * defines which control the order table
+ * defines which control the order jcch_table
  */
 #define  O_SIZE          109
 #define  O_CKEY_MIN      1
-#define  O_CKEY_MAX      (tdefs[CUST].base * scale)
+#define  O_CKEY_MAX      (jcch_tdefs[CUST].base * jcch_scale)
 #define  O_ODATE_MIN     STARTDATE
 #define  O_ODATE_MAX     (STARTDATE + TOTDATE - \
                          (L_SDTE_MAX + L_RDTE_MAX) - 1)
@@ -378,11 +378,11 @@ extern tdef tdefs[];
 #ifndef JCCH_SKEW
 #define  MAX_L_PER_O     O_LCNT_MAX
 #else
-#define  MAX_L_PER_O	(tdefs[LINE].base * scale / 5) 
+#define  MAX_L_PER_O	(jcch_tdefs[LINE].base * jcch_scale / 5) 
 #endif
 
 /*
- * defines which control the lineitem table
+ * defines which control the lineitem jcch_table
  */
 #define  L_SIZE       144L
 #define  L_QTY_MIN    1
@@ -392,7 +392,7 @@ extern tdef tdefs[];
 #define  L_DCNT_MIN   0
 #define  L_DCNT_MAX   10
 #define  L_PKEY_MIN   1
-#define  L_PKEY_MAX   (tdefs[PART].base * scale)
+#define  L_PKEY_MAX   (jcch_tdefs[PART].base * jcch_scale)
 #define  L_SDTE_MIN   1
 #define  L_SDTE_MAX   121
 #define  L_CDTE_MIN   30
@@ -400,7 +400,7 @@ extern tdef tdefs[];
 #define  L_RDTE_MIN   1
 #define  L_RDTE_MAX   30
 /*
- * defines which control the time table
+ * defines which control the time jcch_table
  */
 #define  T_SIZE       30
 #define  T_START_DAY  3     /* wednesday ? */
@@ -409,7 +409,7 @@ extern tdef tdefs[];
 /*******************************************************************
  *******************************************************************
  ***
- *** general or inter table defines
+ *** general or inter jcch_table defines
  ***
  *******************************************************************
  *******************************************************************/
@@ -497,12 +497,12 @@ sprintf(tgt, "19%02d-%02d-%02d", yr, mn, dy)
 /*
  * verification macros
  */
-#define  VRF_STR(t, d) {char *xx = d; while (*xx) tdefs[t].vtotal += *xx++;}
-#define  VRF_INT(t,d)  tdefs[t].vtotal += d
-#define  VRF_HUGE(t,d)	tdefs[t].vtotal = *((long *)&d) + *((long *)(&d + 1))
+#define  VRF_STR(t, d) {char *xx = d; while (*xx) jcch_tdefs[t].vtotal += *xx++;}
+#define  VRF_INT(t,d)  jcch_tdefs[t].vtotal += d
+#define  VRF_HUGE(t,d)	jcch_tdefs[t].vtotal = *((long *)&d) + *((long *)(&d + 1))
 /* assume float is a 64 bit quantity */
-#define  VRF_MONEY(t,d)	tdefs[t].vtotal = *((long *)&d) + *((long *)(&d + 1))
-#define  VRF_CHR(t,d)	tdefs[t].vtotal += d
+#define  VRF_MONEY(t,d)	jcch_tdefs[t].vtotal = *((long *)&d) + *((long *)(&d + 1))
+#define  VRF_CHR(t,d)	jcch_tdefs[t].vtotal += d
 #define  VRF_STRT(t)  
 #define  VRF_END(t)  
 

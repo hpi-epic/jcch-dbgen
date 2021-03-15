@@ -42,23 +42,23 @@
 #  instruct   shipping instructions
 #  msegmnt    market segment
 #  names      parts.name
-#  nations    must be ordered along with regions
-#  nations2   stand alone nations set for use with qgen
+#  jcch_nations    must be ordered along with jcch_regions
+#  nations2   stand alone jcch_nations set for use with qgen
 #  o_prio     order priority
-#  regions    must be ordered along with nations
+#  jcch_regions    must be ordered along with jcch_nations
 #  rflag      lineitems.returnflag
 #  types      parts.type
-#  colors     embedded string creation; CANNOT BE USED FOR pick_str(), agg_str() perturbs order
-#  articles   comment generation 
-#  nouns      
-#  verbs      
-#  adverbs    
-#  auxillaries 
-#  prepositions
-#  terminators
-#  grammar    sentence formation
-#  np
-#  vp
+#  jcch_colors     embedded string creation; CANNOT BE USED FOR jcch_pick_str(), jcch_agg_str() perturbs order
+#  jcch_articles   comment generation 
+#  jcch_nouns      
+#  jcch_verbs      
+#  jcch_adverbs    
+#  jcch_auxillaries 
+#  jcch_prepositions
+#  jcch_terminators
+#  jcch_grammar    sentence formation
+#  jcch_np
+#  jcch_vp
 ###
 # category
 ###
@@ -148,12 +148,12 @@ DETERGENT|1
 EXTRA|1
 end p_names
 ###
-# nations
+# jcch_nations
 # NOTE: this is a special case; the weights here are adjustments to
-#       map correctly into the regions table, and are *NOT* cummulative
+#       map correctly into the jcch_regions jcch_table, and are *NOT* cummulative
 #       values to mimic a distribution
 ###
-begin nations
+begin jcch_nations
 count|25
 ALGERIA|0
 ARGENTINA|1
@@ -180,7 +180,7 @@ VIETNAM|-2
 RUSSIA|1
 UNITED KINGDOM|0
 UNITED STATES|-2
-end nations
+end jcch_nations
 ###
 # nations2
 ###
@@ -213,16 +213,16 @@ UNITED KINGDOM|1
 UNITED STATES|1
 end nations2
 ###
-# regions
+# jcch_regions
 ###
-begin regions
+begin jcch_regions
 count|5
 AFRICA|1
 AMERICA|1
 ASIA|1
 EUROPE|1
 MIDDLE EAST|1
-end regions
+end jcch_regions
 ###
 # o_prio
 ###
@@ -412,10 +412,10 @@ PROMO BRUSHED STEEL|1
 PROMO BRUSHED COPPER|1
 end p_types
 ###
-# colors
-# NOTE: This distribution CANNOT be used by pick_str(), since agg_str() perturbs its order
+# jcch_colors
+# NOTE: This distribution CANNOT be used by jcch_pick_str(), since jcch_agg_str() perturbs its order
 ###
-begin colors
+begin jcch_colors
 COUNT|92
 almond|1
 antique|1
@@ -509,16 +509,16 @@ violet|1
 wheat|1
 white|1
 yellow|1
-end colors
+end jcch_colors
 ################
 ################
 ## psuedo text distributions
 ################
 ################
 ###
-# nouns
+# jcch_nouns
 ###
-BEGIN nouns
+BEGIN jcch_nouns
 COUNT|45
 packages|40
 requests|40
@@ -565,11 +565,11 @@ pains|1
 grouches|1
 escapades|1
 hockey players|1
-END nouns
+END jcch_nouns
 ###
-# verbs
+# jcch_verbs
 ###
-BEGIN verbs
+BEGIN jcch_verbs
 COUNT|40
 sleep|20
 wake|20
@@ -611,11 +611,11 @@ play|1
 hang|1
 believe|1
 doubt|1
-END verbs
+END jcch_verbs
 ###
-# adverbs
+# jcch_adverbs
 ##
-BEGIN adverbs
+BEGIN jcch_adverbs
 COUNT|28
 sometimes|1
 always|1
@@ -645,20 +645,20 @@ ironically|1
 evenly|1
 boldly|1
 silently|1
-END adverbs
+END jcch_adverbs
 ###
-# articles
+# jcch_articles
 ##
-BEGIN articles
+BEGIN jcch_articles
 COUNT|3
 the|50
 a|20
 an|5
-END articles
+END jcch_articles
 ###
-# prepositions
+# jcch_prepositions
 ##
-BEGIN prepositions
+BEGIN jcch_prepositions
 COUNT|47
 about|50
 above|50
@@ -707,11 +707,11 @@ upon|1
 whithout|1
 with|1
 within|1
-END prepositions
+END jcch_prepositions
 ###
-# auxillaries
+# jcch_auxillaries
 ##
-BEGIN auxillaries
+BEGIN jcch_auxillaries
 COUNT|18
 do|1
 may|1
@@ -733,9 +733,9 @@ need to|1
 try to|1
 END auxiallaries
 ###
-# terminators
+# jcch_terminators
 ##
-BEGIN terminators
+BEGIN jcch_terminators
 COUNT|6
 .|50
 ;|1
@@ -743,11 +743,11 @@ COUNT|6
 ?|1
 !|1
 --|1
-END terminators
+END jcch_terminators
 ###
-# adjectives
+# jcch_adjectives
 ##
-BEGIN adjectives
+BEGIN jcch_adjectives
 COUNT|29
 special|20
 pending|20
@@ -778,44 +778,44 @@ ironic|40
 even|30
 bold|20
 silent|10
-END adjectives
+END jcch_adjectives
 ###
-# grammar
-# first level grammar. N=noun phrase, V=verb phrase,
+# jcch_grammar
+# first level jcch_grammar. N=noun phrase, V=verb phrase,
 # P=prepositional phrase, T=setence termination
 ##
-BEGIN grammar
+BEGIN jcch_grammar
 COUNT|5
 N V T|3
 N V P T|3
 N V N T|3
 N P V N T|1
 N P V P T|1
-END grammar
+END jcch_grammar
 ###
 # NP
-# second level grammar. Noun phrases. N=noun, A=article, 
+# second level jcch_grammar. Noun phrases. N=noun, A=article, 
 # J=adjective, D=adverb
 ##
-BEGIN np
+BEGIN jcch_np
 COUNT|4
 N|10
 J N|20
 J, J N|10
 D J N|50
-END np
+END jcch_np
 ###
 # VP
-# second level grammar. Verb phrases. V=verb, X=auxiallary, 
+# second level jcch_grammar. Verb phrases. V=verb, X=auxiallary, 
 # D=adverb
 ##
-BEGIN vp
+BEGIN jcch_vp
 COUNT|4
 V|30
 X V|1
 V D|40
 X V D|1
-END vp
+END jcch_vp
 ###
 # Q13
 # Substitution parameters for Q13 

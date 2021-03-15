@@ -57,9 +57,9 @@ extern adhoc_t adhocs[];
 void	permute(long *a, int c, long s);
 #define MAX_PARAM	10		/* maximum number of parameter substitutions in a query */
 
-extern long Seed[];
-extern char **asc_date;
-extern double flt_scale;
+extern long jcch_Seed[];
+extern char **jcch_asc_date;
+extern double jcch_flt_scale;
 extern distribution q13a, q13b;
 
 #ifdef JCCH_SKEW
@@ -158,11 +158,11 @@ varsub(int qnum, int vnum, int flags)
 			case 2:
 				sprintf(param[1], HUGE_FORMAT,
 					UnifInt((DSS_HUGE)P_SIZE_MIN, (DSS_HUGE)P_SIZE_MAX, qnum));
-				pick_str(&p_types_set, qnum, param[3]);
+				jcch_pick_str(&jcch_p_types_set, qnum, param[3]);
 				ptr = param[3] + (int)strlen(param[3]);
 				while (*(ptr - 1) != ' ') ptr--;
 				strcpy(param[2], ptr);
-				pick_str(&regions, qnum, param[3]);
+				jcch_pick_str(&jcch_regions, qnum, param[3]);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) {
 					strcpy(param[1], "1");
@@ -172,18 +172,18 @@ varsub(int qnum, int vnum, int flags)
 				param[4][0] = '\0';
 				break;
 			case 3:
-				pick_str(&c_mseg_set, qnum, param[1]);
+				jcch_pick_str(&jcch_c_mseg_set, qnum, param[1]);
 				/*
 				* pick a random offset within the month of march and add the
 				* appropriate magic numbers to position the output functions 
 				* at the start of March '95
 				*/
             RANDOM(tmp_date, 0, 30, qnum);
-				strcpy(param[2], *(asc_date + tmp_date + 1155));
+				strcpy(param[2], *(jcch_asc_date + tmp_date + 1155));
 #ifdef JCCH_SKEW
 				if (JCCH_skew) {
 					/* go 1993 shortly after black friday instead */
-					strcpy(param[2], *(asc_date + tmp_date + 366));
+					strcpy(param[2], *(jcch_asc_date + tmp_date + 366));
 					param[2][5] = '0'; param[2][6] = '5';
 					param[2][8] = '2' + (tmp_date >= 10); 
 					param[2][9] = '0' + ((9+(tmp_date/10)) % 10);
@@ -210,7 +210,7 @@ varsub(int qnum, int vnum, int flags)
 				param[2][0] = '\0';
 				break;
 			case 5:
-				pick_str(&regions, qnum, param[1]);
+				jcch_pick_str(&jcch_regions, qnum, param[1]);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) { 
 					tmp_date = UnifInt((DSS_HUGE)93,(DSS_HUGE)94,qnum);
@@ -247,15 +247,15 @@ varsub(int qnum, int vnum, int flags)
 				strcpy(param[3], "1995-01-01");
 				strcpy(param[4], "1996-12-31");
 #ifdef JCCH_SKEW
-				/* query is between different regions */
-				if (JCCH_skew) { /* trade between different regions, both populous nations */
+				/* query is between different jcch_regions */
+				if (JCCH_skew) { /* trade between different jcch_regions, both populous jcch_nations */
 					int cust_reg = UnifInt((DSS_HUGE)0,(DSS_HUGE)4,qnum);
 					int supp_reg = (cust_reg + 1 + UnifInt((DSS_HUGE)0,(DSS_HUGE)3,qnum)) % 5;
 					strcpy(param[1], skew_nations[supp_reg*5]);
 					strcpy(param[2], skew_nations[cust_reg*5]);
 					strcpy(param[3], "1993-01-01");
 					strcpy(param[4], "1994-12-31");
-				} else {/* trade between same regions, both non-populous nations */
+				} else {/* trade between same jcch_regions, both non-populous jcch_nations */
 					int both_reg = UnifInt((DSS_HUGE)0,(DSS_HUGE)4,qnum);
 					int cust_nation = UnifInt((DSS_HUGE)0,(DSS_HUGE)3,qnum);
 					int supp_nation = UnifInt((DSS_HUGE)0,(DSS_HUGE)2,qnum);
@@ -264,8 +264,8 @@ varsub(int qnum, int vnum, int flags)
 					strcpy(param[2], skew_nations[both_reg*5+1+cust_nation]);
 				}
 #else
-				tmp_date = pick_str(&nations2, qnum, param[1]);
-				while (pick_str(&nations2, qnum, param[2]) == tmp_date);
+				tmp_date = jcch_pick_str(&nations2, qnum, param[1]);
+				while (jcch_pick_str(&nations2, qnum, param[2]) == tmp_date);
 #endif
 				param[5][0] = '\0';
 				break;
@@ -273,7 +273,7 @@ varsub(int qnum, int vnum, int flags)
 				/* previsously, these two were hardcoded, leave them the same by default */
 				strcpy(param[4], "1995-01-01");
 				strcpy(param[5], "1996-12-31");
-				pick_str(&p_types_set, qnum, param[3]);
+				jcch_pick_str(&jcch_p_types_set, qnum, param[3]);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) { 
 					int r1 = UnifInt((DSS_HUGE)0,(DSS_HUGE)4,qnum);
@@ -290,14 +290,14 @@ varsub(int qnum, int vnum, int flags)
 					strcpy(param[2], skew_regions[r1]);
 				}
 #else
-				tmp_date = pick_str(&nations2, qnum, param[1]);
-				tmp_date = nations.list[tmp_date].weight;
-				strcpy(param[2], regions.list[tmp_date].text);
+				tmp_date = jcch_pick_str(&nations2, qnum, param[1]);
+				tmp_date = jcch_nations.list[tmp_date].weight;
+				strcpy(param[2], jcch_regions.list[tmp_date].text);
 #endif
 				param[6][0] = '\0';
 				break;
 			case 9:
-				pick_str(&colors, qnum, param[1]);
+				jcch_pick_str(&jcch_colors, qnum, param[1]);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) {
 					strcpy(param[1], "shiny mined gold" + UnifInt(0, 10, qnum));
@@ -325,7 +325,7 @@ varsub(int qnum, int vnum, int flags)
 					param[2][8] = '0'+ (hi/10); 
 					param[2][9] = '0'+ (hi%10);
 				} else {
-					/* a 3month interval from any day in the first two months of 1995 */
+					/* a 3month interval from any day in the first two jcch_months of 1995 */
 					tmp_date = UnifInt((DSS_HUGE)0,(DSS_HUGE)1,qnum);
 					sprintf(param[1],formats[10], 95, 1+tmp_date);
 					sprintf(param[2],formats[10], 95, 4+tmp_date);
@@ -355,14 +355,14 @@ varsub(int qnum, int vnum, int flags)
 					strcpy(param[1], skew_nations[r1*5+1+n1]);
 				} 
 #else
-				pick_str(&nations2, qnum, param[1]);
+				jcch_pick_str(&nations2, qnum, param[1]);
 #endif
-				sprintf(param[2], "%11.10f", Q11_FRACTION / flt_scale );
+				sprintf(param[2], "%11.10f", Q11_FRACTION / jcch_flt_scale );
 				param[3][0] = '\0';
 				break;
 			case 12:
-				tmp_date = pick_str(&l_smode_set, qnum, param[1]);
-				while (tmp_date == pick_str(&l_smode_set, qnum, param[2]));
+				tmp_date = jcch_pick_str(&jcch_l_smode_set, qnum, param[1]);
+				while (tmp_date == jcch_pick_str(&jcch_l_smode_set, qnum, param[2]));
 				tmp_date = UnifInt((DSS_HUGE)93,(DSS_HUGE)97,qnum);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) {
@@ -377,8 +377,8 @@ varsub(int qnum, int vnum, int flags)
 				param[4][0] = '\0';
 				break;
 			case 13:
-				pick_str(&q13a, qnum, param[1]);
-				pick_str(&q13b, qnum, param[2]);
+				jcch_pick_str(&q13a, qnum, param[1]);
+				jcch_pick_str(&q13b, qnum, param[2]);
 #ifdef JCCH_SKEW
 				if (!JCCH_skew) { 
 					/* we got '1mine2 3gold4' but can look for that with 16 variations */
@@ -415,7 +415,7 @@ varsub(int qnum, int vnum, int flags)
 				tmp1 = UnifInt((DSS_HUGE)1, (DSS_HUGE)5, qnum); 
 				tmp2 = UnifInt((DSS_HUGE)1, (DSS_HUGE)4, qnum);
 				sprintf(param[1], formats[16], tmp1, tmp2);
-				pick_str(&p_types_set, qnum, param[2]);
+				jcch_pick_str(&jcch_p_types_set, qnum, param[2]);
 				ptr = param[2] + (int)strlen(param[2]);
 				while (*(--ptr) != ' ');
 				*ptr = '\0';
@@ -434,7 +434,7 @@ varsub(int qnum, int vnum, int flags)
 #endif
 				break;
 			case 17:
-				pick_str(&p_cntr_set, qnum, param[2]);
+				jcch_pick_str(&jcch_p_cntr_set, qnum, param[2]);
 				tmp1 = UnifInt((DSS_HUGE)1, (DSS_HUGE)5, qnum); 
 				tmp2 = UnifInt((DSS_HUGE)1, (DSS_HUGE)4, qnum);
 #ifdef JCCH_SKEW
@@ -482,8 +482,8 @@ varsub(int qnum, int vnum, int flags)
 				param[7][0] = '\0';
 				break;
 			case 20:
-				pick_str(&colors, qnum, param[1]);
-				pick_str(&nations2, qnum, param[3]);
+				jcch_pick_str(&jcch_colors, qnum, param[1]);
+				jcch_pick_str(&nations2, qnum, param[3]);
 				tmp_date = UnifInt((DSS_HUGE)93,(DSS_HUGE)97,qnum);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) {
@@ -503,7 +503,7 @@ varsub(int qnum, int vnum, int flags)
 				param[4][0] = '\0';
 				break;
 			case 21:
-				pick_str(&nations2, qnum, param[1]);
+				jcch_pick_str(&nations2, qnum, param[1]);
 #ifdef JCCH_SKEW
 				if (JCCH_skew) {
 					int r1 = UnifInt((DSS_HUGE)0,(DSS_HUGE)4,qnum);
@@ -574,9 +574,9 @@ varsub(int qnum, int vnum, int flags)
 	{
         if (flags & DFLT)   
 		{
-            /* to allow -d to work at all scale factors */
+            /* to allow -d to work at all jcch_scale factors */
             if (qnum == 11 && vnum == 2)
-                fprintf(ofp, "%11.10f", Q11_FRACTION/flt_scale);
+                fprintf(ofp, "%11.10f", Q11_FRACTION/jcch_flt_scale);
             else
                 if (defaults[qnum - 1][vnum - 1])
                     fprintf(ofp, "%s", defaults[qnum - 1][vnum - 1]);

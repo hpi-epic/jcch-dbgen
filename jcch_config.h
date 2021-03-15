@@ -20,7 +20,7 @@
 * porting bugs
 *
 * Revision 1.3  2005/03/04 19:48:39  jms
-* Changes from Doug Johnson to address very large scale factors
+* Changes from Doug Johnson to address very large jcch_scale factors
 *
 * Revision 1.2  2005/01/03 20:08:58  jms
 * change line terminations
@@ -44,7 +44,7 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin

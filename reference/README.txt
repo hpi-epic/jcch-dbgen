@@ -11,7 +11,7 @@ by DBGEN, relative to the reference data published by the TPC.
   distributed by the TPC. The DBGEN and QGEN executables must be built from 
   the same distribution.
 
-  Reference Data Set(s): For each permissible scale factor, the TPC has
+  Reference Data Set(s): For each permissible jcch_scale factor, the TPC has
   produced a separate zip file that defines the reference point for the base 
   data set, the update data set, and the output of QGEN. These must be 
   downloaded separately from the TPC web site. 
@@ -26,22 +26,22 @@ a. Setup
   edited to match your directory structure.
  
 b. Base Data Validation
-  The base data set is produced using cmd_base_sf<n> where <n> is the scale 
+  The base data set is produced using cmd_base_sf<n> where <n> is the jcch_scale 
   factor to be generated. The resulting files will be produced in the current 
   working directory.  The generated files will be of the form <name>.tbl.<nnn>,
   where <name> will is the name of one of the tables in the TPCH schema, and 
-  <nnn> identifies a particular data generation step.
+  <nnn> identifies a particular data generation jcch_step.
 
   The file set produced by genbaserefdata.sh should match the <name>.tbl.<nnn> 
-  files found in the reference data set for the same scale factor.
+  files found in the reference data set for the same jcch_scale factor.
 
 c. Update Data Validation
-  The update data set is produced using cmd_update_sf<n> where <n> is the scale 
+  The update data set is produced using cmd_update_sf<n> where <n> is the jcch_scale 
   factor to be generated. The resulting files will be produced in the current 
   working directory.  The generated files will be of the form 
   <name>.tbl.u<mmm>.<nnn> and delete.u<nnn>.<mmm>, where <name> will is the 
   name of one of the tables in the TPCH schema, and <mmm> and <nnn> identify 
-  a particular data generation step.
+  a particular data generation jcch_step.
 
   For each file produced by DBGEN, the first 100 lines of the file should
   match the delete.tbl.u<nnn>.<mmm> and <name>.tbl.u<nnn>.<mmm> files found in the
@@ -50,7 +50,7 @@ c. Update Data Validation
 
 d. QGEN Parameter Generation
   The qgen paramter sets are produced using the cmd_qgen_sf<n> files, where
-  <n> matches the scale factor being validated.  The resulting files will
+  <n> matches the jcch_scale factor being validated.  The resulting files will
   be produced in the current working directory. The generated files will be of
   the form subparam_<nnn>, where <nnn> identifies a particular qgen subsituttion
   set.

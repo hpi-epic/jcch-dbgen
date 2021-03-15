@@ -41,7 +41,7 @@
 * first integration of rng64 for o_custkey and l_partkey
 *
 * Revision 1.2  2003/08/07 17:58:34  jms
-* Convery RNG to 64bit space as preparation for new large scale RNG
+* Convery RNG to 64bit space as preparation for new large jcch_scale RNG
 *
 * Revision 1.1.1.1  2003/04/03 18:54:21  jms
 * initial checkin
@@ -62,7 +62,7 @@
 	advanceStream(stream_id, num_calls, 1)
 #define MAX_COLOR 92
 long name_bits[MAX_COLOR / BITS_PER_LONG];
-extern seed_t Seed[];
+extern seed_t jcch_Seed[];
 void fakeVStr(int nAvg, long nSeed, DSS_HUGE nCount);
 void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed);
 
@@ -71,12 +71,12 @@ void
 advanceStream(int nStream, DSS_HUGE nCalls, int bUse64Bit)
 {
    if (bUse64Bit)
-      Seed[nStream].value = AdvanceRand64(Seed[nStream].value, nCalls);
+      jcch_Seed[nStream].value = AdvanceRand64(jcch_Seed[nStream].value, nCalls);
    else
-      NthElement(nCalls, &Seed[nStream].value);
+      NthElement(nCalls, &jcch_Seed[nStream].value);
 
 #ifdef RNG_TEST
-   Seed[nStream].nCalls += nCalls;
+   jcch_Seed[nStream].nCalls += nCalls;
 #endif
 
 	return;
@@ -92,9 +92,9 @@ advanceStream(int nStream, DSS_HUGE nCalls, int bUse64Bit)
 static DSS_HUGE Multiplier = 16807;      /* or whatever nonstandard */
 static DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int */
 
-/* Advances value of Seed after N applications of the random number generator
+/* Advances value of jcch_Seed after N applications of the random number generator
    with multiplier Mult and given Modulus.
-   NthElement(Seed[],count);
+   NthElement(jcch_Seed[],count);
 
    Theory:  We are using a generator of the form
         X_n = [Mult * X_(n-1)]  mod Modulus.    It turns out that
@@ -102,9 +102,9 @@ static DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int */
    This can be computed using a divide-and-conquer technique, see
    the code below.
 
-   In words, this means that if you want the value of the Seed after n
+   In words, this means that if you want the value of the jcch_Seed after n
    applications of the generator,  you multiply the initial value of the
-   Seed by the "super multiplier" which is the basic multiplier raised
+   jcch_Seed by the "super multiplier" which is the basic multiplier raised
    to the nth power, and then take mod Modulus.
 */
 
@@ -116,7 +116,7 @@ void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed)
    static int ln=-1;
    int i;
 
-   if ((verbose > 0) && ++ln % 1000 == 0)
+   if ((jcch_verbose > 0) && ++ln % 1000 == 0)
        {
        i = ln % LN_CNT;
        fprintf(stderr, "%c\b", lnoise[i]);
@@ -136,7 +136,7 @@ void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed)
    }
 
 
-/* updates Seed[column] using the a_rnd algorithm */
+/* updates jcch_Seed[column] using the jcch_a_rnd algorithm */
 void
 fake_a_rnd(int min, int max, int column)
 {
@@ -148,9 +148,9 @@ fake_a_rnd(int min, int max, int column)
       itcount = len/5;
    else 
 	   itcount = len/5 + 1L;
-   NthElement(itcount, &Seed[column].usage);
+   NthElement(itcount, &jcch_Seed[column].jcch_usage);
 #ifdef RNG_TEST
-	Seed[column].nCalls += itcount;
+	jcch_Seed[column].nCalls += itcount;
 #endif
    return;
 }
@@ -179,7 +179,7 @@ sd_line(int child, DSS_HUGE skip_count)
 	{
 		for (i=L_QTY_SD; i<= L_RFLG_SD; i++)
 /*
-			if (scale >= 30000 && i == L_PKEY_SD)
+			if (jcch_scale >= 30000 && i == L_PKEY_SD)
 				ADVANCE_STREAM64(i, skip_count);
 			else
 */
@@ -202,7 +202,7 @@ sd_order(int child, DSS_HUGE skip_count)
 {
 	ADVANCE_STREAM(O_LCNT_SD, skip_count);
 /*
-	if (scale >= 30000)
+	if (jcch_scale >= 30000)
 		ADVANCE_STREAM64(O_CKEY_SD, skip_count);
 	else
 */
