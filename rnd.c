@@ -69,7 +69,7 @@
  * 
  */
 
-#include "jcch_config.h"
+#include "config.h"
 #include <stdio.h>
 #include <math.h>
 #ifdef LINUX
@@ -87,8 +87,8 @@
 #ifdef WIN32
 #define int32_t	__int32
 #endif
-#include "jcch_dss.h"
-#include "jcch_rnd.h"
+#include "dss.h"
+#include "rnd.h"
 #include "jcch_dbgen.h"
 
 char *jcch_env_config PROTO((char *tag, char *dflt));

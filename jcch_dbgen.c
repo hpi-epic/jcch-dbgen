@@ -1,12 +1,12 @@
 /**
- * tpch_dbgen.c/h among other things contain the data originating from dists.dss and are therefore subject to the TPCH
+ * jcch_dbgen.c/h among other things contain the data originating from dists.dss and are therefore subject to the TPCH
  * license (see LICENSE)
  */
 
 #include "jcch_dbgen.h"
-#include "jcch_dss.h"
-#include "jcch_rnd.h"
-#include "jcch_dsstypes.h"
+#include "dss.h"
+#include "rnd.h"
+#include "dsstypes.h"
 
 #include <math.h>
 #include <stdlib.h>

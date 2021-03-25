@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * tpch_dbgen.c/h among other things contain the data originating from dists.dss and are therefore subject to the TPCH
+ * jcch_dbgen.c/h among other things contain the data originating from dists.dss and are therefore subject to the TPCH
  * license (see LICENSE)
  */
 

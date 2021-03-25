@@ -1,9 +1,9 @@
 /*
-* $Id: jcch_config.h,v 1.8 2007/01/04 21:29:21 jms Exp $
+* $Id: config.h,v 1.8 2007/01/04 21:29:21 jms Exp $
 *
 * Revision History
 * ===================
-* $Log: jcch_config.h,v $
+* $Log: config.h,v $
 * Revision 1.8  2007/01/04 21:29:21  jms
 * Porting changes uncovered as part of move to VS2005. No impact on data set
 *
@@ -29,7 +29,7 @@
 * re-establish external server
 *
 * Revision 1.7  2004/04/08 17:36:47  jms
-* clarify jcch_config.h/makefile linkage
+* clarify config.h/makefile linkage
 *
 * Revision 1.6  2004/04/08 17:35:00  jms
 * SUN/SOLARIS ifdef merge between machines

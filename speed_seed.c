@@ -50,9 +50,9 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include "jcch_dss.h"
+#include "dss.h"
 #include "rng64.h"
-#include "jcch_dss.h"
+#include "dss.h"
 
 /*  _tal long RandSeed = "Random^SeedFromTimestamp" (void); */
 
