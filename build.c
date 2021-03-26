@@ -6,7 +6,7 @@
  * Revision History =================== bug fix for DOP
  * Revision History =================== Revision 1.4
  * 2005/10/28 02:56:22  jms add platform-specific printf formats to allow for
- * DSS_HUGE data type
+ * JCCH_DSS_HUGE data type
  * 
  * Revision 1.3  2005/10/14 23:16:54  jms fix for answer set compliance
  * 
@@ -61,18 +61,18 @@ extern adhoc_t  adhocs[];
 #define JDAY(date) ((date) - STARTDATE + JDAY_BASE + 1)
 #define PART_SUPP_BRIDGE(tgt, p, s) \
     { \
-    DSS_HUGE tot_scnt = jcch_tdefs[SUPP].base * jcch_scale; \
+    JCCH_DSS_HUGE tot_scnt = jcch_tdefs[SUPP].base * jcch_scale; \
     tgt = (p + s *  (tot_scnt / SUPP_PER_PART +  \
 	(long) ((p - 1) / tot_scnt))) % tot_scnt + 1; \
     }
 #define V_STR(avg, sd, tgt)  jcch_a_rnd((int)(avg * V_STR_LOW),(int)(avg * V_STR_HGH), sd, tgt)
 #define TEXT(avg, sd, tgt)  dbg_text(tgt, (int)(avg * V_STR_LOW),(int)(avg * V_STR_HGH), sd)
-static void gen_phone PROTO((DSS_HUGE ind, char *target, long seed));
+static void gen_phone PROTO((JCCH_DSS_HUGE ind, char *target, long seed));
 
-DSS_HUGE
-jcch_rpb_routine(DSS_HUGE p)
+JCCH_DSS_HUGE
+jcch_rpb_routine(JCCH_DSS_HUGE p)
 {
-	DSS_HUGE        price;
+	JCCH_DSS_HUGE        price;
 
 	price = 90000;
 	price += (p / 10) % 20001;	/* limit contribution to $200 */
@@ -82,9 +82,9 @@ jcch_rpb_routine(DSS_HUGE p)
 }
 
 static void
-gen_phone(DSS_HUGE ind, char *target, long seed)
+gen_phone(JCCH_DSS_HUGE ind, char *target, long seed)
 {
-	DSS_HUGE        acode, exchg, number;
+	JCCH_DSS_HUGE        acode, exchg, number;
 
 	RANDOM(acode, 100, 999, seed);
 	RANDOM(exchg, 100, 999, seed);
@@ -102,9 +102,9 @@ gen_phone(DSS_HUGE ind, char *target, long seed)
 
 
 long
-jcch_mk_cust(DSS_HUGE n_cust, customer_t * c)
+jcch_mk_cust(JCCH_DSS_HUGE n_cust, customer_t * c)
 {
-	DSS_HUGE        i;
+	JCCH_DSS_HUGE        i;
 	static int      bInit = 0;
 	static char     szFormat[100];
 
@@ -143,7 +143,7 @@ jcch_mk_cust(DSS_HUGE n_cust, customer_t * c)
  * generate the numbered order and its associated lineitems
  */
 void
-jcch_mk_sparse(DSS_HUGE i, DSS_HUGE * ok, long seq)
+jcch_mk_sparse(JCCH_DSS_HUGE i, JCCH_DSS_HUGE * ok, long seq)
 {
 	long            low_bits;
 
@@ -163,7 +163,7 @@ jcch_mk_sparse(DSS_HUGE i, DSS_HUGE * ok, long seq)
 char   **jcch_asc_date = NULL;
 
 #ifdef JCCH_SKEW
-DSS_HUGE blackfriday[10] = { 0 };
+JCCH_DSS_HUGE blackfriday[10] = { 0 };
 
 /* partsupp has partkey determine suppkey - we guarantee in a,b,c different suppkeys per partkey */
 unsigned long partsupp_class_a(unsigned long partkey_hash) { /* same region, populous nation */
@@ -191,21 +191,21 @@ unsigned long partsupp_class_d(unsigned long partkey_hash) { /* different region
 	return phash(supp_hsh, &phash_supplier, 1);
 }
 
-DSS_HUGE
+JCCH_DSS_HUGE
 jcch_mk_blackfriday(jcch_order_t *o) {
 	int year = (o->odate[0]-'0')*1000 + (o->odate[1]-'0')*100 + (o->odate[2]-'0')*10 + (o->odate[3]-'0');
-	DSS_HUGE tmp_date = blackfriday[year-1992];
+	JCCH_DSS_HUGE tmp_date = blackfriday[year-1992];
 	strcpy(o->odate, jcch_asc_date[tmp_date - STARTDATE]);
 	return tmp_date;
 }
 #endif
 
 long
-jcch_mk_item(jcch_order_t * o, DSS_HUGE lcnt, DSS_HUGE tmp_date, int skewed) {
-	DSS_HUGE        rprice;
-	DSS_HUGE        s_date;
-	DSS_HUGE        r_date;
-	DSS_HUGE        c_date;
+jcch_mk_item(jcch_order_t * o, JCCH_DSS_HUGE lcnt, JCCH_DSS_HUGE tmp_date, int skewed) {
+	JCCH_DSS_HUGE        rprice;
+	JCCH_DSS_HUGE        s_date;
+	JCCH_DSS_HUGE        r_date;
+	JCCH_DSS_HUGE        c_date;
 	char            tmp_str[2];
 	long ocnt = 0;
 	o->l[lcnt].okey = o->okey;;
@@ -276,13 +276,13 @@ jcch_mk_item(jcch_order_t * o, DSS_HUGE lcnt, DSS_HUGE tmp_date, int skewed) {
 }
 
 long
-jcch_mk_order(DSS_HUGE index, jcch_order_t * o, long upd_num)
+jcch_mk_order(JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num)
 {
-	DSS_HUGE        lcnt = 0;
+	JCCH_DSS_HUGE        lcnt = 0;
 	long            ocnt;
-	DSS_HUGE        tmp_date;
-	DSS_HUGE        clk_num;
-	DSS_HUGE        supp_num;
+	JCCH_DSS_HUGE        tmp_date;
+	JCCH_DSS_HUGE        clk_num;
+	JCCH_DSS_HUGE        supp_num;
 	char          **jcch_mk_ascdate PROTO((void));
 	int             delta = 1;
 	static int      bInit = 0;
@@ -435,7 +435,7 @@ jcch_mk_order(DSS_HUGE index, jcch_order_t * o, long upd_num)
 				skewed = 1;
 			} else {
 				/* ensure computationally that partkey_hash is by accident not populous (<20) nor of a non-referenced gold part */
-				DSS_HUGE partkey_hash = 20 + (phash(o->l[lcnt].partkey, &phash_part, 0) % (NON_REFERENCED_GOLD_DOMAIN-20));
+				JCCH_DSS_HUGE partkey_hash = 20 + (phash(o->l[lcnt].partkey, &phash_part, 0) % (NON_REFERENCED_GOLD_DOMAIN-20));
 				partkey_hash = 5*(partkey_hash/5) + cust_region; /* enforce it to be local with the customer region */
 				o->l[lcnt].partkey = phash(partkey_hash, &phash_part, 1);
 				o->l[lcnt].suppkey = partsupp_class_b(partkey_hash);  /* matching region, small nation */
@@ -454,12 +454,12 @@ jcch_mk_order(DSS_HUGE index, jcch_order_t * o, long upd_num)
 }
 
 long
-jcch_mk_part(DSS_HUGE index, part_t * p)
+jcch_mk_part(JCCH_DSS_HUGE index, part_t * p)
 {
-	DSS_HUGE        suppcnt = SUPP_PER_PART;
-	DSS_HUGE        temp;
+	JCCH_DSS_HUGE        suppcnt = SUPP_PER_PART;
+	JCCH_DSS_HUGE        temp;
 	long            snum;
-	DSS_HUGE        brnd;
+	JCCH_DSS_HUGE        brnd;
 	static int      bInit = 0;
 	static char     szFormat[100];
 	static char     szBrandFormat[100];
@@ -555,9 +555,9 @@ jcch_mk_part(DSS_HUGE index, part_t * p)
 }
 
 long
-jcch_mk_supp(DSS_HUGE index, supplier_t * s)
+jcch_mk_supp(JCCH_DSS_HUGE index, supplier_t * s)
 {
-	DSS_HUGE        i, bad_press, noise, offset, type;
+	JCCH_DSS_HUGE        i, bad_press, noise, offset, type;
 	static int      bInit = 0;
 	static char     szFormat[100];
 
@@ -660,7 +660,7 @@ struct
 };
 
 long
-jcch_mk_time(DSS_HUGE index, dss_time_t * t)
+jcch_mk_time(JCCH_DSS_HUGE index, dss_time_t * t)
 {
 	long            m = 0;
 	long            y;
@@ -686,7 +686,7 @@ jcch_mk_time(DSS_HUGE index, dss_time_t * t)
 }
 
 int
-jcch_mk_nation(DSS_HUGE index, code_t * c)
+jcch_mk_nation(JCCH_DSS_HUGE index, code_t * c)
 {
 	c->code = index - 1;
 	c->text = jcch_nations.list[index - 1].text;
@@ -702,7 +702,7 @@ jcch_mk_nation(DSS_HUGE index, code_t * c)
 }
 
 int
-jcch_mk_region(DSS_HUGE index, code_t * c)
+jcch_mk_region(JCCH_DSS_HUGE index, code_t * c)
 {
 
 	c->code = index - 1;

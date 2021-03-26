@@ -115,15 +115,15 @@ int JCCH_skew = 0;
 void	jcch_usage (void);
 void	kill_load (void);
 int		pload (int tbl);
-void	jcch_gen_tbl (int tnum, DSS_HUGE start, DSS_HUGE count, long jcch_upd_num);
-int		pr_drange (int tbl, DSS_HUGE min, DSS_HUGE cnt, long num);
+void	jcch_gen_tbl (int tnum, JCCH_DSS_HUGE start, JCCH_DSS_HUGE count, long jcch_upd_num);
+int		pr_drange (int tbl, JCCH_DSS_HUGE min, JCCH_DSS_HUGE cnt, long num);
 int		jcch_set_files (int t, int pload);
 int		jcch_partial (int, int);
 
 
 extern int optind, opterr;
 extern char *optarg;
-DSS_HUGE jcch_rowcnt = 0, jcch_minrow = 0;
+JCCH_DSS_HUGE jcch_rowcnt = 0, jcch_minrow = 0;
 long jcch_upd_num = 0;
 double jcch_flt_scale;
 #if (defined(WIN32)&&!defined(_POSIX_))
@@ -173,14 +173,14 @@ int pr_region (code_t * c, int mode);
 /*
 * seed generation functions; used with '-O s' option
 */
-long sd_cust (int child, DSS_HUGE skip_count);
-long sd_line (int child, DSS_HUGE skip_count);
-long sd_order (int child, DSS_HUGE skip_count);
-long sd_part (int child, DSS_HUGE skip_count);
-long sd_psupp (int child, DSS_HUGE skip_count);
-long sd_supp (int child, DSS_HUGE skip_count);
-long sd_order_line (int child, DSS_HUGE skip_count);
-long sd_part_psupp (int child, DSS_HUGE skip_count);
+long sd_cust (int child, JCCH_DSS_HUGE skip_count);
+long sd_line (int child, JCCH_DSS_HUGE skip_count);
+long sd_order (int child, JCCH_DSS_HUGE skip_count);
+long sd_part (int child, JCCH_DSS_HUGE skip_count);
+long sd_psupp (int child, JCCH_DSS_HUGE skip_count);
+long sd_supp (int child, JCCH_DSS_HUGE skip_count);
+long sd_order_line (int child, JCCH_DSS_HUGE skip_count);
+long sd_part_psupp (int child, JCCH_DSS_HUGE skip_count);
 
 tdef jcch_tdefs[] =
 {
@@ -289,17 +289,17 @@ static part_t part;
 * generate a particular jcch_table
 */
 void
-jcch_gen_tbl (int tnum, DSS_HUGE start, DSS_HUGE count, long jcch_upd_num)
+jcch_gen_tbl (int tnum, JCCH_DSS_HUGE start, JCCH_DSS_HUGE count, long jcch_upd_num)
 {
 	supplier_t supp;
 	customer_t cust;
 	code_t code;
 	static int completed = 0;
-	DSS_HUGE i;
+	JCCH_DSS_HUGE i;
 
-	DSS_HUGE rows_per_segment=0;
-	DSS_HUGE rows_this_segment=-1;
-	DSS_HUGE residual_rows=0;
+	JCCH_DSS_HUGE rows_per_segment=0;
+	JCCH_DSS_HUGE rows_this_segment=-1;
+	JCCH_DSS_HUGE residual_rows=0;
 	
 	if (jcch_insert_segments)
 		{
@@ -310,7 +310,7 @@ jcch_gen_tbl (int tnum, DSS_HUGE start, DSS_HUGE count, long jcch_upd_num)
 	for (i = start; count; count--, i++)
 	{
 		LIFENOISE (1000, i);
-		row_start(tnum);
+		jcch_row_start(tnum);
 
 		switch (tnum)
 		{
@@ -368,11 +368,11 @@ jcch_gen_tbl (int tnum, DSS_HUGE start, DSS_HUGE count, long jcch_upd_num)
 				jcch_tdefs[tnum].loader(&code, 0);
 			break;
 		}
-		row_stop(tnum);
+		jcch_row_stop(tnum);
 		if (jcch_set_seeds && (i % jcch_tdefs[tnum].base) < 2)
 		{
 			printf("\nSeeds for %s at rowcount %ld\n", jcch_tdefs[tnum].comment, i);
-			dump_seeds(tnum);
+			jcch_dump_seeds(tnum);
 		}
 	}
 	completed |= 1 << tnum;
@@ -441,8 +441,8 @@ jcch_usage (void)
 int
 jcch_partial (int tbl, int s)
 {
-	DSS_HUGE jcch_rowcnt;
-	DSS_HUGE extra;
+	JCCH_DSS_HUGE jcch_rowcnt;
+	JCCH_DSS_HUGE extra;
 	
 	if (jcch_verbose > 0)
 	{
@@ -515,7 +515,7 @@ jcch_process_options (int count, char **vector)
 				int_scale = (int)(1000 * jcch_flt_scale);
 				for (i = PART; i < REGION; i++)
 				{
-					jcch_tdefs[i].base = (DSS_HUGE)(int_scale * jcch_tdefs[i].base)/1000;
+					jcch_tdefs[i].base = (JCCH_DSS_HUGE)(int_scale * jcch_tdefs[i].base)/1000;
 					if (jcch_tdefs[i].base < 1)
 						jcch_tdefs[i].base = 1;
 				}
@@ -696,7 +696,7 @@ void jcch_validate_options(void)
 int
 jcch_dbgen_main (int ac, char **av)
 {
-	DSS_HUGE i;
+	JCCH_DSS_HUGE i;
 	
 	jcch_table = (1 << CUST) |
 		(1 << SUPP) |

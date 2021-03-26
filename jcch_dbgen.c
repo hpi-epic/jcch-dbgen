@@ -816,7 +816,7 @@ seed_t     jcch_Seed[MAX_STREAM + 1] =
     {SUPP,   715851524,  0, 1}       /* BBB junk     47 */
 };
 
-static seed_t mk_seed(long jcch_table, DSS_HUGE value, DSS_HUGE jcch_usage, DSS_HUGE boundary) {
+static seed_t mk_seed(long jcch_table, JCCH_DSS_HUGE value, JCCH_DSS_HUGE jcch_usage, JCCH_DSS_HUGE boundary) {
   seed_t seed = {.jcch_table=jcch_table, .value=value, .jcch_usage=jcch_usage, .boundary=boundary};
   return seed;
 }
@@ -895,7 +895,7 @@ void jcch_dbgen_init_scale_factor(float scale_factor) {
     int_scale = (int)(round(10000 * jcch_flt_scale));
     for (i = PART; i < REGION; i++)
     {
-      jcch_tdefs[i].base = (DSS_HUGE)(int_scale * jcch_tdefs[i].base)/10000;
+      jcch_tdefs[i].base = (JCCH_DSS_HUGE)(int_scale * jcch_tdefs[i].base)/10000;
       if (jcch_tdefs[i].base < 1)
         jcch_tdefs[i].base = 1;
     }

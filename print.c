@@ -5,7 +5,7 @@
 * ===================
 * $Log: print.c,v $
 * Revision 1.3  2005/10/28 02:56:22  jms
-* add platform-specific printf formats to allow for DSS_HUGE data type
+* add platform-specific printf formats to allow for JCCH_DSS_HUGE data type
 *
 * Revision 1.2  2005/01/03 20:08:59  jms
 * change line terminations
@@ -51,7 +51,7 @@
  * Function Prototypes
  */
 FILE *print_prep PROTO((int jcch_table, int update));
-int pr_drange PROTO((int tbl, DSS_HUGE min, DSS_HUGE cnt, long num));
+int pr_drange PROTO((int tbl, JCCH_DSS_HUGE min, JCCH_DSS_HUGE cnt, long num));
 
 FILE *
 print_prep(int jcch_table, int update)
@@ -121,13 +121,13 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 		fprintf(target, "%ld", (long)data);
 		break;
 	case DT_HUGE:
-		fprintf(target, HUGE_FORMAT, *(DSS_HUGE *)data);
+		fprintf(target, HUGE_FORMAT, *(JCCH_DSS_HUGE *)data);
 		break;
 	case DT_KEY:
 		fprintf(target, "%ld", (long)data);
 		break;
 	case DT_MONEY:
-		cents = (int)*(DSS_HUGE *)data;
+		cents = (int)*(JCCH_DSS_HUGE *)data;
 		if (cents < 0)
 			{
 			fprintf(target, "-");
@@ -393,15 +393,15 @@ static FILE *fp = NULL;
  * oversight
  */
 int
-pr_drange(int tbl, DSS_HUGE min, DSS_HUGE cnt, long num)
+pr_drange(int tbl, JCCH_DSS_HUGE min, JCCH_DSS_HUGE cnt, long num)
 {
     static int  last_num = 0;
     static FILE *dfp = NULL;
-    DSS_HUGE child = -1;
-    DSS_HUGE start, last, new;
+    JCCH_DSS_HUGE child = -1;
+    JCCH_DSS_HUGE start, last, new;
 
-	static DSS_HUGE rows_per_segment=0;
-	static DSS_HUGE rows_this_segment=0;
+	static JCCH_DSS_HUGE rows_per_segment=0;
+	static JCCH_DSS_HUGE rows_this_segment=0;
 
     if (last_num != num)
         {

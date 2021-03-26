@@ -77,7 +77,7 @@
 #endif
 #endif
 
-DSS_HUGE NextRand(DSS_HUGE seed);
+JCCH_DSS_HUGE jcch_NextRand(JCCH_DSS_HUGE seed);
 void	permute(long *set, int cnt, long stream);
 void	permute_dist(distribution *d, long stream);
 long seed;
@@ -95,7 +95,7 @@ tdef jcch_tdefs = { NULL };
 void	permute(long *a, int c, long s)
 {
     int i;
-    static DSS_HUGE source;
+    static JCCH_DSS_HUGE source;
     static long *set, temp;
     
 	if (a != (long *)NULL)

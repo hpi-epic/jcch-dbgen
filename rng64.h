@@ -18,6 +18,6 @@
 *
 *
 */
-DSS_HUGE AdvanceRand64( DSS_HUGE nSeed, DSS_HUGE nCount);
-void dss_random64(DSS_HUGE *tgt, DSS_HUGE nLow, DSS_HUGE nHigh, long stream);
-DSS_HUGE NextRand64(DSS_HUGE nSeed);
+JCCH_DSS_HUGE AdvanceRand64( JCCH_DSS_HUGE nSeed, JCCH_DSS_HUGE nCount);
+void dss_random64(JCCH_DSS_HUGE *tgt, JCCH_DSS_HUGE nLow, JCCH_DSS_HUGE nHigh, long stream);
+JCCH_DSS_HUGE NextRand64(JCCH_DSS_HUGE nSeed);

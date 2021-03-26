@@ -63,12 +63,12 @@
 #define MAX_COLOR 92
 long name_bits[MAX_COLOR / BITS_PER_LONG];
 extern seed_t jcch_Seed[];
-void fakeVStr(int nAvg, long nSeed, DSS_HUGE nCount);
-void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed);
+void fakeVStr(int nAvg, long nSeed, JCCH_DSS_HUGE nCount);
+void NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed);
 
 
 void 
-advanceStream(int nStream, DSS_HUGE nCalls, int bUse64Bit)
+advanceStream(int nStream, JCCH_DSS_HUGE nCalls, int bUse64Bit)
 {
    if (bUse64Bit)
       jcch_Seed[nStream].value = AdvanceRand64(jcch_Seed[nStream].value, nCalls);
@@ -89,8 +89,8 @@ advanceStream(int nStream, DSS_HUGE nCalls, int bUse64Bit)
 /* The book says that this will work if MAXINT for the type you choose    */
 /* is at least 2**46  - 1, so 64 bits is more than you *really* need      */
 
-static DSS_HUGE Multiplier = 16807;      /* or whatever nonstandard */
-static DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int */
+static JCCH_DSS_HUGE Multiplier = 16807;      /* or whatever nonstandard */
+static JCCH_DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int */
 
 /* Advances value of jcch_Seed after N applications of the random number generator
    with multiplier Mult and given Modulus.
@@ -109,10 +109,10 @@ static DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int */
 */
 
 /* Nth Element of sequence starting with StartSeed */
-void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed)
+void NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed)
    {
-   DSS_HUGE Z;
-   DSS_HUGE Mult;
+   JCCH_DSS_HUGE Z;
+   JCCH_DSS_HUGE Mult;
    static int ln=-1;
    int i;
 
@@ -122,7 +122,7 @@ void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed)
        fprintf(stderr, "%c\b", lnoise[i]);
        }
    Mult = Multiplier;
-   Z = (DSS_HUGE) *StartSeed;
+   Z = (JCCH_DSS_HUGE) *StartSeed;
    while (N > 0 )
       {
       if (N % 2 != 0)    /* testing for oddness, this seems portable */
@@ -140,8 +140,8 @@ void NthElement (DSS_HUGE N, DSS_HUGE *StartSeed)
 void
 fake_a_rnd(int min, int max, int column)
 {
-   DSS_HUGE len;
-   DSS_HUGE itcount;
+   JCCH_DSS_HUGE len;
+   JCCH_DSS_HUGE itcount;
 
    RANDOM(len, min, max, column);
    if (len % 5L == 0)
@@ -157,7 +157,7 @@ fake_a_rnd(int min, int max, int column)
 
 
 long 
-sd_part(int child, DSS_HUGE skip_count)
+sd_part(int child, JCCH_DSS_HUGE skip_count)
 {
    int i;
  
@@ -171,7 +171,7 @@ sd_part(int child, DSS_HUGE skip_count)
 }
 
 long 
-sd_line(int child, DSS_HUGE skip_count)
+sd_line(int child, JCCH_DSS_HUGE skip_count)
 	{
 	int i,j;
 	
@@ -198,7 +198,7 @@ sd_line(int child, DSS_HUGE skip_count)
 	}
 
 long 
-sd_order(int child, DSS_HUGE skip_count)        
+sd_order(int child, JCCH_DSS_HUGE skip_count)        
 {
 	ADVANCE_STREAM(O_LCNT_SD, skip_count);
 /*
@@ -217,7 +217,7 @@ sd_order(int child, DSS_HUGE skip_count)
 }
 
 long
-sd_psupp(int child, DSS_HUGE skip_count)
+sd_psupp(int child, JCCH_DSS_HUGE skip_count)
 	{
 	int j;
 	
@@ -232,7 +232,7 @@ sd_psupp(int child, DSS_HUGE skip_count)
 	}
 
 long 
-sd_cust(int child, DSS_HUGE skip_count)
+sd_cust(int child, JCCH_DSS_HUGE skip_count)
 {
    
    ADVANCE_STREAM(C_ADDR_SD, skip_count * 9);
@@ -245,7 +245,7 @@ sd_cust(int child, DSS_HUGE skip_count)
 }
 
 long
-sd_supp(int child, DSS_HUGE skip_count)
+sd_supp(int child, JCCH_DSS_HUGE skip_count)
 {
    ADVANCE_STREAM(S_NTRG_SD, skip_count);
    ADVANCE_STREAM(S_PHNE_SD, 3L * skip_count);

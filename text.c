@@ -285,7 +285,7 @@ done:
 void
 dbg_text(char *tgt, int min, int max, int sd)
 {
-   DSS_HUGE hgLength = 0,
+   JCCH_DSS_HUGE hgLength = 0,
       hgOffset,
       wordlen = 0,
       s_len,

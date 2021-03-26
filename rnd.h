@@ -36,8 +36,8 @@
  */
 
 /* function protypes */
-DSS_HUGE            NextRand    PROTO((DSS_HUGE));
-DSS_HUGE            UnifInt     PROTO((DSS_HUGE, DSS_HUGE, long));
+JCCH_DSS_HUGE            jcch_NextRand    PROTO((JCCH_DSS_HUGE));
+JCCH_DSS_HUGE            jcch_UnifInt     PROTO((JCCH_DSS_HUGE, JCCH_DSS_HUGE, long));
 
 static long     nA = 16807;     /* the multiplier */
 static long     nM = 2147483647;/* the modulus == 2^31 - 1 */

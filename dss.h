@@ -148,7 +148,7 @@ static char lnoise[4] = {'|', '/', '-', '\\' };
 #define  MK_SPARSE(key, seq) \
          (((((key>>3)<<2)|(seq & 0x0003))<<3)|(key & 0x0007))
 
-#define RANDOM(tgt, lower, upper, stream)	dss_random(&tgt, lower, upper, stream)
+#define RANDOM(tgt, lower, upper, stream)	jcch_dss_random(&tgt, lower, upper, stream)
 #define RANDOM64(tgt, lower, upper, stream)	dss_random64(&tgt, lower, upper, stream)
 	
      
@@ -177,20 +177,20 @@ typedef struct
 {
    char     *name;
    char     *comment;
-   DSS_HUGE      base;
+   JCCH_DSS_HUGE      base;
    int       (*loader) ();
    long      (*gen_seed)();
    int       child;
-   DSS_HUGE vtotal;
+   JCCH_DSS_HUGE vtotal;
 }         tdef;
 
 typedef struct SEED_T {
 	long jcch_table;
-	DSS_HUGE value;
-	DSS_HUGE jcch_usage;
-	DSS_HUGE boundary;
+	JCCH_DSS_HUGE value;
+	JCCH_DSS_HUGE jcch_usage;
+	JCCH_DSS_HUGE boundary;
 #ifdef RNG_TEST
-	DSS_HUGE nCalls;
+	JCCH_DSS_HUGE nCalls;
 #endif
 	} seed_t;
 
@@ -218,15 +218,15 @@ void	embed_str PROTO((distribution *d, int min, int max, int stream, char *dest)
 #ifndef STDLIB_HAS_GETOPT
 int		getopt PROTO((int arg_cnt, char **arg_vect, char *oprions));
 #endif /* STDLIB_HAS_GETOPT */
-DSS_HUGE	jcch_set_state PROTO((int t, long jcch_scale, long procs, long jcch_step, DSS_HUGE *e));
+JCCH_DSS_HUGE	jcch_set_state PROTO((int t, long jcch_scale, long procs, long jcch_step, JCCH_DSS_HUGE *e));
 
 /* rnd.c */
-DSS_HUGE	NextRand PROTO((DSS_HUGE nSeed));
-DSS_HUGE	UnifInt PROTO((DSS_HUGE nLow, DSS_HUGE nHigh, long nStream));
-void	dss_random(DSS_HUGE *tgt, DSS_HUGE min, DSS_HUGE max, long seed);
-void	row_start(int t);
-void	row_stop(int t);
-void	dump_seeds(int t);
+JCCH_DSS_HUGE	jcch_NextRand PROTO((JCCH_DSS_HUGE nSeed));
+JCCH_DSS_HUGE	jcch_UnifInt PROTO((JCCH_DSS_HUGE nLow, JCCH_DSS_HUGE nHigh, long nStream));
+void	jcch_dss_random(JCCH_DSS_HUGE *tgt, JCCH_DSS_HUGE min, JCCH_DSS_HUGE max, long seed);
+void	jcch_row_start(int t);
+void	jcch_row_stop(int t);
+void	jcch_dump_seeds(int t);
 
 /* text.c */
 #define MAX_GRAMMAR_LEN	12	/* max length of jcch_grammar component */
@@ -436,7 +436,7 @@ extern tdef jcch_tdefs[];
  * beyond this point we need to allow for BCD calculations
  */
 #define  MAX_32B_SCALE   1000.0
-#define LONG2HUGE(src, dst)		*dst = (DSS_HUGE)src	
+#define LONG2HUGE(src, dst)		*dst = (JCCH_DSS_HUGE)src	
 #define HUGE2LONG(src, dst)		*dst = (long)src
 #define HUGE_SET(src, dst)		*dst = *src	
 #define HUGE_MUL(op1, op2)		*op1 *= op2	

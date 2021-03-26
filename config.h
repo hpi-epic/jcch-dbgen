@@ -11,7 +11,7 @@
 * 2.4.0 changes from Meikel
 *
 * Revision 1.6  2006/05/31 22:25:21  jms
-* Rework UnifInt calls in varsub to handle lack of PROTO defn in windows
+* Rework jcch_UnifInt calls in varsub to handle lack of PROTO defn in windows
 *
 * Revision 1.5  2006/05/25 22:35:36  jms
 * qgen porting changes for 32b/64b
@@ -66,7 +66,7 @@
  *   MDY_DATE          -- generate dates as MM-DD-YY
  *   WIN32             -- support for WindowsNT
  *   SUPPORT_64BITS    -- compiler defines a 64 bit datatype
- *   DSS_HUGE          -- 64 bit data type
+ *   JCCH_DSS_HUGE          -- 64 bit data type
  *   HUGE_FORMAT       -- printf string for 64 bit data type
  *   EOL_HANDLING      -- flat files don't need final column separator
  *
@@ -107,7 +107,7 @@
 #else
 /* the 64 bit defines are for the Metaware compiler */
 #define SUPPORT_64BITS
-#define DSS_HUGE long long
+#define JCCH_DSS_HUGE long long
 #define RNG_A	6364136223846793005ull
 #define RNG_C	1ull
 #define HUGE_FORMAT "%LLd"
@@ -119,7 +119,7 @@
 #define _INCLUDE_POSIX_SOURCE
 #define STDLIB_HAS_GETOPT
 #define SUPPORT_64BITS
-#define DSS_HUGE long
+#define JCCH_DSS_HUGE long
 #define HUGE_COUNT 2
 #define HUGE_FORMAT "%ld"
 #define HUGE_DATE_FORMAT "%02lld"
@@ -130,7 +130,7 @@
 #ifdef IBM
 #define STDLIB_HAS_GETOPT
 #define SUPPORT_64BITS
-#define DSS_HUGE long long
+#define JCCH_DSS_HUGE long long
 #define HUGE_FORMAT	"%lld" 
 #define HUGE_DATE_FORMAT	"%02lld" 
 #define RNG_A	6364136223846793005ull
@@ -140,7 +140,7 @@
 #ifdef LINUX
 #define STDLIB_HAS_GETOPT
 #define SUPPORT_64BITS
-#define DSS_HUGE long long int
+#define JCCH_DSS_HUGE long long int
 #define HUGE_FORMAT	"%lld" 
 #define HUGE_DATE_FORMAT	"%02lld" 
 #define RNG_A	6364136223846793005ull
@@ -152,7 +152,7 @@
 #define RNG_A	6364136223846793005ull
 #define RNG_C	1ull
 #define SUPPORT_64BITS
-#define DSS_HUGE long long
+#define JCCH_DSS_HUGE long long
 #define HUGE_FORMAT	"%lld" 
 #define HUGE_DATE_FORMAT	"%02lld" 
 #endif /* SUN */
@@ -160,7 +160,7 @@
 #ifdef SGI
 #define STDLIB_HAS_GETOPT
 #define SUPPORT_64BITS
-#define DSS_HUGE __int64_t
+#define JCCH_DSS_HUGE __int64_t
 #endif /* SGI */
 
 #if (defined(WIN32)&&!defined(_POSIX_))
@@ -179,7 +179,7 @@
 #define SIGS_DEFINED
 #define PATH_SEP	'\\'
 #define SUPPORT_64BITS
-#define DSS_HUGE __int64
+#define JCCH_DSS_HUGE __int64
 #define RNG_A	6364136223846793005uI64
 #define RNG_C	1uI64
 #define HUGE_FORMAT "%I64d"
@@ -209,7 +209,7 @@
 #define PATH_SEP '/'
 #endif /* PATH_SEP */
 
-#ifndef DSS_HUGE
+#ifndef JCCH_DSS_HUGE
 #error Support for a 64-bit datatype is required in this release
 #endif
 

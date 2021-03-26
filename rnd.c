@@ -41,7 +41,7 @@
 * 32/64 bit changes for overflow handling needed additional changes when ported back to windows
 *
 * Revision 1.2  2004/02/18 16:17:32  jms
-* add 32bit specific changes to UnifInt
+* add 32bit specific changes to jcch_UnifInt
 *
 * Revision 1.1.1.1  2003/08/08 21:50:34  jms
 * recreation after CVS crash
@@ -62,8 +62,8 @@
  * 
  * (Reference:  CACM, Oct 1988, pp 1192-1201)
  * 
- * NextRand:  Computes next random integer
- * UnifInt:   Yields an long uniformly distributed between given bounds 
+ * jcch_NextRand:  Computes next random integer
+ * jcch_UnifInt:   Yields an long uniformly distributed between given bounds 
  * UnifReal: ields a real uniformly distributed between given bounds   
  * Exponential: Yields a real exponentially distributed with given mean
  * 
@@ -92,19 +92,19 @@
 #include "jcch_dbgen.h"
 
 char *jcch_env_config PROTO((char *tag, char *dflt));
-void NthElement(DSS_HUGE, DSS_HUGE *);
+void NthElement(JCCH_DSS_HUGE, JCCH_DSS_HUGE *);
 
 void
-dss_random(DSS_HUGE *tgt, DSS_HUGE lower, DSS_HUGE upper, long stream)
+jcch_dss_random(JCCH_DSS_HUGE *tgt, JCCH_DSS_HUGE lower, JCCH_DSS_HUGE upper, long stream)
 {
-	*tgt = UnifInt(lower, upper, stream);
+	*tgt = jcch_UnifInt(lower, upper, stream);
 	jcch_Seed[stream].jcch_usage += 1;
 
 	return;
 }
 
 void
-row_start(int t)	\
+jcch_row_start(int t)	\
 {
 	int i;
 	for (i=0; i <= MAX_STREAM; i++) 
@@ -114,7 +114,7 @@ row_start(int t)	\
 }
 
 void
-row_stop(int t)	\
+jcch_row_stop(int t)	\
 	{ 
 	int i;
 	
@@ -145,7 +145,7 @@ row_stop(int t)	\
 	}
 
 void
-dump_seeds(int tbl)
+jcch_dump_seeds(int tbl)
 {
 	int i;
 
@@ -161,15 +161,15 @@ dump_seeds(int tbl)
 
 /******************************************************************
 
-   NextRand:  Computes next random integer
+   jcch_NextRand:  Computes next random integer
 
 *******************************************************************/
 
 /*
- * long NextRand( long nSeed )
+ * long jcch_NextRand( long nSeed )
  */
-DSS_HUGE
-NextRand(DSS_HUGE nSeed)
+JCCH_DSS_HUGE
+jcch_NextRand(JCCH_DSS_HUGE nSeed)
 
 /*
  * nSeed is the previous random number; the returned value is the 
@@ -184,15 +184,15 @@ NextRand(DSS_HUGE nSeed)
 
 /******************************************************************
 
-   UnifInt:  Yields an long uniformly distributed between given bounds
+   jcch_UnifInt:  Yields an long uniformly distributed between given bounds
 
 *******************************************************************/
 
 /*
- * long UnifInt( long nLow, long nHigh, long nStream )
+ * long jcch_UnifInt( long nLow, long nHigh, long nStream )
  */
-DSS_HUGE
-UnifInt(DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
+JCCH_DSS_HUGE
+jcch_UnifInt(JCCH_DSS_HUGE nLow, JCCH_DSS_HUGE nHigh, long nStream)
 
 /*
  * Returns an integer uniformly distributed between nLow and nHigh, 
@@ -202,7 +202,7 @@ UnifInt(DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
 
 {
     double          dRange;
-    DSS_HUGE            nTemp,
+    JCCH_DSS_HUGE            nTemp,
 		nRange;
     int32_t	nLow32 = (int32_t)nLow,
 		nHigh32 = (int32_t)nHigh;
@@ -221,11 +221,11 @@ UnifInt(DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
 		nRange = nHigh - nLow + 1;
 	}
 
-    jcch_Seed[nStream].value = NextRand(jcch_Seed[nStream].value);
+    jcch_Seed[nStream].value = jcch_NextRand(jcch_Seed[nStream].value);
 #ifdef RNG_TEST
 	jcch_Seed[nStream].nCalls += 1;
 #endif
-	nTemp = (DSS_HUGE) (((double) jcch_Seed[nStream].value / jcch_dM) * (dRange));
+	nTemp = (JCCH_DSS_HUGE) (((double) jcch_Seed[nStream].value / jcch_dM) * (dRange));
     return (nLow + nTemp);
 }
 

@@ -62,9 +62,9 @@ extern double jcch_dM;
 extern seed_t jcch_Seed[];
 
 void
-dss_random64(DSS_HUGE *tgt, DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
+dss_random64(JCCH_DSS_HUGE *tgt, JCCH_DSS_HUGE nLow, JCCH_DSS_HUGE nHigh, long nStream)
 {
-    DSS_HUGE            nTemp;
+    JCCH_DSS_HUGE            nTemp;
 
     if (nStream < 0 || nStream > MAX_STREAM)
         nStream = 0;
@@ -90,22 +90,22 @@ dss_random64(DSS_HUGE *tgt, DSS_HUGE nLow, DSS_HUGE nHigh, long nStream)
 	return;
 }
 
-DSS_HUGE
-NextRand64(DSS_HUGE nSeed){
+JCCH_DSS_HUGE
+NextRand64(JCCH_DSS_HUGE nSeed){
 	
-	DSS_HUGE a = (unsigned DSS_HUGE) RNG_A;
-    DSS_HUGE c = (unsigned DSS_HUGE) RNG_C;
+	JCCH_DSS_HUGE a = (unsigned JCCH_DSS_HUGE) RNG_A;
+    JCCH_DSS_HUGE c = (unsigned JCCH_DSS_HUGE) RNG_C;
     nSeed = (nSeed * a + c); /* implicitely truncated to 64bits */
 	
     return (nSeed);
 }
 
-DSS_HUGE AdvanceRand64( DSS_HUGE nSeed,
-				  DSS_HUGE nCount) {
-  unsigned DSS_HUGE a = RNG_A ;
-  unsigned DSS_HUGE c = RNG_C ;
+JCCH_DSS_HUGE AdvanceRand64( JCCH_DSS_HUGE nSeed,
+				  JCCH_DSS_HUGE nCount) {
+  unsigned JCCH_DSS_HUGE a = RNG_A ;
+  unsigned JCCH_DSS_HUGE c = RNG_C ;
   int nBit;
-  unsigned DSS_HUGE Apow=a, Dsum=c;
+  unsigned JCCH_DSS_HUGE Apow=a, Dsum=c;
 
   /* if nothing to do, do nothing ! */
   if( nCount == 0 ) return nSeed;
