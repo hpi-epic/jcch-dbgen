@@ -86,16 +86,16 @@
 #include <stdlib.h>
 
 #define  NONE		-1
-#define  PART		0
-#define  PSUPP		1
-#define  SUPP		2
-#define  CUST		3
-#define  ORDER		4
-#define  LINE		5
+#define  JCCH_PART		0
+#define  JCCH_PSUPP		1
+#define  JCCH_SUPP		2
+#define  JCCH_CUST		3
+#define  JCCH_ORDER		4
+#define  JCCH_LINE		5
 #define  ORDER_LINE 6
 #define  PART_PSUPP 7
-#define  NATION		8
-#define  REGION		9
+#define  JCCH_NATION		8
+#define  JCCH_REGION		9
 #define  UPDATE		10
 #define  MAX_TABLE	11
 #define  ONE_STREAM	1
@@ -347,7 +347,7 @@ extern tdef jcch_tdefs[];
  */
 #define  PS_SIZE      145
 #define  PS_SKEY_MIN  0
-#define  PS_SKEY_MAX  ((jcch_tdefs[SUPP].base - 1) * jcch_scale)
+#define  PS_SKEY_MAX  ((jcch_tdefs[JCCH_SUPP].base - 1) * jcch_scale)
 #define  PS_SCST_MIN  100
 #define  PS_SCST_MAX  100000
 #define  PS_QTY_MIN   1
@@ -366,7 +366,7 @@ extern tdef jcch_tdefs[];
  */
 #define  O_SIZE          109
 #define  O_CKEY_MIN      1
-#define  O_CKEY_MAX      (jcch_tdefs[CUST].base * jcch_scale)
+#define  O_CKEY_MAX      (jcch_tdefs[JCCH_CUST].base * jcch_scale)
 #define  O_ODATE_MIN     STARTDATE
 #define  O_ODATE_MAX     (STARTDATE + TOTDATE - \
                          (L_SDTE_MAX + L_RDTE_MAX) - 1)
@@ -378,7 +378,7 @@ extern tdef jcch_tdefs[];
 #ifndef JCCH_SKEW
 #define  MAX_L_PER_O     O_LCNT_MAX
 #else
-#define  MAX_L_PER_O	(jcch_tdefs[LINE].base * jcch_scale / 5) 
+#define  MAX_L_PER_O	(jcch_tdefs[JCCH_LINE].base * jcch_scale / 5) 
 #endif
 
 /*
@@ -392,7 +392,7 @@ extern tdef jcch_tdefs[];
 #define  L_DCNT_MIN   0
 #define  L_DCNT_MAX   10
 #define  L_PKEY_MIN   1
-#define  L_PKEY_MAX   (jcch_tdefs[PART].base * jcch_scale)
+#define  L_PKEY_MAX   (jcch_tdefs[JCCH_PART].base * jcch_scale)
 #define  L_SDTE_MIN   1
 #define  L_SDTE_MAX   121
 #define  L_CDTE_MIN   30

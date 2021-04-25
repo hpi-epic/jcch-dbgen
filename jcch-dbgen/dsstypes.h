@@ -50,11 +50,11 @@ typedef struct
     char            mktsegment[MAXAGG_LEN + 1];
     char            comment[C_CMNT_MAX + 1];
     int             clen;
-}               customer_t;
+}               jcch_customer_t;
 /* customers.c */
-long jcch_mk_cust   PROTO((JCCH_DSS_HUGE n_cust, customer_t * c));
-int pr_cust    PROTO((customer_t * c, int mode));
-int ld_cust    PROTO((customer_t * c, int mode));
+long jcch_mk_cust   PROTO((JCCH_DSS_HUGE n_cust, jcch_customer_t * c));
+int pr_cust    PROTO((jcch_customer_t * c, int mode));
+int ld_cust    PROTO((jcch_customer_t * c, int mode));
 
 typedef struct
 {

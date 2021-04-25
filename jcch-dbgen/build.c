@@ -61,7 +61,7 @@ extern adhoc_t  adhocs[];
 #define JDAY(date) ((date) - STARTDATE + JDAY_BASE + 1)
 #define PART_SUPP_BRIDGE(tgt, p, s) \
     { \
-    JCCH_DSS_HUGE tot_scnt = jcch_tdefs[SUPP].base * jcch_scale; \
+    JCCH_DSS_HUGE tot_scnt = jcch_tdefs[JCCH_SUPP].base * jcch_scale; \
     tgt = (p + s *  (tot_scnt / SUPP_PER_PART +  \
 	(long) ((p - 1) / tot_scnt))) % tot_scnt + 1; \
     }
@@ -102,7 +102,7 @@ gen_phone(JCCH_DSS_HUGE ind, char *target, long seed)
 
 
 long
-jcch_mk_cust(JCCH_DSS_HUGE n_cust, customer_t * c)
+jcch_mk_cust(JCCH_DSS_HUGE n_cust, jcch_customer_t * c)
 {
 	JCCH_DSS_HUGE        i;
 	static int      bInit = 0;
@@ -127,10 +127,10 @@ jcch_mk_cust(JCCH_DSS_HUGE n_cust, customer_t * c)
 #ifdef JCCH_SKEW
 	if (JCCH_skew) {
 		unsigned long custkey_hash = phash(c->custkey, &phash_customer, 0);
-		int cust_nr = custkey_hash%(jcch_tdefs[CUST].base*jcch_scale/5);
-		c->nation_code = bin_nationkey(custkey_hash, jcch_tdefs[CUST].base*jcch_scale);
+		int cust_nr = custkey_hash%(jcch_tdefs[JCCH_CUST].base*jcch_scale/5);
+		c->nation_code = bin_nationkey(custkey_hash, jcch_tdefs[JCCH_CUST].base*jcch_scale);
 		if (cust_nr == 0) { /* populous customer */
-			c->phone[0] = '4' + custkey_hash/(jcch_tdefs[CUST].base*jcch_scale/5);
+			c->phone[0] = '4' + custkey_hash/(jcch_tdefs[JCCH_CUST].base*jcch_scale/5);
 			c->phone[1] = '0';
 		}
 	}
@@ -169,25 +169,25 @@ JCCH_DSS_HUGE blackfriday[10] = { 0 };
 unsigned long partsupp_class_a(unsigned long partkey_hash) { /* same region, populous nation */
 	unsigned long supp_reg = partkey_hash % 5;
 	/* unsigned long supp_nro = (partkey_hash/20) % 4; COMMENTED OUT -- just generate 5 different class-a partsupps */
-	unsigned long supp_hsh = supp_reg * (jcch_tdefs[SUPP].base*jcch_scale/5) /* + supp_nro */;
+	unsigned long supp_hsh = supp_reg * (jcch_tdefs[JCCH_SUPP].base*jcch_scale/5) /* + supp_nro */;
 	return phash(supp_hsh, &phash_supplier, 1);
 }
 unsigned long partsupp_class_b(unsigned long partkey_hash) { /* same region, non-populous nation */
 	unsigned long supp_reg = partkey_hash % 5;
-	unsigned long supp_nro = 4 + ((partkey_hash/20) % (jcch_tdefs[SUPP].base*jcch_scale/5 - 4));
-	unsigned long supp_hsh = supp_reg * (jcch_tdefs[SUPP].base*jcch_scale/5) + supp_nro;
+	unsigned long supp_nro = 4 + ((partkey_hash/20) % (jcch_tdefs[JCCH_SUPP].base*jcch_scale/5 - 4));
+	unsigned long supp_hsh = supp_reg * (jcch_tdefs[JCCH_SUPP].base*jcch_scale/5) + supp_nro;
 	return phash(supp_hsh, &phash_supplier, 1);
 }
 unsigned long partsupp_class_c(unsigned long partkey_hash) { /* different region, populous nation */
 	unsigned long supp_reg = ((partkey_hash % 5) + 1 + ((partkey_hash/5) % 4)) % 5;
 	unsigned long supp_nro = (partkey_hash/20) % 4; 
-	unsigned long supp_hsh = supp_reg * (jcch_tdefs[SUPP].base*jcch_scale/5) + supp_nro;
+	unsigned long supp_hsh = supp_reg * (jcch_tdefs[JCCH_SUPP].base*jcch_scale/5) + supp_nro;
 	return phash(supp_hsh, &phash_supplier, 1);
 }
 unsigned long partsupp_class_d(unsigned long partkey_hash) { /* different region, non-populous nation */
 	unsigned long supp_reg = ((partkey_hash % 5) + 1 + ((partkey_hash/5) % 4)) % 5;
-	unsigned long supp_nro = 4 + ((partkey_hash/20) % (jcch_tdefs[SUPP].base*jcch_scale/5 - 4));
-	unsigned long supp_hsh = supp_reg * (jcch_tdefs[SUPP].base*jcch_scale/5) + supp_nro;
+	unsigned long supp_nro = 4 + ((partkey_hash/20) % (jcch_tdefs[JCCH_SUPP].base*jcch_scale/5 - 4));
+	unsigned long supp_hsh = supp_reg * (jcch_tdefs[JCCH_SUPP].base*jcch_scale/5) + supp_nro;
 	return phash(supp_hsh, &phash_supplier, 1);
 }
 
@@ -342,23 +342,23 @@ jcch_mk_order(JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num)
 			 * side note: the popoulous orders <5, are not from 95/96 and have /20 == 0 so they fall into this case
 			 */
 			char bak = (strlen(o->comment)>13)?o->comment[13]:0;
-			unsigned long custkey_hash = (cust_region * jcch_tdefs[CUST].base * jcch_scale / 5); /* take the main whale customer */
+			unsigned long custkey_hash = (cust_region * jcch_tdefs[JCCH_CUST].base * jcch_scale / 5); /* take the main whale customer */
 			o->custkey = phash(custkey_hash, &phash_customer, 1); 
-			assert((o->custkey > 0) && (o->custkey <= jcch_tdefs[CUST].base * jcch_scale));
+			assert((o->custkey > 0) && (o->custkey <= jcch_tdefs[JCCH_CUST].base * jcch_scale));
 
 			/* mark the order comment with gold mine (for Q13) */
 			strcpy(o->comment, "1mine2 3gold4");
 			o->comment[13]=bak;
 		} else {
 			/* let custkey be determined by orderkey (handy later) */
-			o->custkey = (orderkey_hash/5) % (jcch_tdefs[CUST].base*jcch_scale/5 - (jcch_tdefs[CUST].base*jcch_scale/5)/CUST_MORTALITY);
+			o->custkey = (orderkey_hash/5) % (jcch_tdefs[JCCH_CUST].base*jcch_scale/5 - (jcch_tdefs[JCCH_CUST].base*jcch_scale/5)/CUST_MORTALITY);
 			/* rather than just using the lowest 2/3 of custkeys, we jcch_scale up by multiplying with 3/2, leaving 1/3 holes */
-			o->custkey = ((o->custkey*CUST_MORTALITY)/(CUST_MORTALITY-1)) % (jcch_tdefs[CUST].base*jcch_scale/5);
+			o->custkey = ((o->custkey*CUST_MORTALITY)/(CUST_MORTALITY-1)) % (jcch_tdefs[JCCH_CUST].base*jcch_scale/5);
 			/* make it come from the right region */
-			if (o->custkey == 0) o->custkey = (o->custkey+1)%(jcch_tdefs[CUST].base*jcch_scale/5); /* avoid the whale */
-			o->custkey += cust_region*(jcch_tdefs[CUST].base*jcch_scale/5);
+			if (o->custkey == 0) o->custkey = (o->custkey+1)%(jcch_tdefs[JCCH_CUST].base*jcch_scale/5); /* avoid the whale */
+			o->custkey += cust_region*(jcch_tdefs[JCCH_CUST].base*jcch_scale/5);
 			o->custkey = phash(o->custkey, &phash_customer, 1); 
-			assert((o->custkey > 0) && (o->custkey <= jcch_tdefs[CUST].base * jcch_scale));
+			assert((o->custkey > 0) && (o->custkey <= jcch_tdefs[JCCH_CUST].base * jcch_scale));
 		}
 		if (((index * 17) % 4) < 3) { /* it's... Black Friday again! for 50% of the orders (3/4 * 2/3) */
 			int month = (o->odate[5]-'0')*10 + (o->odate[6]-'0');
@@ -397,8 +397,8 @@ jcch_mk_order(JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num)
 			for (partkey_hash = 5; partkey_hash < 20; partkey_hash++) {
 				p = phash(partkey_hash, &phash_part, 1);
 				for(r = 0; r < 5; r++) if (r != cust_region) {
-					for(i = 0; i < jcch_tdefs[SUPP].base*jcch_scale*0.16; i++) {
-						unsigned long suppkey_hash = r*jcch_tdefs[SUPP].base*jcch_scale/5 + i;
+					for(i = 0; i < jcch_tdefs[JCCH_SUPP].base*jcch_scale*0.16; i++) {
+						unsigned long suppkey_hash = r*jcch_tdefs[JCCH_SUPP].base*jcch_scale/5 + i;
 						o->l[lcnt].partkey = p;
 						o->l[lcnt].suppkey = phash(suppkey_hash, &phash_supplier, 1);
 						ocnt += jcch_mk_item(o, lcnt++, tmp_date, 1);
@@ -421,7 +421,7 @@ jcch_mk_order(JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num)
 		RANDOM(supp_num, 0, 3, L_SKEY_SD);
 		PART_SUPP_BRIDGE(o->l[lcnt].suppkey, o->l[lcnt].partkey, supp_num);
 #ifdef JCCH_SKEW
-#define NON_REFERENCED_GOLD_DOMAIN (((149*(jcch_tdefs[PART].base*jcch_scale/150))/5)*5)
+#define NON_REFERENCED_GOLD_DOMAIN (((149*(jcch_tdefs[JCCH_PART].base*jcch_scale/150))/5)*5)
 #define NON_REFERENCED_GOLD_PART(partkey_hash) (partkey_hash > NON_REFERENCED_GOLD_DOMAIN)
 		if (JCCH_skew) {
 			/* non-populous orders (75% of volume) always have suppliers from the same region: 
@@ -467,7 +467,7 @@ jcch_mk_part(JCCH_DSS_HUGE index, part_t * p)
 	unsigned long partkey_hash = phash(index, &phash_part, 0);
 	static signed long extra = 0;
 	p->suppcnt = suppcnt;
-	if (index <= (4*jcch_tdefs[PSUPP].base*jcch_scale - (20*jcch_tdefs[SUPP].base*jcch_scale + 3*(jcch_tdefs[PART].base*jcch_scale - 20)))) extra++;
+	if (index <= (4*jcch_tdefs[JCCH_PSUPP].base*jcch_scale - (20*jcch_tdefs[JCCH_SUPP].base*jcch_scale + 3*(jcch_tdefs[JCCH_PART].base*jcch_scale - 20)))) extra++;
 #endif
 
  	p->s = (partsupp_t*) malloc(SUPP_PER_PART * sizeof(partsupp_t));
@@ -515,7 +515,7 @@ jcch_mk_part(JCCH_DSS_HUGE index, part_t * p)
 			strcpy(p->type, "SHINY MINED GOLD");
 			p->tlen = strlen(p->type);
 			strcpy(p->name, "shiny mined gold");
-			p->suppcnt = suppcnt = jcch_tdefs[SUPP].base * jcch_scale;
+			p->suppcnt = suppcnt = jcch_tdefs[JCCH_SUPP].base * jcch_scale;
 			for (snum = 0; snum < suppcnt; snum++) {
 				/* 20 * 10K = 200K */
 				p->s[snum].partkey = p->partkey;
@@ -577,8 +577,8 @@ jcch_mk_supp(JCCH_DSS_HUGE index, supplier_t * s)
 #ifdef JCCH_SKEW
 	if (JCCH_skew) {
 		unsigned long suppkey_hash = phash(s->suppkey, &phash_supplier, 0);
-		s->nation_code = bin_nationkey(suppkey_hash, jcch_tdefs[SUPP].base*jcch_scale);
-		if ((suppkey_hash%(jcch_tdefs[SUPP].base*jcch_scale/5)) < 4) {
+		s->nation_code = bin_nationkey(suppkey_hash, jcch_tdefs[JCCH_SUPP].base*jcch_scale);
+		if ((suppkey_hash%(jcch_tdefs[JCCH_SUPP].base*jcch_scale/5)) < 4) {
 			s->comment[0] = 0;
 			s->clen = (int)strlen(s->comment);
 			return (0);

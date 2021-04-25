@@ -572,7 +572,7 @@ jcch_set_state(int jcch_table, long sf, long procs, long jcch_step, JCCH_DSS_HUG
 	result = rowcount;
 	for (i=0; i < jcch_step - 1; i++)
 		{
-		if (jcch_table == LINE)	/* special case for shared seeds */
+		if (jcch_table == JCCH_LINE)	/* special case for shared seeds */
 			jcch_tdefs[jcch_table].gen_seed(1, rowcount);
 		else
 			jcch_tdefs[jcch_table].gen_seed(0, rowcount);

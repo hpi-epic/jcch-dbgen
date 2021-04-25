@@ -59,7 +59,7 @@ hd_cust (FILE *f)
 }
 
 int 
-ld_cust (customer_t *cp, int mode)
+ld_cust (jcch_customer_t *cp, int mode)
 {
     static int count = 0;
 

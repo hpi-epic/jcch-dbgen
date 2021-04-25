@@ -151,12 +151,12 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 }
 
 int
-pr_cust(customer_t *c, int mode)
+pr_cust(jcch_customer_t *c, int mode)
 {
 static FILE *fp = NULL;
         
    if (fp == NULL)
-        fp = print_prep(CUST, 0);
+        fp = print_prep(JCCH_CUST, 0);
 
    PR_STRT(fp);
    PR_HUGE(fp, &c->custkey);
@@ -188,7 +188,7 @@ pr_order(jcch_order_t *o, int mode)
         {
         if (fp_o) 
             fclose(fp_o);
-        fp_o = print_prep(ORDER, mode);
+        fp_o = print_prep(JCCH_ORDER, mode);
         last_mode = mode;
         }
     PR_STRT(fp_o);
@@ -220,7 +220,7 @@ pr_line(jcch_order_t *o, int mode)
         {
         if (fp_l) 
             fclose(fp_l);
-        fp_l = print_prep(LINE, mode);
+        fp_l = print_prep(JCCH_LINE, mode);
         last_mode = mode;
         }
 
@@ -255,7 +255,7 @@ pr_line(jcch_order_t *o, int mode)
 int
 pr_order_line(jcch_order_t *o, int mode)
 {
-    jcch_tdefs[ORDER].name = jcch_tdefs[ORDER_LINE].name;
+    jcch_tdefs[JCCH_ORDER].name = jcch_tdefs[ORDER_LINE].name;
     pr_order(o, mode);
     pr_line(o, mode);
 
@@ -271,7 +271,7 @@ pr_part(part_t *part, int mode)
 static FILE *p_fp = NULL;
 
     if (p_fp == NULL)
-        p_fp = print_prep(PART, 0);
+        p_fp = print_prep(JCCH_PART, 0);
 
    PR_STRT(p_fp);
    PR_HUGE(p_fp, &part->partkey);
@@ -298,7 +298,7 @@ pr_psupp(part_t *part, int mode)
     long      i;
 
     if (ps_fp == NULL)
-        ps_fp = print_prep(PSUPP, mode);
+        ps_fp = print_prep(JCCH_PSUPP, mode);
 #ifdef JCCH_SKEW
     for (i = 0; i < part->suppcnt; i++)
 #else
@@ -323,7 +323,7 @@ pr_psupp(part_t *part, int mode)
 int
 pr_part_psupp(part_t *part, int mode)
 {
-    jcch_tdefs[PART].name = jcch_tdefs[PART_PSUPP].name;
+    jcch_tdefs[JCCH_PART].name = jcch_tdefs[PART_PSUPP].name;
     pr_part(part, mode);
     pr_psupp(part, mode);
 
@@ -336,7 +336,7 @@ pr_supp(supplier_t *supp, int mode)
 static FILE *fp = NULL;
         
    if (fp == NULL)
-        fp = print_prep(SUPP, mode);
+        fp = print_prep(JCCH_SUPP, mode);
 
    PR_STRT(fp);
    PR_HUGE(fp, &supp->suppkey);
@@ -357,7 +357,7 @@ pr_nation(code_t *c, int mode)
 static FILE *fp = NULL;
         
    if (fp == NULL)
-        fp = print_prep(NATION, mode);
+        fp = print_prep(JCCH_NATION, mode);
 
    PR_STRT(fp);
    PR_HUGE(fp, &c->code);
@@ -375,7 +375,7 @@ pr_region(code_t *c, int mode)
 static FILE *fp = NULL;
         
    if (fp == NULL)
-        fp = print_prep(REGION, mode);
+        fp = print_prep(JCCH_REGION, mode);
 
    PR_STRT(fp);
    PR_HUGE(fp, &c->code);

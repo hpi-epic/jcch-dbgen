@@ -159,7 +159,7 @@ static int bTableSet = 0;
 /*
 * flat file print functions; used with -F(lat) option
 */
-int pr_cust (customer_t * c, int mode);
+int pr_cust (jcch_customer_t * c, int mode);
 int pr_line (jcch_order_t * o, int mode);
 int pr_order (jcch_order_t * o, int mode);
 int pr_part (part_t * p, int mode);
@@ -185,7 +185,7 @@ long sd_part_psupp (int child, JCCH_DSS_HUGE skip_count);
 tdef jcch_tdefs[] =
 {
 	{"part.tbl", "part jcch_table", 200000,
-		pr_part, sd_part, PSUPP, 0},
+		pr_part, sd_part, JCCH_PSUPP, 0},
 	{"partsupp.tbl", "partsupplier jcch_table", 200000,
 		pr_psupp, sd_psupp, NONE, 0},
 	{"supplier.tbl", "suppliers jcch_table", 10000,
@@ -193,13 +193,13 @@ tdef jcch_tdefs[] =
 	{"customer.tbl", "customers jcch_table", 150000,
 		pr_cust, sd_cust, NONE, 0},
 	{"orders.tbl", "order jcch_table", 150000,
-		pr_order, sd_order, LINE, 0},
+		pr_order, sd_order, JCCH_LINE, 0},
 	{"lineitem.tbl", "lineitem jcch_table", 150000,
 		pr_line, sd_line, NONE, 0},
 	{"orders.tbl", "orders/lineitem tables", 150000,
-		pr_order_line, sd_order, LINE, 0},
+		pr_order_line, sd_order, JCCH_LINE, 0},
 	{"part.tbl", "part/partsupplier tables", 200000,
-		pr_part_psupp, sd_part, PSUPP, 0},
+		pr_part_psupp, sd_part, JCCH_PSUPP, 0},
 	{"nation.tbl", "nation jcch_table", NATIONS_MAX,
 		pr_nation, NO_LFUNC, NONE, 0},
 	{"region.tbl", "region jcch_table", NATIONS_MAX,
@@ -292,7 +292,7 @@ void
 jcch_gen_tbl (int tnum, JCCH_DSS_HUGE start, JCCH_DSS_HUGE count, long jcch_upd_num)
 {
 	supplier_t supp;
-	customer_t cust;
+	jcch_customer_t cust;
 	code_t code;
 	static int completed = 0;
 	JCCH_DSS_HUGE i;
@@ -314,8 +314,8 @@ jcch_gen_tbl (int tnum, JCCH_DSS_HUGE start, JCCH_DSS_HUGE count, long jcch_upd_
 
 		switch (tnum)
 		{
-		case LINE:
-		case ORDER:
+		case JCCH_LINE:
+		case JCCH_ORDER:
   		case ORDER_LINE: 
 			jcch_mk_order (i, &order, jcch_upd_num % 10000);
 
@@ -340,29 +340,29 @@ jcch_gen_tbl (int tnum, JCCH_DSS_HUGE start, JCCH_DSS_HUGE count, long jcch_upd_
 			if (jcch_set_seeds == 0)
 				jcch_tdefs[tnum].loader(&order, jcch_upd_num);
 			break;
-		case SUPP:
+		case JCCH_SUPP:
 			jcch_mk_supp (i, &supp);
 			if (jcch_set_seeds == 0)
 				jcch_tdefs[tnum].loader(&supp, jcch_upd_num);
 			break;
-		case CUST:
+		case JCCH_CUST:
 			jcch_mk_cust (i, &cust);
 			if (jcch_set_seeds == 0)
 				jcch_tdefs[tnum].loader(&cust, jcch_upd_num);
 			break;
-		case PSUPP:
-		case PART:
+		case JCCH_PSUPP:
+		case JCCH_PART:
   		case PART_PSUPP: 
 			jcch_mk_part (i, &part);
 			if (jcch_set_seeds == 0)
 				jcch_tdefs[tnum].loader(&part, jcch_upd_num);
 			break;
-		case NATION:
+		case JCCH_NATION:
 			jcch_mk_nation (i, &code);
 			if (jcch_set_seeds == 0)
 				jcch_tdefs[tnum].loader(&code, 0);
 			break;
-		case REGION:
+		case JCCH_REGION:
 			jcch_mk_region (i, &code);
 			if (jcch_set_seeds == 0)
 				jcch_tdefs[tnum].loader(&code, 0);
@@ -513,7 +513,7 @@ jcch_process_options (int count, char **vector)
 
 				jcch_scale = 1;
 				int_scale = (int)(1000 * jcch_flt_scale);
-				for (i = PART; i < REGION; i++)
+				for (i = JCCH_PART; i < JCCH_REGION; i++)
 				{
 					jcch_tdefs[i].base = (JCCH_DSS_HUGE)(int_scale * jcch_tdefs[i].base)/1000;
 					if (jcch_tdefs[i].base < 1)
@@ -551,24 +551,24 @@ jcch_process_options (int count, char **vector)
 			switch (*optarg)
 			{
 			case 'c':			/* generate customer ONLY */
-				jcch_table = 1 << CUST;
+				jcch_table = 1 << JCCH_CUST;
 				bTableSet = 1;
 				break;
 			case 'L':			/* generate lineitems ONLY */
-				jcch_table = 1 << LINE;
+				jcch_table = 1 << JCCH_LINE;
 				bTableSet = 1;
 				break;
 			case 'l':			/* generate code jcch_table ONLY */
-				jcch_table = 1 << NATION;
-				jcch_table |= 1 << REGION;
+				jcch_table = 1 << JCCH_NATION;
+				jcch_table |= 1 << JCCH_REGION;
 				bTableSet = 1;
 				break;
 			case 'n':			/* generate nation jcch_table ONLY */
-				jcch_table = 1 << NATION;
+				jcch_table = 1 << JCCH_NATION;
 				bTableSet = 1;
 				break;
 			case 'O':			/* generate orders ONLY */
-				jcch_table = 1 << ORDER;
+				jcch_table = 1 << JCCH_ORDER;
 				bTableSet = 1;
 				break;
 			case 'o':			/* generate orders/lineitems ONLY */
@@ -576,7 +576,7 @@ jcch_process_options (int count, char **vector)
 				bTableSet = 1;
 				break;
 			case 'P':			/* generate part ONLY */
-				jcch_table = 1 << PART;
+				jcch_table = 1 << JCCH_PART;
 				bTableSet = 1;
 				break;
 			case 'p':			/* generate part/partsupp ONLY */
@@ -584,15 +584,15 @@ jcch_process_options (int count, char **vector)
 				bTableSet = 1;
 				break;
 			case 'r':			/* generate region jcch_table ONLY */
-				jcch_table = 1 << REGION;
+				jcch_table = 1 << JCCH_REGION;
 				bTableSet = 1;
 				break;
 			case 'S':			/* generate partsupp ONLY */
-				jcch_table = 1 << PSUPP;
+				jcch_table = 1 << JCCH_PSUPP;
 				bTableSet = 1;
 				break;
 			case 's':			/* generate suppliers ONLY */
-				jcch_table = 1 << SUPP;
+				jcch_table = 1 << JCCH_SUPP;
 				bTableSet = 1;
 				break;
 			default:
@@ -698,10 +698,10 @@ jcch_dbgen_main (int ac, char **av)
 {
 	JCCH_DSS_HUGE i;
 	
-	jcch_table = (1 << CUST) |
-		(1 << SUPP) |
-		(1 << NATION) |
-		(1 << REGION) |
+	jcch_table = (1 << JCCH_CUST) |
+		(1 << JCCH_SUPP) |
+		(1 << JCCH_NATION) |
+		(1 << JCCH_REGION) |
 		(1 << PART_PSUPP) |
 		(1 << ORDER_LINE);
 	jcch_force = 0;
@@ -716,9 +716,9 @@ jcch_dbgen_main (int ac, char **av)
 	jcch_flt_scale = 1.0;
 	jcch_updates = 0;
 	jcch_step = -1;
-	jcch_tdefs[ORDER].base *=
+	jcch_tdefs[JCCH_ORDER].base *=
 		ORDERS_PER_CUST;			/* have to do this after init */
-	jcch_tdefs[LINE].base *=
+	jcch_tdefs[JCCH_LINE].base *=
 		ORDERS_PER_CUST;			/* have to do this after init */
 	jcch_tdefs[ORDER_LINE].base *=
 		ORDERS_PER_CUST;			/* have to do this after init */
@@ -755,8 +755,8 @@ jcch_dbgen_main (int ac, char **av)
 	}
 #endif
 	/* have to do this after init */
-	jcch_tdefs[NATION].base = jcch_nations.count;
-	jcch_tdefs[REGION].base = jcch_regions.count;
+	jcch_tdefs[JCCH_NATION].base = jcch_nations.count;
+	jcch_tdefs[JCCH_REGION].base = jcch_regions.count;
 	
 	/* 
 	* jcch_updates are never parallelized 
@@ -766,7 +766,7 @@ jcch_dbgen_main (int ac, char **av)
 		/* 
 		 * set RNG to start generating rows beyond SF=jcch_scale
 		 */
-		jcch_set_state (ORDER, jcch_scale, 100, 101, &i); 
+		jcch_set_state (JCCH_ORDER, jcch_scale, 100, 101, &i); 
 		jcch_rowcnt = (int)(jcch_tdefs[ORDER_LINE].base / 10000 * jcch_scale * UPD_PCT);
 		if (jcch_step > 0)
 			{
@@ -810,17 +810,17 @@ jcch_dbgen_main (int ac, char **av)
 	/*
 	* traverse the tables, invoking the appropriate data generation routine for any to be built
 	*/
-	for (i = PART; i <= REGION; i++)
+	for (i = JCCH_PART; i <= JCCH_REGION; i++)
 		if (jcch_table & (1 << i))
 		{
-			if (jcch_children > 1 && i < NATION)
+			if (jcch_children > 1 && i < JCCH_NATION)
 			{
 				jcch_partial ((int)i, jcch_step);
 			}
 			else
 			{
 				jcch_minrow = 1;
-				if (i < NATION)
+				if (i < JCCH_NATION)
 					jcch_rowcnt = jcch_tdefs[i].base * jcch_scale;
 				else
 					jcch_rowcnt = jcch_tdefs[i].base;

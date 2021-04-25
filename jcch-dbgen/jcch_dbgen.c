@@ -766,54 +766,54 @@ double   jcch_dM = 2147483647.0;
 
 seed_t     jcch_Seed[MAX_STREAM + 1] =
 {
-    {PART,   1,          0,	1},					/* P_MFG_SD     0 */
-    {PART,   46831694,   0, 1},					/* P_BRND_SD    1 */
-    {PART,   1841581359, 0, 1},					/* P_TYPE_SD    2 */
-    {PART,   1193163244, 0, 1},					/* P_SIZE_SD    3 */
-    {PART,   727633698,  0, 1},					/* P_CNTR_SD    4 */
+    {JCCH_PART,   1,          0,	1},					/* P_MFG_SD     0 */
+    {JCCH_PART,   46831694,   0, 1},					/* P_BRND_SD    1 */
+    {JCCH_PART,   1841581359, 0, 1},					/* P_TYPE_SD    2 */
+    {JCCH_PART,   1193163244, 0, 1},					/* P_SIZE_SD    3 */
+    {JCCH_PART,   727633698,  0, 1},					/* P_CNTR_SD    4 */
     {NONE,   933588178,  0, 1},					/* text pregeneration  5 */
-    {PART,   804159733,  0, 2},	/* P_CMNT_SD    6 */
-    {PSUPP,  1671059989, 0, SUPP_PER_PART},     /* PS_QTY_SD    7 */
-    {PSUPP,  1051288424, 0, SUPP_PER_PART},     /* PS_SCST_SD   8 */
-    {PSUPP,  1961692154, 0, SUPP_PER_PART * 2},     /* PS_CMNT_SD   9 */
-    {ORDER,  1227283347, 0, 1},				    /* O_SUPP_SD    10 */
-    {ORDER,  1171034773, 0, 1},					/* O_CLRK_SD    11 */
-    {ORDER,  276090261,  0, 2},  /* O_CMNT_SD    12 */
-	{ORDER,  1066728069, 0, 1},					/* O_ODATE_SD   13 */
-    {LINE,   209208115,  0, O_LCNT_MAX},        /* L_QTY_SD     14 */
-    {LINE,   554590007,  0, O_LCNT_MAX},        /* L_DCNT_SD    15 */
-    {LINE,   721958466,  0, O_LCNT_MAX},        /* L_TAX_SD     16 */
-    {LINE,   1371272478, 0, O_LCNT_MAX},        /* L_SHIP_SD    17 */
-    {LINE,   675466456,  0, O_LCNT_MAX},        /* L_SMODE_SD   18 */
-    {LINE,   1808217256, 0, O_LCNT_MAX},      /* L_PKEY_SD    19 */
-    {LINE,   2095021727, 0, O_LCNT_MAX},      /* L_SKEY_SD    20 */
-    {LINE,   1769349045, 0, O_LCNT_MAX},      /* L_SDTE_SD    21 */
-    {LINE,   904914315,  0, O_LCNT_MAX},      /* L_CDTE_SD    22 */
-    {LINE,   373135028,  0, O_LCNT_MAX},      /* L_RDTE_SD    23 */
-    {LINE,   717419739,  0, O_LCNT_MAX},      /* L_RFLG_SD    24 */
-    {LINE,   1095462486, 0, O_LCNT_MAX * 2},   /* L_CMNT_SD    25 */
-    {CUST,   881155353,  0, 9},      /* C_ADDR_SD    26 */
-    {CUST,   1489529863, 0, 1},      /* C_NTRG_SD    27 */
-    {CUST,   1521138112, 0, 3},      /* C_PHNE_SD    28 */
-    {CUST,   298370230,  0, 1},      /* C_ABAL_SD    29 */
-    {CUST,   1140279430, 0, 1},      /* C_MSEG_SD    30 */
-    {CUST,   1335826707, 0, 2},     /* C_CMNT_SD    31 */
-    {SUPP,   706178559,  0, 9},      /* S_ADDR_SD    32 */
-    {SUPP,   110356601,  0, 1},      /* S_NTRG_SD    33 */
-    {SUPP,   884434366,  0, 3},      /* S_PHNE_SD    34 */
-    {SUPP,   962338209,  0, 1},      /* S_ABAL_SD    35 */
-    {SUPP,   1341315363, 0, 2},     /* S_CMNT_SD    36 */
-    {PART,   709314158,  0, 92},      /* P_NAME_SD    37 */
-    {ORDER,  591449447,  0, 1},      /* O_PRIO_SD    38 */
-    {LINE,   431918286,  0, 1},      /* HVAR_SD      39 */
-    {ORDER,  851767375,  0, 1},      /* O_CKEY_SD    40 */
-    {NATION, 606179079,  0, 2},      /* N_CMNT_SD    41 */
-    {REGION, 1500869201, 0, 2},      /* R_CMNT_SD    42 */
-    {ORDER,  1434868289, 0, 1},      /* O_LCNT_SD    43 */
-    {SUPP,   263032577,  0, 1},      /* BBB offset   44 */
-    {SUPP,   753643799,  0, 1},      /* BBB type     45 */
-    {SUPP,   202794285,  0, 1},      /* BBB comment  46 */
-    {SUPP,   715851524,  0, 1}       /* BBB junk     47 */
+    {JCCH_PART,   804159733,  0, 2},	/* P_CMNT_SD    6 */
+    {JCCH_PSUPP,  1671059989, 0, SUPP_PER_PART},     /* PS_QTY_SD    7 */
+    {JCCH_PSUPP,  1051288424, 0, SUPP_PER_PART},     /* PS_SCST_SD   8 */
+    {JCCH_PSUPP,  1961692154, 0, SUPP_PER_PART * 2},     /* PS_CMNT_SD   9 */
+    {JCCH_ORDER,  1227283347, 0, 1},				    /* O_SUPP_SD    10 */
+    {JCCH_ORDER,  1171034773, 0, 1},					/* O_CLRK_SD    11 */
+    {JCCH_ORDER,  276090261,  0, 2},  /* O_CMNT_SD    12 */
+	{JCCH_ORDER,  1066728069, 0, 1},					/* O_ODATE_SD   13 */
+    {JCCH_LINE,   209208115,  0, O_LCNT_MAX},        /* L_QTY_SD     14 */
+    {JCCH_LINE,   554590007,  0, O_LCNT_MAX},        /* L_DCNT_SD    15 */
+    {JCCH_LINE,   721958466,  0, O_LCNT_MAX},        /* L_TAX_SD     16 */
+    {JCCH_LINE,   1371272478, 0, O_LCNT_MAX},        /* L_SHIP_SD    17 */
+    {JCCH_LINE,   675466456,  0, O_LCNT_MAX},        /* L_SMODE_SD   18 */
+    {JCCH_LINE,   1808217256, 0, O_LCNT_MAX},      /* L_PKEY_SD    19 */
+    {JCCH_LINE,   2095021727, 0, O_LCNT_MAX},      /* L_SKEY_SD    20 */
+    {JCCH_LINE,   1769349045, 0, O_LCNT_MAX},      /* L_SDTE_SD    21 */
+    {JCCH_LINE,   904914315,  0, O_LCNT_MAX},      /* L_CDTE_SD    22 */
+    {JCCH_LINE,   373135028,  0, O_LCNT_MAX},      /* L_RDTE_SD    23 */
+    {JCCH_LINE,   717419739,  0, O_LCNT_MAX},      /* L_RFLG_SD    24 */
+    {JCCH_LINE,   1095462486, 0, O_LCNT_MAX * 2},   /* L_CMNT_SD    25 */
+    {JCCH_CUST,   881155353,  0, 9},      /* C_ADDR_SD    26 */
+    {JCCH_CUST,   1489529863, 0, 1},      /* C_NTRG_SD    27 */
+    {JCCH_CUST,   1521138112, 0, 3},      /* C_PHNE_SD    28 */
+    {JCCH_CUST,   298370230,  0, 1},      /* C_ABAL_SD    29 */
+    {JCCH_CUST,   1140279430, 0, 1},      /* C_MSEG_SD    30 */
+    {JCCH_CUST,   1335826707, 0, 2},     /* C_CMNT_SD    31 */
+    {JCCH_SUPP,   706178559,  0, 9},      /* S_ADDR_SD    32 */
+    {JCCH_SUPP,   110356601,  0, 1},      /* S_NTRG_SD    33 */
+    {JCCH_SUPP,   884434366,  0, 3},      /* S_PHNE_SD    34 */
+    {JCCH_SUPP,   962338209,  0, 1},      /* S_ABAL_SD    35 */
+    {JCCH_SUPP,   1341315363, 0, 2},     /* S_CMNT_SD    36 */
+    {JCCH_PART,   709314158,  0, 92},      /* P_NAME_SD    37 */
+    {JCCH_ORDER,  591449447,  0, 1},      /* O_PRIO_SD    38 */
+    {JCCH_LINE,   431918286,  0, 1},      /* HVAR_SD      39 */
+    {JCCH_ORDER,  851767375,  0, 1},      /* O_CKEY_SD    40 */
+    {JCCH_NATION, 606179079,  0, 2},      /* N_CMNT_SD    41 */
+    {JCCH_REGION, 1500869201, 0, 2},      /* R_CMNT_SD    42 */
+    {JCCH_ORDER,  1434868289, 0, 1},      /* O_LCNT_SD    43 */
+    {JCCH_SUPP,   263032577,  0, 1},      /* BBB offset   44 */
+    {JCCH_SUPP,   753643799,  0, 1},      /* BBB type     45 */
+    {JCCH_SUPP,   202794285,  0, 1},      /* BBB comment  46 */
+    {JCCH_SUPP,   715851524,  0, 1}       /* BBB junk     47 */
 };
 
 static seed_t mk_seed(long jcch_table, JCCH_DSS_HUGE value, JCCH_DSS_HUGE jcch_usage, JCCH_DSS_HUGE boundary) {
@@ -822,68 +822,68 @@ static seed_t mk_seed(long jcch_table, JCCH_DSS_HUGE value, JCCH_DSS_HUGE jcch_u
 }
 
 void jcch_dbgen_reset_seeds() {
-  jcch_Seed[0] = mk_seed(PART,   1,          0,	1);					/* P_MFG_SD     0 */
-  jcch_Seed[1] = mk_seed(PART,   46831694,   0, 1);					/* P_BRND_SD    1 */
-  jcch_Seed[2] = mk_seed(PART,   1841581359, 0, 1);					/* P_TYPE_SD    2 */
-  jcch_Seed[3] = mk_seed(PART,   1193163244, 0, 1);					/* P_SIZE_SD    3 */
-  jcch_Seed[4] = mk_seed(PART,   727633698,  0, 1);					/* P_CNTR_SD    4 */
+  jcch_Seed[0] = mk_seed(JCCH_PART,   1,          0,	1);					/* P_MFG_SD     0 */
+  jcch_Seed[1] = mk_seed(JCCH_PART,   46831694,   0, 1);					/* P_BRND_SD    1 */
+  jcch_Seed[2] = mk_seed(JCCH_PART,   1841581359, 0, 1);					/* P_TYPE_SD    2 */
+  jcch_Seed[3] = mk_seed(JCCH_PART,   1193163244, 0, 1);					/* P_SIZE_SD    3 */
+  jcch_Seed[4] = mk_seed(JCCH_PART,   727633698,  0, 1);					/* P_CNTR_SD    4 */
   jcch_Seed[5] = mk_seed(NONE,   933588178,  0, 1);					/* text pregeneration  5 */
-  jcch_Seed[6] = mk_seed(PART,   804159733,  0, 2);	/* P_CMNT_SD    6 */
-  jcch_Seed[7] = mk_seed(PSUPP,  1671059989, 0, SUPP_PER_PART);     /* PS_QTY_SD    7 */
-  jcch_Seed[8] = mk_seed(PSUPP,  1051288424, 0, SUPP_PER_PART);     /* PS_SCST_SD   8 */
-  jcch_Seed[9] = mk_seed(PSUPP,  1961692154, 0, SUPP_PER_PART * 2);     /* PS_CMNT_SD   9 */
-  jcch_Seed[10] = mk_seed(ORDER,  1227283347, 0, 1);				    /* O_SUPP_SD    10 */
-  jcch_Seed[11] = mk_seed(ORDER,  1171034773, 0, 1);					/* O_CLRK_SD    11 */
-  jcch_Seed[12] = mk_seed(ORDER,  276090261,  0, 2);  /* O_CMNT_SD    12 */
-  jcch_Seed[13] = mk_seed(ORDER,  1066728069, 0, 1);					/* O_ODATE_SD   13 */
-  jcch_Seed[14] = mk_seed(LINE,   209208115,  0, O_LCNT_MAX);        /* L_QTY_SD     14 */
-  jcch_Seed[15] = mk_seed(LINE,   554590007,  0, O_LCNT_MAX);        /* L_DCNT_SD    15 */
-  jcch_Seed[16] = mk_seed(LINE,   721958466,  0, O_LCNT_MAX);        /* L_TAX_SD     16 */
-  jcch_Seed[17] = mk_seed(LINE,   1371272478, 0, O_LCNT_MAX);        /* L_SHIP_SD    17 */
-  jcch_Seed[18] = mk_seed(LINE,   675466456,  0, O_LCNT_MAX);        /* L_SMODE_SD   18 */
-  jcch_Seed[19] = mk_seed(LINE,   1808217256, 0, O_LCNT_MAX);      /* L_PKEY_SD    19 */
-  jcch_Seed[20] = mk_seed(LINE,   2095021727, 0, O_LCNT_MAX);      /* L_SKEY_SD    20 */
-  jcch_Seed[21] = mk_seed(LINE,   1769349045, 0, O_LCNT_MAX);      /* L_SDTE_SD    21 */
-  jcch_Seed[22] = mk_seed(LINE,   904914315,  0, O_LCNT_MAX);      /* L_CDTE_SD    22 */
-  jcch_Seed[23] = mk_seed(LINE,   373135028,  0, O_LCNT_MAX);      /* L_RDTE_SD    23 */
-  jcch_Seed[24] = mk_seed(LINE,   717419739,  0, O_LCNT_MAX);      /* L_RFLG_SD    24 */
-  jcch_Seed[25] = mk_seed(LINE,   1095462486, 0, O_LCNT_MAX * 2);   /* L_CMNT_SD    25 */
-  jcch_Seed[26] = mk_seed(CUST,   881155353,  0, 9);      /* C_ADDR_SD    26 */
-  jcch_Seed[27] = mk_seed(CUST,   1489529863, 0, 1);      /* C_NTRG_SD    27 */
-  jcch_Seed[28] = mk_seed(CUST,   1521138112, 0, 3);      /* C_PHNE_SD    28 */
-  jcch_Seed[29] = mk_seed(CUST,   298370230,  0, 1);      /* C_ABAL_SD    29 */
-  jcch_Seed[30] = mk_seed(CUST,   1140279430, 0, 1);      /* C_MSEG_SD    30 */
-  jcch_Seed[31] = mk_seed(CUST,   1335826707, 0, 2);     /* C_CMNT_SD    31 */
-  jcch_Seed[32] = mk_seed(SUPP,   706178559,  0, 9);      /* S_ADDR_SD    32 */
-  jcch_Seed[33] = mk_seed(SUPP,   110356601,  0, 1);      /* S_NTRG_SD    33 */
-  jcch_Seed[34] = mk_seed(SUPP,   884434366,  0, 3);      /* S_PHNE_SD    34 */
-  jcch_Seed[35] = mk_seed(SUPP,   962338209,  0, 1);      /* S_ABAL_SD    35 */
-  jcch_Seed[36] = mk_seed(SUPP,   1341315363, 0, 2);     /* S_CMNT_SD    36 */
-  jcch_Seed[37] = mk_seed(PART,   709314158,  0, 92);      /* P_NAME_SD    37 */
-  jcch_Seed[38] = mk_seed(ORDER,  591449447,  0, 1);      /* O_PRIO_SD    38 */
-  jcch_Seed[39] = mk_seed(LINE,   431918286,  0, 1);      /* HVAR_SD      39 */
-  jcch_Seed[40] = mk_seed(ORDER,  851767375,  0, 1);      /* O_CKEY_SD    40 */
-  jcch_Seed[41] = mk_seed(NATION, 606179079,  0, 2);      /* N_CMNT_SD    41 */
-  jcch_Seed[42] = mk_seed(REGION, 1500869201, 0, 2);      /* R_CMNT_SD    42 */
-  jcch_Seed[43] = mk_seed(ORDER,  1434868289, 0, 1);      /* O_LCNT_SD    43 */
-  jcch_Seed[44] = mk_seed(SUPP,   263032577,  0, 1);      /* BBB offset   44 */
-  jcch_Seed[45] = mk_seed(SUPP,   753643799,  0, 1);      /* BBB type     45 */
-  jcch_Seed[46] = mk_seed(SUPP,   202794285,  0, 1);      /* BBB comment  46 */
-  jcch_Seed[47] = mk_seed(SUPP,   715851524,  0, 1);       /* BBB junk     47 */
+  jcch_Seed[6] = mk_seed(JCCH_PART,   804159733,  0, 2);	/* P_CMNT_SD    6 */
+  jcch_Seed[7] = mk_seed(JCCH_PSUPP,  1671059989, 0, SUPP_PER_PART);     /* PS_QTY_SD    7 */
+  jcch_Seed[8] = mk_seed(JCCH_PSUPP,  1051288424, 0, SUPP_PER_PART);     /* PS_SCST_SD   8 */
+  jcch_Seed[9] = mk_seed(JCCH_PSUPP,  1961692154, 0, SUPP_PER_PART * 2);     /* PS_CMNT_SD   9 */
+  jcch_Seed[10] = mk_seed(JCCH_ORDER,  1227283347, 0, 1);				    /* O_SUPP_SD    10 */
+  jcch_Seed[11] = mk_seed(JCCH_ORDER,  1171034773, 0, 1);					/* O_CLRK_SD    11 */
+  jcch_Seed[12] = mk_seed(JCCH_ORDER,  276090261,  0, 2);  /* O_CMNT_SD    12 */
+  jcch_Seed[13] = mk_seed(JCCH_ORDER,  1066728069, 0, 1);					/* O_ODATE_SD   13 */
+  jcch_Seed[14] = mk_seed(JCCH_LINE,   209208115,  0, O_LCNT_MAX);        /* L_QTY_SD     14 */
+  jcch_Seed[15] = mk_seed(JCCH_LINE,   554590007,  0, O_LCNT_MAX);        /* L_DCNT_SD    15 */
+  jcch_Seed[16] = mk_seed(JCCH_LINE,   721958466,  0, O_LCNT_MAX);        /* L_TAX_SD     16 */
+  jcch_Seed[17] = mk_seed(JCCH_LINE,   1371272478, 0, O_LCNT_MAX);        /* L_SHIP_SD    17 */
+  jcch_Seed[18] = mk_seed(JCCH_LINE,   675466456,  0, O_LCNT_MAX);        /* L_SMODE_SD   18 */
+  jcch_Seed[19] = mk_seed(JCCH_LINE,   1808217256, 0, O_LCNT_MAX);      /* L_PKEY_SD    19 */
+  jcch_Seed[20] = mk_seed(JCCH_LINE,   2095021727, 0, O_LCNT_MAX);      /* L_SKEY_SD    20 */
+  jcch_Seed[21] = mk_seed(JCCH_LINE,   1769349045, 0, O_LCNT_MAX);      /* L_SDTE_SD    21 */
+  jcch_Seed[22] = mk_seed(JCCH_LINE,   904914315,  0, O_LCNT_MAX);      /* L_CDTE_SD    22 */
+  jcch_Seed[23] = mk_seed(JCCH_LINE,   373135028,  0, O_LCNT_MAX);      /* L_RDTE_SD    23 */
+  jcch_Seed[24] = mk_seed(JCCH_LINE,   717419739,  0, O_LCNT_MAX);      /* L_RFLG_SD    24 */
+  jcch_Seed[25] = mk_seed(JCCH_LINE,   1095462486, 0, O_LCNT_MAX * 2);   /* L_CMNT_SD    25 */
+  jcch_Seed[26] = mk_seed(JCCH_CUST,   881155353,  0, 9);      /* C_ADDR_SD    26 */
+  jcch_Seed[27] = mk_seed(JCCH_CUST,   1489529863, 0, 1);      /* C_NTRG_SD    27 */
+  jcch_Seed[28] = mk_seed(JCCH_CUST,   1521138112, 0, 3);      /* C_PHNE_SD    28 */
+  jcch_Seed[29] = mk_seed(JCCH_CUST,   298370230,  0, 1);      /* C_ABAL_SD    29 */
+  jcch_Seed[30] = mk_seed(JCCH_CUST,   1140279430, 0, 1);      /* C_MSEG_SD    30 */
+  jcch_Seed[31] = mk_seed(JCCH_CUST,   1335826707, 0, 2);     /* C_CMNT_SD    31 */
+  jcch_Seed[32] = mk_seed(JCCH_SUPP,   706178559,  0, 9);      /* S_ADDR_SD    32 */
+  jcch_Seed[33] = mk_seed(JCCH_SUPP,   110356601,  0, 1);      /* S_NTRG_SD    33 */
+  jcch_Seed[34] = mk_seed(JCCH_SUPP,   884434366,  0, 3);      /* S_PHNE_SD    34 */
+  jcch_Seed[35] = mk_seed(JCCH_SUPP,   962338209,  0, 1);      /* S_ABAL_SD    35 */
+  jcch_Seed[36] = mk_seed(JCCH_SUPP,   1341315363, 0, 2);     /* S_CMNT_SD    36 */
+  jcch_Seed[37] = mk_seed(JCCH_PART,   709314158,  0, 92);      /* P_NAME_SD    37 */
+  jcch_Seed[38] = mk_seed(JCCH_ORDER,  591449447,  0, 1);      /* O_PRIO_SD    38 */
+  jcch_Seed[39] = mk_seed(JCCH_LINE,   431918286,  0, 1);      /* HVAR_SD      39 */
+  jcch_Seed[40] = mk_seed(JCCH_ORDER,  851767375,  0, 1);      /* O_CKEY_SD    40 */
+  jcch_Seed[41] = mk_seed(JCCH_NATION, 606179079,  0, 2);      /* N_CMNT_SD    41 */
+  jcch_Seed[42] = mk_seed(JCCH_REGION, 1500869201, 0, 2);      /* R_CMNT_SD    42 */
+  jcch_Seed[43] = mk_seed(JCCH_ORDER,  1434868289, 0, 1);      /* O_LCNT_SD    43 */
+  jcch_Seed[44] = mk_seed(JCCH_SUPP,   263032577,  0, 1);      /* BBB offset   44 */
+  jcch_Seed[45] = mk_seed(JCCH_SUPP,   753643799,  0, 1);      /* BBB type     45 */
+  jcch_Seed[46] = mk_seed(JCCH_SUPP,   202794285,  0, 1);      /* BBB comment  46 */
+  jcch_Seed[47] = mk_seed(JCCH_SUPP,   715851524,  0, 1);       /* BBB junk     47 */
 }
 
 // Copied from driver.c:process_options()
 void jcch_dbgen_init_scale_factor(float scale_factor) {
-  jcch_tdefs[PART].base = 200000;
-  jcch_tdefs[PSUPP].base = 200000;
-  jcch_tdefs[SUPP].base = 10000;
-  jcch_tdefs[CUST].base = 150000;
-  jcch_tdefs[ORDER].base = 150000;
-  jcch_tdefs[LINE].base = 150000;
+  jcch_tdefs[JCCH_PART].base = 200000;
+  jcch_tdefs[JCCH_PSUPP].base = 200000;
+  jcch_tdefs[JCCH_SUPP].base = 10000;
+  jcch_tdefs[JCCH_CUST].base = 150000;
+  jcch_tdefs[JCCH_ORDER].base = 150000;
+  jcch_tdefs[JCCH_LINE].base = 150000;
   jcch_tdefs[ORDER_LINE].base = 150000;
   jcch_tdefs[PART_PSUPP].base = 200000;
-  jcch_tdefs[NATION].base = NATIONS_COUNT;
-  jcch_tdefs[REGION].base = REGIONS_COUNT;
+  jcch_tdefs[JCCH_NATION].base = NATIONS_COUNT;
+  jcch_tdefs[JCCH_REGION].base = REGIONS_COUNT;
 
   jcch_flt_scale = scale_factor;
   if (jcch_flt_scale < MIN_SCALE)
@@ -893,7 +893,7 @@ void jcch_dbgen_init_scale_factor(float scale_factor) {
 
     jcch_scale = 1;
     int_scale = (int)(round(10000 * jcch_flt_scale));
-    for (i = PART; i < REGION; i++)
+    for (i = JCCH_PART; i < JCCH_REGION; i++)
     {
       jcch_tdefs[i].base = (JCCH_DSS_HUGE)(int_scale * jcch_tdefs[i].base)/10000;
       if (jcch_tdefs[i].base < 1)
@@ -914,13 +914,13 @@ void jcch_dbgen_init_scale_factor(float scale_factor) {
   }
 
   // tpch_dbgen does the same in main() - weird thing to do, should be sufficient to omit scaling down
-  // `jcch_tdefs[NATION].base` above... Anyway, let's do what they do.
-  jcch_tdefs[NATION].base = jcch_nations.count;
-  jcch_tdefs[REGION].base = jcch_regions.count;
+  // `jcch_tdefs[JCCH_NATION].base` above... Anyway, let's do what they do.
+  jcch_tdefs[JCCH_NATION].base = jcch_nations.count;
+  jcch_tdefs[JCCH_REGION].base = jcch_regions.count;
 
   // Copied from tpch_dbgen as well.
-  jcch_tdefs[ORDER].base *= ORDERS_PER_CUST;
-  jcch_tdefs[LINE].base *= ORDERS_PER_CUST;
+  jcch_tdefs[JCCH_ORDER].base *= ORDERS_PER_CUST;
+  jcch_tdefs[JCCH_LINE].base *= ORDERS_PER_CUST;
   jcch_tdefs[ORDER_LINE].base *= ORDERS_PER_CUST;
 }
 

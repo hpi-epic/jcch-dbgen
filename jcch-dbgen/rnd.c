@@ -120,9 +120,9 @@ jcch_row_stop(int t)	\
 	
 	/* need to allow for handling the master and detail together */
 	if (t == ORDER_LINE)
-		t = ORDER;
+		t = JCCH_ORDER;
 	if (t == PART_PSUPP)
-		t = PART;
+		t = JCCH_PART;
 	
 	for (i=0; i <= MAX_STREAM; i++)
 		if ((jcch_Seed[i].jcch_table == t) || (jcch_Seed[i].jcch_table == jcch_tdefs[t].child))
