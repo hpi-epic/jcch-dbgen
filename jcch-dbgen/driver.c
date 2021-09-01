@@ -173,33 +173,33 @@ int pr_region (code_t * c, int mode);
 /*
 * seed generation functions; used with '-O s' option
 */
-long sd_cust (int child, JCCH_DSS_HUGE skip_count);
-long sd_line (int child, JCCH_DSS_HUGE skip_count);
-long sd_order (int child, JCCH_DSS_HUGE skip_count);
-long sd_part (int child, JCCH_DSS_HUGE skip_count);
-long sd_psupp (int child, JCCH_DSS_HUGE skip_count);
-long sd_supp (int child, JCCH_DSS_HUGE skip_count);
-long sd_order_line (int child, JCCH_DSS_HUGE skip_count);
-long sd_part_psupp (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_cust (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_line (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_order (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_part (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_psupp (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_supp (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_order_line (int child, JCCH_DSS_HUGE skip_count);
+long jcch_sd_part_psupp (int child, JCCH_DSS_HUGE skip_count);
 
 tdef jcch_tdefs[] =
 {
 	{"part.tbl", "part jcch_table", 200000,
-		pr_part, sd_part, JCCH_PSUPP, 0},
+		pr_part, jcch_sd_part, JCCH_PSUPP, 0},
 	{"partsupp.tbl", "partsupplier jcch_table", 200000,
-		pr_psupp, sd_psupp, NONE, 0},
+		pr_psupp, jcch_sd_psupp, NONE, 0},
 	{"supplier.tbl", "suppliers jcch_table", 10000,
-		pr_supp, sd_supp, NONE, 0},
+		pr_supp, jcch_sd_supp, NONE, 0},
 	{"customer.tbl", "customers jcch_table", 150000,
-		pr_cust, sd_cust, NONE, 0},
+		pr_cust, jcch_sd_cust, NONE, 0},
 	{"orders.tbl", "order jcch_table", 150000,
-		pr_order, sd_order, JCCH_LINE, 0},
+		pr_order, jcch_sd_order, JCCH_LINE, 0},
 	{"lineitem.tbl", "lineitem jcch_table", 150000,
-		pr_line, sd_line, NONE, 0},
+		pr_line, jcch_sd_line, NONE, 0},
 	{"orders.tbl", "orders/lineitem tables", 150000,
-		pr_order_line, sd_order, JCCH_LINE, 0},
+		pr_order_line, jcch_sd_order, JCCH_LINE, 0},
 	{"part.tbl", "part/partsupplier tables", 200000,
-		pr_part_psupp, sd_part, JCCH_PSUPP, 0},
+		pr_part_psupp, jcch_sd_part, JCCH_PSUPP, 0},
 	{"nation.tbl", "nation jcch_table", NATIONS_MAX,
 		pr_nation, NO_LFUNC, NONE, 0},
 	{"region.tbl", "region jcch_table", NATIONS_MAX,
@@ -775,8 +775,8 @@ jcch_dbgen_main (int ac, char **av)
 			 */
 	      for (i=1; i < jcch_step; i++)
          {
-			sd_order(0, jcch_rowcnt);
-			sd_line(0, jcch_rowcnt);
+			jcch_sd_order(0, jcch_rowcnt);
+			jcch_sd_line(0, jcch_rowcnt);
          }
 			jcch_upd_num = jcch_step - 1;
 			}

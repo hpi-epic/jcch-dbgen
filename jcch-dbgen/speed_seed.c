@@ -57,23 +57,23 @@
 /*  _tal long RandSeed = "Random^SeedFromTimestamp" (void); */
 
 #define ADVANCE_STREAM(stream_id, num_calls) \
-	advanceStream(stream_id, num_calls, 0)
+	jcch_advanceStream(stream_id, num_calls, 0)
 #define ADVANCE_STREAM64(stream_id, num_calls) \
-	advanceStream(stream_id, num_calls, 1)
+	jcch_advanceStream(stream_id, num_calls, 1)
 #define MAX_COLOR 92
-long name_bits[MAX_COLOR / BITS_PER_LONG];
+long jcch_name_bits[MAX_COLOR / BITS_PER_LONG];
 extern seed_t jcch_Seed[];
 void fakeVStr(int nAvg, long nSeed, JCCH_DSS_HUGE nCount);
-void NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed);
+void jcch_NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed);
 
 
 void 
-advanceStream(int nStream, JCCH_DSS_HUGE nCalls, int bUse64Bit)
+jcch_advanceStream(int nStream, JCCH_DSS_HUGE nCalls, int bUse64Bit)
 {
    if (bUse64Bit)
       jcch_Seed[nStream].value = AdvanceRand64(jcch_Seed[nStream].value, nCalls);
    else
-      NthElement(nCalls, &jcch_Seed[nStream].value);
+      jcch_NthElement(nCalls, &jcch_Seed[nStream].value);
 
 #ifdef RNG_TEST
    jcch_Seed[nStream].nCalls += nCalls;
@@ -94,7 +94,7 @@ static JCCH_DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int
 
 /* Advances value of jcch_Seed after N applications of the random number generator
    with multiplier Mult and given Modulus.
-   NthElement(jcch_Seed[],count);
+   jcch_NthElement(jcch_Seed[],count);
 
    Theory:  We are using a generator of the form
         X_n = [Mult * X_(n-1)]  mod Modulus.    It turns out that
@@ -109,7 +109,7 @@ static JCCH_DSS_HUGE Modulus =  2147483647;   /* trick you use to get 64 bit int
 */
 
 /* Nth Element of sequence starting with StartSeed */
-void NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed)
+void jcch_NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed)
    {
    JCCH_DSS_HUGE Z;
    JCCH_DSS_HUGE Mult;
@@ -138,7 +138,7 @@ void NthElement (JCCH_DSS_HUGE N, JCCH_DSS_HUGE *StartSeed)
 
 /* updates jcch_Seed[column] using the jcch_a_rnd algorithm */
 void
-fake_a_rnd(int min, int max, int column)
+jcch_fake_a_rnd(int min, int max, int column)
 {
    JCCH_DSS_HUGE len;
    JCCH_DSS_HUGE itcount;
@@ -148,7 +148,7 @@ fake_a_rnd(int min, int max, int column)
       itcount = len/5;
    else 
 	   itcount = len/5 + 1L;
-   NthElement(itcount, &jcch_Seed[column].jcch_usage);
+   jcch_NthElement(itcount, &jcch_Seed[column].jcch_usage);
 #ifdef RNG_TEST
 	jcch_Seed[column].nCalls += itcount;
 #endif
@@ -157,7 +157,7 @@ fake_a_rnd(int min, int max, int column)
 
 
 long 
-sd_part(int child, JCCH_DSS_HUGE skip_count)
+jcch_sd_part(int child, JCCH_DSS_HUGE skip_count)
 {
    int i;
  
@@ -171,7 +171,7 @@ sd_part(int child, JCCH_DSS_HUGE skip_count)
 }
 
 long 
-sd_line(int child, JCCH_DSS_HUGE skip_count)
+jcch_sd_line(int child, JCCH_DSS_HUGE skip_count)
 	{
 	int i,j;
 	
@@ -198,7 +198,7 @@ sd_line(int child, JCCH_DSS_HUGE skip_count)
 	}
 
 long 
-sd_order(int child, JCCH_DSS_HUGE skip_count)        
+jcch_sd_order(int child, JCCH_DSS_HUGE skip_count)        
 {
 	ADVANCE_STREAM(O_LCNT_SD, skip_count);
 /*
@@ -217,7 +217,7 @@ sd_order(int child, JCCH_DSS_HUGE skip_count)
 }
 
 long
-sd_psupp(int child, JCCH_DSS_HUGE skip_count)
+jcch_sd_psupp(int child, JCCH_DSS_HUGE skip_count)
 	{
 	int j;
 	
@@ -232,7 +232,7 @@ sd_psupp(int child, JCCH_DSS_HUGE skip_count)
 	}
 
 long 
-sd_cust(int child, JCCH_DSS_HUGE skip_count)
+jcch_sd_cust(int child, JCCH_DSS_HUGE skip_count)
 {
    
    ADVANCE_STREAM(C_ADDR_SD, skip_count * 9);
@@ -245,7 +245,7 @@ sd_cust(int child, JCCH_DSS_HUGE skip_count)
 }
 
 long
-sd_supp(int child, JCCH_DSS_HUGE skip_count)
+jcch_sd_supp(int child, JCCH_DSS_HUGE skip_count)
 {
    ADVANCE_STREAM(S_NTRG_SD, skip_count);
    ADVANCE_STREAM(S_PHNE_SD, 3L * skip_count);

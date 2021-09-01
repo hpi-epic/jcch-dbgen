@@ -92,7 +92,7 @@
 #include "jcch_dbgen.h"
 
 char *jcch_env_config PROTO((char *tag, char *dflt));
-void NthElement(JCCH_DSS_HUGE, JCCH_DSS_HUGE *);
+void jcch_NthElement(JCCH_DSS_HUGE, JCCH_DSS_HUGE *);
 
 void
 jcch_dss_random(JCCH_DSS_HUGE *tgt, JCCH_DSS_HUGE lower, JCCH_DSS_HUGE upper, long stream)
@@ -135,7 +135,7 @@ jcch_row_stop(int t)	\
 				} 
 			else 
 				{
-				NthElement((jcch_Seed[i].boundary - jcch_Seed[i].jcch_usage), &jcch_Seed[i].value);
+				jcch_NthElement((jcch_Seed[i].boundary - jcch_Seed[i].jcch_usage), &jcch_Seed[i].value);
 #ifdef RNG_TEST
 				jcch_Seed[i].nCalls += jcch_Seed[i].boundary - jcch_Seed[i].jcch_usage;
 #endif
