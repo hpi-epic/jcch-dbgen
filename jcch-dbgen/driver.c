@@ -102,7 +102,7 @@
 
 #ifdef JCCH_SKEW
 #include "skew/phash.h"
-int JCCH_skew = 0;
+int JCCH_skew = 1;
 #endif
 
 #include "dss.h"

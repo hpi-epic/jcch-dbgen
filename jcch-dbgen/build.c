@@ -287,6 +287,7 @@ jcch_mk_order(JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num)
 	int             delta = 1;
 	static int      bInit = 0;
 	static char     szFormat[100];
+
 #ifdef JCCH_SKEW
 	unsigned long orderkey_hash = phash(index, &phash_orders, 0);
 	int populous_order = orderkey_hash < 5, cust_region = orderkey_hash % 5;
@@ -470,7 +471,7 @@ jcch_mk_part(JCCH_DSS_HUGE index, part_t * p)
 	if (index <= (4*jcch_tdefs[JCCH_PSUPP].base*jcch_scale - (20*jcch_tdefs[JCCH_SUPP].base*jcch_scale + 3*(jcch_tdefs[JCCH_PART].base*jcch_scale - 20)))) extra++;
 #endif
 
- 	p->s = (partsupp_t*) malloc(SUPP_PER_PART * sizeof(partsupp_t));
+ 	p->s = (partsupp_t*) malloc(MAX_L_PER_O * sizeof(line_t));
 
 	if (!bInit)
 	{
