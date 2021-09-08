@@ -159,13 +159,13 @@ static int bTableSet = 0;
 /*
 * flat file print functions; used with -F(lat) option
 */
-int pr_cust (jcch_customer_t * c, int mode);
-int pr_line (jcch_order_t * o, int mode);
-int pr_order (jcch_order_t * o, int mode);
+int pr_cust (customer_t * c, int mode);
+int pr_line (order_t * o, int mode);
+int pr_order (order_t * o, int mode);
 int pr_part (part_t * p, int mode);
 int pr_psupp (part_t * p, int mode);
 int pr_supp (supplier_t * s, int mode);
-int pr_order_line (jcch_order_t * o, int mode);
+int pr_order_line (order_t * o, int mode);
 int pr_part_psupp (part_t * p, int mode);
 int pr_nation (code_t * c, int mode);
 int pr_region (code_t * c, int mode);
@@ -283,7 +283,7 @@ jcch_load_dists (void)
 	
 }
 
-static jcch_order_t order;
+static order_t order;
 static part_t part;
 /*
 * generate a particular jcch_table
@@ -292,7 +292,7 @@ void
 jcch_gen_tbl (int tnum, JCCH_DSS_HUGE start, JCCH_DSS_HUGE count, long jcch_upd_num)
 {
 	supplier_t supp;
-	jcch_customer_t cust;
+	customer_t cust;
 	code_t code;
 	static int completed = 0;
 	JCCH_DSS_HUGE i;

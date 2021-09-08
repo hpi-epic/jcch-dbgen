@@ -759,7 +759,7 @@ distribution jcch_vp = {
   NULL
 };
 
-jcch_order_t order;
+order_t order;
 part_t part;
 
 double   jcch_dM = 2147483647.0;

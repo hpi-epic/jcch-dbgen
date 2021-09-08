@@ -102,7 +102,7 @@ gen_phone(JCCH_DSS_HUGE ind, char *target, long seed)
 
 
 long
-jcch_mk_cust(JCCH_DSS_HUGE n_cust, jcch_customer_t * c)
+jcch_mk_cust(JCCH_DSS_HUGE n_cust, customer_t * c)
 {
 	JCCH_DSS_HUGE        i;
 	static int      bInit = 0;
@@ -192,7 +192,7 @@ unsigned long partsupp_class_d(unsigned long partkey_hash) { /* different region
 }
 
 JCCH_DSS_HUGE
-jcch_mk_blackfriday(jcch_order_t *o) {
+jcch_mk_blackfriday(order_t *o) {
 	int year = (o->odate[0]-'0')*1000 + (o->odate[1]-'0')*100 + (o->odate[2]-'0')*10 + (o->odate[3]-'0');
 	JCCH_DSS_HUGE tmp_date = blackfriday[year-1992];
 	strcpy(o->odate, jcch_asc_date[tmp_date - STARTDATE]);
@@ -201,7 +201,7 @@ jcch_mk_blackfriday(jcch_order_t *o) {
 #endif
 
 long
-jcch_mk_item(jcch_order_t * o, JCCH_DSS_HUGE lcnt, JCCH_DSS_HUGE tmp_date, int skewed) {
+jcch_mk_item(order_t * o, JCCH_DSS_HUGE lcnt, JCCH_DSS_HUGE tmp_date, int skewed) {
 	JCCH_DSS_HUGE        rprice;
 	JCCH_DSS_HUGE        s_date;
 	JCCH_DSS_HUGE        r_date;
@@ -276,7 +276,7 @@ jcch_mk_item(jcch_order_t * o, JCCH_DSS_HUGE lcnt, JCCH_DSS_HUGE tmp_date, int s
 }
 
 long
-jcch_mk_order(JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num)
+jcch_mk_order(JCCH_DSS_HUGE index, order_t * o, long upd_num)
 {
 	JCCH_DSS_HUGE        lcnt = 0;
 	long            ocnt;

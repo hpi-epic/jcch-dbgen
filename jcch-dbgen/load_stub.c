@@ -59,7 +59,7 @@ hd_cust (FILE *f)
 }
 
 int 
-ld_cust (jcch_customer_t *cp, int mode)
+ld_cust (customer_t *cp, int mode)
 {
     static int count = 0;
 
@@ -145,7 +145,7 @@ hd_order (FILE *f)
 }
 
 int 
-ld_order (jcch_order_t *p, int mode)
+ld_order (order_t *p, int mode)
 {
     static int count = 0;
 
@@ -157,7 +157,7 @@ ld_order (jcch_order_t *p, int mode)
     return(0);
 }
 
-int ld_line (jcch_order_t *p, int mode)
+int ld_line (order_t *p, int mode)
 {
     static int count = 0;
 
@@ -245,7 +245,7 @@ ld_region (code_t *cp, int mode)
 }
 
 int 
-ld_order_line (jcch_order_t *p, int mode)
+ld_order_line (order_t *p, int mode)
 {
     ld_order(p, mode);
     ld_line (p, mode);

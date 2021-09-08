@@ -50,11 +50,11 @@ typedef struct
     char            mktsegment[MAXAGG_LEN + 1];
     char            comment[C_CMNT_MAX + 1];
     int             clen;
-}               jcch_customer_t;
+}               customer_t;
 /* customers.c */
-long jcch_mk_cust   PROTO((JCCH_DSS_HUGE n_cust, jcch_customer_t * c));
-int pr_cust    PROTO((jcch_customer_t * c, int mode));
-int ld_cust    PROTO((jcch_customer_t * c, int mode));
+long jcch_mk_cust   PROTO((JCCH_DSS_HUGE n_cust, customer_t * c));
+int pr_cust    PROTO((customer_t * c, int mode));
+int ld_cust    PROTO((customer_t * c, int mode));
 
 typedef struct
 {
@@ -91,12 +91,12 @@ typedef struct
     char            comment[O_CMNT_MAX + 1];
     int            clen;
     line_t          *l;
-}               jcch_order_t;
+}               order_t;
 
 /* order.c */
-long	jcch_mk_order	PROTO((JCCH_DSS_HUGE index, jcch_order_t * o, long upd_num));
-int		pr_order	PROTO((jcch_order_t * o, int mode));
-int		ld_order	PROTO((jcch_order_t * o, int mode));
+long	jcch_mk_order	PROTO((JCCH_DSS_HUGE index, order_t * o, long upd_num));
+int		pr_order	PROTO((order_t * o, int mode));
+int		ld_order	PROTO((order_t * o, int mode));
 void	jcch_mk_sparse	PROTO((JCCH_DSS_HUGE index, JCCH_DSS_HUGE *ok, long seq));
 
 typedef struct

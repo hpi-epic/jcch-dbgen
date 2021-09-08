@@ -151,7 +151,7 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 }
 
 int
-pr_cust(jcch_customer_t *c, int mode)
+pr_cust(customer_t *c, int mode)
 {
 static FILE *fp = NULL;
         
@@ -179,7 +179,7 @@ static FILE *fp = NULL;
  * print the numbered order 
  */
 int
-pr_order(jcch_order_t *o, int mode)
+pr_order(order_t *o, int mode)
 {
     static FILE *fp_o = NULL;
     static int last_mode = 0;
@@ -210,7 +210,7 @@ pr_order(jcch_order_t *o, int mode)
  * print an order's lineitems
  */
 int
-pr_line(jcch_order_t *o, int mode)
+pr_line(order_t *o, int mode)
 {
     static FILE *fp_l = NULL;
     static int last_mode = 0;
@@ -253,7 +253,7 @@ pr_line(jcch_order_t *o, int mode)
  * print the numbered order *and* its associated lineitems
  */
 int
-pr_order_line(jcch_order_t *o, int mode)
+pr_order_line(order_t *o, int mode)
 {
     jcch_tdefs[JCCH_ORDER].name = jcch_tdefs[ORDER_LINE].name;
     pr_order(o, mode);
